@@ -1,0 +1,44 @@
+name: Publicar (Hostinger)
+
+# A cada push na main: valida o conteúdo, gera o site e grava o resultado (dist/)
+# na branch "deploy". A Hostinger (hPanel → Avançado → Git) puxa essa branch
+# para a public_html, automaticamente via webhook.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Padrão editorial estrito + build + auditoria de SEO/links (o deploy só acontece se tudo passar)
+      - run: node scripts/check-content.mjs --strict
+      - run: npm run build
+      - run: node scripts/audit-dist.mjs
+
+      - name: Gravar o site na branch deploy
+        run: |
+          cd dist
+          git init -q -b deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publicação de ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy

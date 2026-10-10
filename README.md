@@ -54,7 +54,14 @@ sources:                  # fontes oficiais, listadas no fim do artigo
 ```
 
 4. No corpo, coloque `<Faq items={frontmatter.faq} />` onde a seção de perguntas frequentes deve aparecer (antes da conclusão). Use um H2 começando com "Conclusão" para o fechamento.
-5. Rode `npm run build` e confira o resultado.
+5. Rode `npm run lint:content` para conferir o artigo contra o padrão editorial e depois `npm run build`.
+
+O padrão editorial completo está em [`docs/PADRAO-EDITORIAL.md`](docs/PADRAO-EDITORIAL.md). Use [`docs/modelo-artigo.mdx`](docs/modelo-artigo.mdx) como ponto de partida.
+
+| Comando | O que faz |
+|---|---|
+| `npm run lint:content` | Confere tamanho, estrutura, FAQ, fontes oficiais, links internos (enviados e recebidos), frases proibidas e lista os `[VERIFICAR]` |
+| `npm run verify` | Modo estrito, para antes do deploy: falha com `[VERIFICAR]` pendente ou se algum artigo receber menos de 2 links |
 
 Ao revisar um artigo, atualize `updatedDate`. Essa data aparece no artigo, no Schema.org e no `<lastmod>` do sitemap.
 

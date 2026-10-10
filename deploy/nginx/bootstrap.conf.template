@@ -1,0 +1,9 @@
+# Configuração temporária, só HTTP, para o Certbot emitir o primeiro certificado.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{CANONICAL_HOST}} {{ALT_HOST}};
+    root {{WEB_ROOT}};
+    location ^~ /.well-known/acme-challenge/ { root {{WEB_ROOT}}; }
+    location / { try_files $uri $uri/index.html =404; }
+}

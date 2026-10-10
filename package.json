@@ -9,9 +9,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint:content": "node scripts/check-content.mjs",
-    "verify": "node scripts/check-content.mjs --strict",
+    "verify": "node scripts/preflight.mjs && node scripts/check-content.mjs --strict && npm run build && node scripts/audit-dist.mjs",
     "covers": "node scripts/covers/generate-covers.mjs",
-    "fetch-image": "node --env-file=.env scripts/fetch-images.mjs"
+    "fetch-image": "node --env-file=.env scripts/fetch-images.mjs",
+    "audit": "node scripts/audit-dist.mjs",
+    "set-domain": "node scripts/set-domain.mjs",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.2",

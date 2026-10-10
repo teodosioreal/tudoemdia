@@ -20,16 +20,17 @@ Para incluir rascunhos (`draft: true`) num build de teste, use `SHOW_DRAFTS=1 np
 
 ## Antes de publicar
 
-Edite `src/config.ts`:
+- Domínio: `node scripts/set-domain.mjs seudominio.com.br`. O comando atualiza `SITE.url` e o e-mail e gera a configuração do Nginx.
+- Autor: nome e bio reais em `src/content/autores/autor.json`.
+- Responsável pelo site, exigido pela LGPD: `LEGAL.owner` em `src/config.ts`.
+- Nome do site: `SITE.name` em `src/config.ts`.
 
-- `SITE.name`, `SITE.url` (domínio definitivo, sem barra final) e `SITE.email`
-
-Edite `src/content/autores/autor.json` com o nome e a bio reais do autor. Os campos `[VERIFICAR: ...]` da Política de Privacidade e dos Termos precisam ser preenchidos.
+O `npm run verify` acusa qualquer item que ainda esteja provisório.
 
 ## Publicar um artigo novo
 
 1. Crie `src/content/artigos/<slug>.mdx`. O nome do arquivo é a URL: `/<categoria>/<slug>/`.
-2. Coloque a capa em `src/assets/capas/<slug>.webp` (1200×630).
+2. Gere a capa: acrescente o slug em `scripts/covers/generate-covers.mjs` e rode `npm run covers`, ou use uma foto livre com `npm run fetch-image`. O resultado vai para `src/assets/capas/<slug>.webp` (1200×630).
 3. Preencha o frontmatter (o build falha se algum campo obrigatório faltar ou estiver inválido):
 
 ```yaml
@@ -100,6 +101,28 @@ scripts/                 # utilitários (ícones; imagens e deploy nas próximas
 
 Para gerar de novo os ícones e a imagem OG padrão: `node scripts/build-icons.mjs`.
 
-## Deploy
+## Publicação (deploy)
 
-Instruções completas na Fase 6 (Nginx, Certbot e GitHub Actions/rsync).
+O roteiro completo está em [`docs/DEPLOY.md`](docs/DEPLOY.md). Em resumo:
+
+```bash
+node scripts/set-domain.mjs seudominio.com.br   # domínio no site inteiro + configuração do Nginx
+npm run verify                                  # preflight, padrão editorial estrito, build e auditoria de SEO
+npm run deploy                                  # envia o dist/ para a VPS por rsync (ou use o GitHub Actions)
+```
+
+A preparação da VPS (Nginx, SSL com Certbot, firewall e usuário de deploy) é feita uma vez com `scripts/server-setup.sh`.
+
+O checklist final, o cadastro no Google Search Console, o GA4 e o AdSense estão em [`docs/CHECKLIST-FINAL.md`](docs/CHECKLIST-FINAL.md).
+
+## Comandos úteis
+
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Servidor local com recarga automática |
+| `npm run build` | Checagem de tipos, verificação do conteúdo e build |
+| `npm run lint:content` | Verifica os artigos contra o padrão editorial |
+| `npm run audit` | Audita o `dist/`: H1, títulos, canonical, alt, JSON-LD, links e sitemap |
+| `npm run verify` | Tudo acima em modo estrito, o que deve passar antes de publicar |
+| `npm run covers` | Gera de novo as capas SVG/WebP (`scripts/covers/generate-covers.mjs`) |
+| `npm run fetch-image -- --slug <slug> --query "<termos>"` | Busca foto livre no Pexels/Unsplash (chave no `.env`) e grava o crédito |

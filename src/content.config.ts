@@ -37,11 +37,9 @@ const artigos = defineCollection({
           .object({ name: z.string(), url: z.url(), source: z.enum(['Pexels', 'Unsplash']) })
           .optional(),
         keyword: z.string().min(3),
-        faq: z
-          .array(z.object({ q: z.string().min(10), a: z.string().min(20) }))
-          .max(5)
-          .optional(),
-        sources: z.array(z.object({ title: z.string(), url: z.url() })).default([]),
+        // Padrão editorial: 3 a 5 perguntas e ao menos 1 fonte em todo artigo
+        faq: z.array(z.object({ q: z.string().min(10), a: z.string().min(20) })).min(3).max(5),
+        sources: z.array(z.object({ title: z.string(), url: z.url() })).min(1),
         draft: z.boolean().default(false),
       })
       .refine((d) => d.updatedDate >= d.pubDate, {

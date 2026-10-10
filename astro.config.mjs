@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { SITE } from './src/config';
 import rehypeAdSlots from './src/lib/rehype-ad-slots';
+import redirects from './src/redirects.json' with { type: 'json' };
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -46,6 +47,8 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   prefetch: false,
+  // Endereços antigos -> novos (301 no .htaccess; aqui, página de redirecionamento como garantia)
+  redirects,
   markdown: {
     // MDX herda este processador (e o plugin que insere os espaços de anúncio)
     processor: unified({ rehypePlugins: [rehypeAdSlots] }),

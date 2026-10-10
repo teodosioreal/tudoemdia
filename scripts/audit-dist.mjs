@@ -33,6 +33,12 @@ const descs = new Map();
 for (const f of pages) {
   const html = readFileSync(f, 'utf8');
   const route = routeOf(f);
+  // Páginas de redirecionamento de endereços antigos (src/redirects.json): só conferem o destino
+  if (/http-equiv="refresh"/.test(html)) {
+    const to = html.match(/url=([^"]+)"/)?.[1] ?? '';
+    if (!exists(new URL(to, 'https://x').pathname)) errors.push(`${route}: redireciona para página inexistente ${to}`);
+    continue;
+  }
   const isNoindex = /<meta name="robots" content="noindex/.test(html);
   const h1 = (html.match(/<h1[\s>]/g) ?? []).length;
   if (h1 !== 1) errors.push(`${route}: ${h1} H1 (esperado 1)`);

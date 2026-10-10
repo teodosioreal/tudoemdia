@@ -48,7 +48,10 @@ await writeFile(
   (await readFile('deploy/hostinger/htaccess.template', 'utf8'))
     .replaceAll('{{CANONICAL_HOST}}', canonical)
     .replaceAll('{{ALT_HOST_RE}}', re(alt))
-    .replaceAll('{{ALT_HOST}}', alt),
+    .replaceAll('{{ALT_HOST}}', alt)
+    .replace('{{REDIRECTS}}', Object.entries(JSON.parse(await readFile('src/redirects.json', 'utf8')))
+      .map(([from, to]) => `  RewriteRule ^${from.slice(1).replace(/\/$/, '')}/?$ https://${canonical}${to} [R=301,L]`)
+      .join('\n')),
 );
 
 // Valores para o deploy

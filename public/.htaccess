@@ -14,6 +14,21 @@ AddDefaultCharset utf-8
   RewriteCond %{HTTP_HOST} ^www\.tudoemdia\.blog\.br$ [NC]
   RewriteRule ^(.*)$ https://tudoemdia.blog.br/$1 [R=301,L]
 
+  # Endereços antigos -> novos (gerado a partir de src/redirects.json)
+  RewriteRule ^seguro-auto/perfil-do-condutor-seguro/?$ https://tudoemdia.blog.br/seguro-auto/perfil-do-condutor-seguro-auto/ [R=301,L]
+  RewriteRule ^documentacao/como-transferir-carro-usado/?$ https://tudoemdia.blog.br/documentacao-do-veiculo/como-transferir-carro-usado/ [R=301,L]
+  RewriteRule ^manutencao/calibragem-pneu-pressao-correta/?$ https://tudoemdia.blog.br/manutencao-do-carro/calibragem-pneu-pressao-correta/ [R=301,L]
+  RewriteRule ^documentacao/comunicacao-de-venda-veiculo/?$ https://tudoemdia.blog.br/documentacao-do-veiculo/comunicacao-de-venda-de-veiculo/ [R=301,L]
+  RewriteRule ^manutencao/quando-trocar-oleo-do-carro/?$ https://tudoemdia.blog.br/manutencao-do-carro/quando-trocar-oleo-do-carro/ [R=301,L]
+  RewriteRule ^documentacao/crlv-digital-como-baixar/?$ https://tudoemdia.blog.br/documentacao-do-veiculo/crlv-digital-como-baixar/ [R=301,L]
+  RewriteRule ^manutencao/o-que-e-feito-na-revisao/?$ https://tudoemdia.blog.br/manutencao-do-carro/o-que-e-feito-na-revisao-do-carro/ [R=301,L]
+  RewriteRule ^ipva-licenciamento/quem-paga-ipva-venda-carro/?$ https://tudoemdia.blog.br/ipva-licenciamento/quem-paga-ipva-na-venda-do-carro/ [R=301,L]
+  RewriteRule ^multas-cnh/como-recorrer-de-multa/?$ https://tudoemdia.blog.br/multas-cnh/como-recorrer-de-multa-de-transito/ [R=301,L]
+  RewriteRule ^manutencao/revisao-fora-concessionaria-garantia/?$ https://tudoemdia.blog.br/manutencao-do-carro/revisao-fora-da-concessionaria-perde-garantia/ [R=301,L]
+  RewriteRule ^documentacao/atpv-e-o-que-e/?$ https://tudoemdia.blog.br/documentacao-do-veiculo/atpv-e-o-que-e-como-assinar/ [R=301,L]
+  RewriteRule ^documentacao/?$ https://tudoemdia.blog.br/documentacao-do-veiculo/ [R=301,L]
+  RewriteRule ^manutencao/?$ https://tudoemdia.blog.br/manutencao-do-carro/ [R=301,L]
+
   # URLs com barra final (padrão do site): /pagina -> /pagina/
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{1,5}$

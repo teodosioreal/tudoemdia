@@ -35,7 +35,7 @@ export const LEGAL = {
 
 export const CATEGORIES = [
   {
-    slug: 'documentacao',
+    slug: 'documentacao-do-veiculo',
     group: 'Veículos',
     name: 'Documentação',
     h1: 'Documentação do veículo: transferência, ATPV-e e CRLV',
@@ -74,7 +74,7 @@ export const CATEGORIES = [
     ],
   },
   {
-    slug: 'manutencao',
+    slug: 'manutencao-do-carro',
     group: 'Veículos',
     name: 'Manutenção',
     h1: 'Manutenção do carro: revisão, óleo, pneus e garantia',

@@ -146,25 +146,25 @@ const calc = (x, y, s = 1) => {
 // ---------- composição por artigo ----------
 const covers = {
   'como-transferir-carro-usado': (s) => s + car(90, 280, 1.15) + arrow(560, 330, 720, 330) + doc(900, 80, 200, 260, 5) + key(760, 400, 1.1),
-  'atpv-e-o-que-e': (s) => s + doc(160, 70, 300, 400, 7) + path('M210 430 Q260 380 300 420 T400 410', 'none', C.bg3, 9) + phone(640, 120, 1.05, rect(30, 70, 110, 14, C.line, 7) + rect(30, 100, 90, 14, C.line, 7) + check(45, 150, 1)) + arrow(500, 300, 610, 300, C.teal),
+  'atpv-e-o-que-e-como-assinar': (s) => s + doc(160, 70, 300, 400, 7) + path('M210 430 Q260 380 300 420 T400 410', 'none', C.bg3, 9) + phone(640, 120, 1.05, rect(30, 70, 110, 14, C.line, 7) + rect(30, 100, 90, 14, C.line, 7) + check(45, 150, 1)) + arrow(500, 300, 610, 300, C.teal),
   'crlv-digital-como-baixar': (s) => s + phone(250, 110, 1.25, rect(26, 44, 118, 30, C.green, 6) + qr(40, 100, 90) + rect(26, 210, 118, 12, C.line, 6) + rect(26, 232, 90, 12, C.line, 6)) + doc(640, 140, 260, 330, 6) + qr(780, 330, 100),
-  'comunicacao-de-venda-veiculo': (s) => s + envelope(150, 200, 1.2) + arrow(500, 290, 650, 290) + car(700, 270, 0.95) + check(960, 150, 1.2),
-  'quem-paga-ipva-venda-carro': (s) => s + person(140, 250, 1.4, C.teal) + person(920, 250, 1.4, C.amber) + coin(600, 300, 70) + coin(480, 380, 46) + coin(720, 380, 46) + arrow(330, 320, 420, 320, C.line) + arrow(870, 320, 780, 320, C.line),
+  'comunicacao-de-venda-de-veiculo': (s) => s + envelope(150, 200, 1.2) + arrow(500, 290, 650, 290) + car(700, 270, 0.95) + check(960, 150, 1.2),
+  'quem-paga-ipva-na-venda-do-carro': (s) => s + person(140, 250, 1.4, C.teal) + person(920, 250, 1.4, C.amber) + coin(600, 300, 70) + coin(480, 380, 46) + coin(720, 380, 46) + arrow(330, 320, 420, 320, C.line) + arrow(870, 320, 780, 320, C.line),
   'como-e-calculado-o-ipva': (s) => s + calc(200, 110, 1.15) + car(560, 300, 0.85) + coin(950, 200, 60) + path('M520 200 L620 200 M570 150 L570 250', 'none', C.white, 14),
   'ipva-atrasado-o-que-acontece': (s) => s + calendar(200, 110, 1.4) + warn(620, 160, 2.2) + coin(930, 370, 56),
   'licenciamento-atrasado': (s) => s + calendar(140, 110, 1.3) + car(520, 290, 0.95) + warn(900, 130, 1.6),
-  'como-recorrer-de-multa': (s) => s + doc(170, 90, 260, 360, 7) + gavel(620, 130, 1.25) + check(960, 120, 1),
+  'como-recorrer-de-multa-de-transito': (s) => s + doc(170, 90, 260, 360, 7) + gavel(620, 130, 1.25) + check(960, 120, 1),
   'indicacao-de-condutor': (s) => s + person(200, 220, 1.5, C.teal) + person(860, 220, 1.5, C.amber) + arrow(420, 280, 780, 280) + doc(520, 330, 150, 190, 3),
   'limite-de-pontos-cnh': (s) => s + gauge(330, 130, 1.8, 0.82, C.red) + card(830, 330, 0.75),
   'validade-cnh-por-idade': (s) => s + card(170, 200, 1.35) + circle(860, 290, 150, C.paper) + path('M860 190 L860 290 L940 330', 'none', C.bg, 18) + circle(860, 290, 150, 'none', `stroke="${C.amber}" stroke-width="16"`),
   'franquia-seguro-auto': (s) => s + shield(170, 110, 1.6) + coin(700, 300, 90) + coin(860, 380, 56) + car(760, 140, 0.55, C.line),
-  'perfil-do-condutor-seguro': (s) => s + clipboard(200, 90, 1.3, 4) + person(700, 220, 1.6, C.amber) + shield(890, 200, 0.8),
+  'perfil-do-condutor-seguro-auto': (s) => s + clipboard(200, 90, 1.3, 4) + person(700, 220, 1.6, C.amber) + shield(890, 200, 0.8),
   'classe-de-bonus-seguro-auto': (s) => s + stairs(220, 160, 1.4) + shield(800, 140, 1.3),
   'seguro-auto-ou-protecao-veicular': (s) => s + shield(150, 130, 1.4) + person(720, 270, 0.9, C.amber) + person(840, 230, 1.0, C.teal) + person(960, 270, 0.9, C.amber) + path('M560 160 L560 470', 'none', C.line, 8, 'stroke-dasharray="18 18"'),
-  'o-que-e-feito-na-revisao': (s) => s + clipboard(160, 90, 1.3, 5) + car(560, 300, 0.95) + wrench(990, 140, 1, 35),
+  'o-que-e-feito-na-revisao-do-carro': (s) => s + clipboard(160, 90, 1.3, 5) + car(560, 300, 0.95) + wrench(990, 140, 1, 35),
   'quando-trocar-oleo-do-carro': (s) => s + drop(260, 100, 1.7) + rect(640, 170, 230, 300, C.teal, 26) + rect(690, 120, 130, 70, C.teal, 14) + rect(670, 260, 170, 90, C.paper, 12) + rect(690, 285, 130, 14, C.line, 7) + rect(690, 315, 100, 14, C.line, 7),
   'calibragem-pneu-pressao-correta': (s) => s + tire(390, 310, 190) + gauge(760, 150, 1.1, 0.6, C.green),
-  'revisao-fora-concessionaria-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
+  'revisao-fora-da-concessionaria-perde-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
 };
 
 await mkdir('design/capas', { recursive: true });

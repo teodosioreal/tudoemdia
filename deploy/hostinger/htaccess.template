@@ -14,6 +14,9 @@ AddDefaultCharset utf-8
   RewriteCond %{HTTP_HOST} ^{{ALT_HOST_RE}}$ [NC]
   RewriteRule ^(.*)$ https://{{CANONICAL_HOST}}/$1 [R=301,L]
 
+  # Endereços antigos -> novos (gerado a partir de src/redirects.json)
+{{REDIRECTS}}
+
   # URLs com barra final (padrão do site): /pagina -> /pagina/
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{1,5}$

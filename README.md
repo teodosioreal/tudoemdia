@@ -39,7 +39,7 @@ title: "Título com até 70 caracteres"
 description: "Resumo de 70 a 160 caracteres, usado no Google e nas redes."
 pubDate: 2026-10-10
 updatedDate: 2026-10-10
-category: documentacao   # documentacao | ipva-licenciamento | seguro-auto | manutencao | multas-cnh
+category: documentacao-do-veiculo   # documentacao-do-veiculo | ipva-licenciamento | seguro-auto | manutencao-do-carro | multas-cnh
 tags: [transferência, detran]
 author: thiago-teodosio  # id do arquivo em src/content/autores/
 image: ../../assets/capas/<slug>.webp

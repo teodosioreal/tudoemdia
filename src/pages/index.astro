@@ -6,17 +6,20 @@ import { getArticles } from '../lib/content';
 import { graph, organization, website } from '../lib/schema';
 
 const articles = await getArticles();
-const latest = articles.slice(0, 9);
+const sections = CATEGORIES.map((c) => ({
+  ...c,
+  items: articles.filter((a) => a.data.category === c.slug).slice(0, 4),
+})).filter((s) => s.items.length > 0);
 ---
 <BaseLayout
-  title={`${SITE.name}: documentação, IPVA, seguro e manutenção do carro`}
+  title={`${SITE.name}: documentos, IPVA, seguro, multas e manutenção`}
   rawTitle
   description={SITE.description}
   jsonLd={graph(organization(), website())}
 >
   <section class="hero">
     <div class="container">
-      <h1>Dúvidas sobre o seu carro, respondidas com base na lei</h1>
+      <h1>Documentos, IPVA, multas, seguro e manutenção do carro explicados com base na lei</h1>
       <p>{SITE.description}</p>
       <form class="search-form" action="/busca/" method="get" role="search">
         <label class="visually-hidden" for="q-home">Buscar no site</label>
@@ -27,7 +30,7 @@ const latest = articles.slice(0, 9);
   </section>
 
   <section class="section container" aria-labelledby="categorias">
-    <h2 id="categorias">Categorias</h2>
+    <h2 id="categorias">Escolha o assunto</h2>
     <ul class="cat-list">
       {CATEGORIES.map((c) => (
         <li><a href={`/${c.slug}/`}><strong>{c.name}</strong><span>{c.description}</span></a></li>
@@ -36,13 +39,16 @@ const latest = articles.slice(0, 9);
   </section>
 
   {
-    latest.length > 0 && (
-      <section class="section container" aria-labelledby="recentes">
-        <h2 id="recentes">Atualizados recentemente</h2>
+    sections.map((s, i) => (
+      <section class="section container" aria-labelledby={`sec-${s.slug}`}>
+        <div class="section__head">
+          <h2 id={`sec-${s.slug}`}>{s.name}</h2>
+          <a href={`/${s.slug}/`}>Todos os guias de {s.name}</a>
+        </div>
         <div class="grid">
-          {latest.map((a) => <ArticleCard article={a} />)}
+          {s.items.map((a, j) => <ArticleCard article={a} eager={i === 0 && j === 0} />)}
         </div>
       </section>
-    )
+    ))
   }
 </BaseLayout>

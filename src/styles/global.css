@@ -176,3 +176,6 @@ p { margin: 0 0 1rem; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+.category-intro { max-width: var(--measure); }
+.category-intro p { color: var(--c-muted); font-size: 1.05rem; }

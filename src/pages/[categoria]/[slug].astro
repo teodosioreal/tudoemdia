@@ -19,7 +19,12 @@ if (!authorEntry) throw new Error(`Autor não encontrado em ${article.id}`);
 const author = { slug: authorEntry.id, ...authorEntry.data };
 const { Content, headings } = await render(article);
 const related = relatedArticles(article, all);
+const wordCount = (article.body ?? '')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/[#*|>\[\]()_`-]/g, ' ')
+  .split(/\s+/)
+  .filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
 ---
-<ArticleLayout article={article} author={author} headings={headings} related={related}>
+<ArticleLayout article={article} author={author} headings={headings} related={related} wordCount={wordCount}>
   <Content components={{ Faq }} />
 </ArticleLayout>

@@ -15,13 +15,14 @@ import {
 import { getImage } from 'astro:assets';
 
 export interface Props {
+  wordCount?: number;
   article: Article;
   author: { slug: string; name: string; jobTitle: string; bio: string; sameAs: string[] };
   headings: MarkdownHeading[];
   related: Article[];
 }
 
-const { article, author, headings, related } = Astro.props;
+const { article, author, headings, related, wordCount } = Astro.props;
 const d = article.data;
 const cat = getCategory(d.category);
 const url = articleUrl(article);
@@ -55,6 +56,7 @@ const jsonLd = graph(
     mainEntityOfPage: abs(url),
     articleSection: cat.name,
     keywords: [d.keyword, ...d.tags].join(', '),
+    ...(wordCount ? { wordCount } : {}),
     ...(d.sources.length ? { citation: d.sources.map((s) => s.url) } : {}),
   },
   breadcrumbList(crumbs),
@@ -69,6 +71,8 @@ const jsonLd = graph(
   type="article"
   publishedTime={d.pubDate}
   modifiedTime={d.updatedDate}
+  section={cat.name}
+  tags={d.tags}
   jsonLd={jsonLd}
 >
   <div class="container">

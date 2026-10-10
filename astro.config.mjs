@@ -29,6 +29,13 @@ function articleLastmod() {
   return map;
 }
 const lastmod = articleLastmod();
+// Home e categorias: data do artigo atualizado mais recentemente
+for (const [url, d] of [...lastmod]) {
+  const cat = url.split('/')[1];
+  const catUrl = `/${cat}/`;
+  if ((lastmod.get(catUrl) ?? '') < d) lastmod.set(catUrl, d);
+  if ((lastmod.get('/') ?? '') < d) lastmod.set('/', d);
+}
 
 export default defineConfig({
   site: SITE.url,

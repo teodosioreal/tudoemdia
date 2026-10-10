@@ -17,6 +17,10 @@ export const SITE = {
   // Imagem padrão para Open Graph (1200x630) em /public
   defaultOgImage: '/og-default.png',
   themeColor: '#0f3d5e',
+  // Código da meta tag de verificação do Google Search Console (opcional; só o conteúdo do atributo content)
+  googleSiteVerification: '',
+  // Perfis oficiais do site em redes sociais (sameAs no Schema.org)
+  sameAs: [] as string[],
 } as const;
 
 /**
@@ -34,32 +38,62 @@ export const CATEGORIES = [
   {
     slug: 'documentacao',
     name: 'Documentação',
+    h1: 'Documentação do veículo: transferência, ATPV-e e CRLV',
+    title: 'Documentação do veículo: transferência, ATPV-e e CRLV digital',
     description:
-      'Transferência de veículo, CRLV digital, ATPV-e e comunicação de venda explicados passo a passo.',
+      'Guias sobre documentação de veículos: transferência de carro usado, ATPV-e, CRLV digital e comunicação de venda, com base no CTB.',
+    intro: [
+      'Comprar, vender ou simplesmente manter o carro em dia envolve documentos que mudaram muito nos últimos anos. O antigo DUT em papel deu lugar à ATPV-e, o CRLV passou a ser digital e a transferência já pode ser assinada pelo celular.',
+      'Nesta seção você encontra o passo a passo de cada etapa, os prazos do Código de Trânsito Brasileiro e os cuidados que evitam multa, retrabalho e golpe na compra e venda de veículos usados.',
+    ],
   },
   {
     slug: 'ipva-licenciamento',
     name: 'IPVA e Licenciamento',
+    h1: 'IPVA e licenciamento: cálculo, atraso e regularização',
+    title: 'IPVA e licenciamento: cálculo, atraso e como regularizar',
     description:
-      'Como o IPVA é calculado, o que acontece com débitos em atraso e como manter o licenciamento em dia.',
+      'Como o IPVA é calculado, quem paga na venda do carro, o que acontece com IPVA e licenciamento atrasados e como regularizar o veículo.',
+    intro: [
+      'O IPVA é um imposto estadual, e o licenciamento é a autorização anual para o veículo circular. Os dois andam juntos: sem o IPVA quitado, o licenciamento não sai, e rodar sem licenciamento é infração gravíssima com remoção do veículo.',
+      'Como cada estado tem sua lei, nossos guias explicam as regras que valem em todo o país e mostram onde conferir alíquotas, calendários e valores na Secretaria da Fazenda e no Detran do seu estado.',
+    ],
   },
   {
     slug: 'seguro-auto',
     name: 'Seguro Auto',
+    h1: 'Seguro auto: franquia, perfil, bônus e proteção veicular',
+    title: 'Seguro auto: franquia, perfil do condutor e classe de bônus',
     description:
-      'Franquia, perfil do condutor, classe de bônus e as diferenças entre seguro e proteção veicular.',
+      'Entenda franquia, questionário de perfil, classe de bônus e as diferenças entre seguro auto e proteção veicular, com base na Lei 15.040/2024.',
+    intro: [
+      'O preço do seguro auto depende de escolhas que muita gente faz sem entender: o tipo de franquia, as respostas do questionário de perfil e o histórico de bônus. Cada uma delas pesa na hora de contratar e, principalmente, na hora do sinistro.',
+      'Os guias desta seção explicam essas escolhas com base na nova Lei do Contrato de Seguro (Lei 15.040/2024) e nas normas da SUSEP, além de comparar o seguro com a proteção veicular regulamentada pela LC 213/2025.',
+    ],
   },
   {
     slug: 'manutencao',
     name: 'Manutenção',
+    h1: 'Manutenção do carro: revisão, óleo, pneus e garantia',
+    title: 'Manutenção do carro: revisão, troca de óleo, pneus e garantia',
     description:
-      'Revisões, troca de óleo, calibragem de pneus e o que a lei diz sobre garantia.',
+      'Revisão pelo manual, troca de óleo, calibragem dos pneus e o que o Código de Defesa do Consumidor diz sobre garantia e oficinas.',
+    intro: [
+      'Manutenção preventiva é o que separa um carro confiável de um carro que vive na oficina. O roteiro está no manual do proprietário: o plano de revisões, o óleo certo, a pressão dos pneus e os intervalos para uso normal e severo.',
+      'Aqui você aprende a seguir esse roteiro sem pagar por serviços desnecessários, a conferir o que a oficina fez e a proteger a garantia do fabricante, com base no Código de Defesa do Consumidor.',
+    ],
   },
   {
     slug: 'multas-cnh',
     name: 'Multas e CNH',
+    h1: 'Multas e CNH: recursos, pontos e renovação',
+    title: 'Multas e CNH: recurso, indicação de condutor, pontos e validade',
     description:
-      'Recursos de multa, indicação de condutor, pontuação e renovação da carteira de motorista.',
+      'Como recorrer de multa, indicar o condutor, entender o limite de pontos e renovar a CNH, com as regras atuais do Código de Trânsito.',
+    intro: [
+      'Uma notificação de multa abre prazos curtos: para indicar quem dirigia, para se defender e para pagar com desconto. Perder esses prazos significa pontos na CNH que poderiam ter ido para outra pessoa ou multas que poderiam ter sido canceladas.',
+      'Os guias desta seção explicam cada etapa do processo, o limite de 20, 30 ou 40 pontos, a validade da CNH por idade e as mudanças trazidas pelas Leis 14.071/2020 e 15.428/2026.',
+    ],
   },
 ] as const;
 

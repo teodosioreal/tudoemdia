@@ -22,7 +22,7 @@ const crumbs = [
 ];
 const jsonLd = graph(organization(), website(), breadcrumbList(crumbs), {
   '@type': 'CollectionPage',
-  name: category.name,
+  name: category.h1,
   description: category.description,
   url: abs(`/${category.slug}/`),
   mainEntity: {
@@ -32,21 +32,22 @@ const jsonLd = graph(organization(), website(), breadcrumbList(crumbs), {
 });
 ---
 <BaseLayout
-  title={`${category.name}: guias e explicações`}
+  title={category.title}
   description={category.description}
   jsonLd={jsonLd}
   noindex={articles.length === 0}
 >
   <div class="container">
     <Breadcrumbs items={crumbs} />
-    <header class="section">
-      <h1>{category.name}</h1>
-      <p class="card__desc">{category.description}</p>
+    <header class="section category-intro">
+      <h1>{category.h1}</h1>
+      {category.intro.map((p) => <p>{p}</p>)}
     </header>
+    <h2 class="visually-hidden">Artigos sobre {category.name}</h2>
     {
       articles.length ? (
         <div class="grid">
-          {articles.map((a, i) => <ArticleCard article={a} eager={i === 0} headingLevel="h2" />)}
+          {articles.map((a, i) => <ArticleCard article={a} eager={i === 0} headingLevel="h3" />)}
         </div>
       ) : (
         <p>Os primeiros artigos desta categoria estão em produção.</p>

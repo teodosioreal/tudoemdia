@@ -14,6 +14,7 @@ export function organization() {
     url: abs('/'),
     logo: { '@type': 'ImageObject', url: abs('/logo.png'), width: 512, height: 512 },
     email: SITE.email,
+    ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
   };
 }
 

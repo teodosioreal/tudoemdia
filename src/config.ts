@@ -28,7 +28,7 @@ export const SITE = {
  */
 export const LEGAL = {
   // TODO: nome completo ou razão social do responsável pelo site (e CNPJ, se houver)
-  owner: '',
+  owner: 'Thiago Teodosio',
   // Data da versão em vigor da Política de Privacidade e dos Termos de Uso
   policyDate: '10 de outubro de 2026',
 } as const;

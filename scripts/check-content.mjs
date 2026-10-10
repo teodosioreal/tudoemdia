@@ -14,7 +14,7 @@ const DRAFTS = process.argv.includes('--drafts');
 const ROOT = 'src/content/artigos';
 const STATIC_ROUTES = new Set([
   '/', '/sobre/', '/contato/', '/politica-de-privacidade/', '/termos-de-uso/', '/aviso-legal/', '/busca/',
-  '/documentacao/', '/ipva-licenciamento/', '/seguro-auto/', '/manutencao/', '/multas-cnh/', '/autor/autor/',
+  '/documentacao/', '/ipva-licenciamento/', '/seguro-auto/', '/manutencao/', '/multas-cnh/', '/autor/thiago-teodosio/',
 ]);
 const OFFICIAL = /(\.gov\.br|planalto\.gov\.br|\.jus\.br|\.leg\.br|susep\.gov\.br)/i;
 

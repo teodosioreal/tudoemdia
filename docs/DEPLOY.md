@@ -6,7 +6,7 @@ O roteiro para colocar o site no ar. Leva cerca de 30 minutos, a maior parte esp
 
 | O quê | Onde editar |
 |---|---|
-| Nome e bio reais do autor | `src/content/autores/autor.json` |
+| Nome e bio reais do autor | `src/content/autores/thiago-teodosio.json` |
 | Responsável pelo site (LGPD) | `LEGAL.owner` em `src/config.ts` |
 | Nome do site (atual: "Tudo em Dia") | `SITE.name` em `src/config.ts` |
 

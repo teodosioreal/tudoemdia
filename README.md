@@ -21,7 +21,7 @@ Para incluir rascunhos (`draft: true`) num build de teste, use `SHOW_DRAFTS=1 np
 ## Antes de publicar
 
 - Domínio: `node scripts/set-domain.mjs seudominio.com.br`. O comando atualiza `SITE.url` e o e-mail e gera a configuração do Nginx.
-- Autor: nome e bio reais em `src/content/autores/autor.json`.
+- Autor: nome e bio reais em `src/content/autores/thiago-teodosio.json`.
 - Responsável pelo site, exigido pela LGPD: `LEGAL.owner` em `src/config.ts`.
 - Nome do site: `SITE.name` em `src/config.ts`.
 
@@ -41,7 +41,7 @@ pubDate: 2026-10-10
 updatedDate: 2026-10-10
 category: documentacao   # documentacao | ipva-licenciamento | seguro-auto | manutencao | multas-cnh
 tags: [transferência, detran]
-author: autor            # id do arquivo em src/content/autores/
+author: thiago-teodosio  # id do arquivo em src/content/autores/
 image: ../../assets/capas/<slug>.webp
 imageAlt: "Descrição útil do que a imagem mostra"
 keyword: palavra-chave principal

@@ -189,3 +189,5 @@ p { margin: 0 0 1rem; }
 
 .category-intro { max-width: var(--measure); }
 .category-intro p { color: var(--c-muted); font-size: 1.05rem; }
+
+.updated-badge { display: inline-block; margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 700; color: var(--c-green); background: rgba(22, 121, 77, 0.10); border-radius: 999px; padding: 0.25rem 0.75rem; }

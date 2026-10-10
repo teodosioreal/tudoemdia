@@ -4,6 +4,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import { SITE, CATEGORIES, GROUPS } from '../config';
 import { getArticles } from '../lib/content';
 import { graph, organization, website } from '../lib/schema';
+import { buildDateText, buildDateIso } from '../lib/build-info';
 
 const articles = await getArticles();
 const sections = CATEGORIES.map((c) => ({
@@ -19,6 +20,7 @@ const sections = CATEGORIES.map((c) => ({
 >
   <section class="hero">
     <div class="container">
+      <p class="updated-badge">✓ Atualizado em <time datetime={buildDateIso}>{buildDateText}</time></p>
       <h1>IPVA, CNH, multas, seguro e manutenção do carro em dia, com base na lei</h1>
       <p>{SITE.description}</p>
       <form class="search-form" action="/busca/" method="get" role="search">

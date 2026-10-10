@@ -1,5 +1,6 @@
 ---
 import { SITE, CATEGORIES, GROUPS } from '../config';
+import { buildDateText, buildDateIso } from '../lib/build-info';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -28,6 +29,7 @@ const year = new Date().getFullYear();
     </div>
     <p class="footer-bottom">
       © {year} {SITE.name}. Conteúdo informativo, que não substitui orientação profissional nem a consulta aos órgãos oficiais.
+      <br />Última atualização do site: <time datetime={buildDateIso}>{buildDateText}</time>.
     </p>
   </div>
 </footer>

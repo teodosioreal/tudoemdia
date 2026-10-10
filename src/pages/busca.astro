@@ -55,7 +55,7 @@ const crumbs = [
         const a = document.createElement('a');
         a.href = it.u; a.textContent = it.t;
         const p = document.createElement('p');
-        p.textContent = `${it.c} — ${it.d}`;
+        p.textContent = `${it.c}: ${it.d}`;
         li.append(a, p);
         list.append(li);
       }

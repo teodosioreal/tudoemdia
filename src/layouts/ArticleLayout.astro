@@ -1,5 +1,6 @@
 ---
-import { Picture } from 'astro:assets';
+import { Picture, Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -17,7 +18,7 @@ import { getImage } from 'astro:assets';
 export interface Props {
   wordCount?: number;
   article: Article;
-  author: { slug: string; name: string; jobTitle: string; bio: string; sameAs: string[] };
+  author: { slug: string; name: string; jobTitle: string; bio: string; sameAs: string[]; avatar?: ImageMetadata };
   headings: MarkdownHeading[];
   related: Article[];
 }
@@ -36,11 +37,12 @@ const tocHeadings = d.faq?.length
   : headings;
 
 const ogImg = await getImage({ src: d.image, width: 1200, height: 630, format: 'webp', fit: 'cover' });
+const authorImg = author.avatar ? await getImage({ src: author.avatar, width: 160, height: 160, format: 'webp' }) : null;
 
 const jsonLd = graph(
   organization(),
   website(),
-  person(author),
+  person({ ...author, image: authorImg ? abs(authorImg.src) : undefined }),
   {
     '@type': 'Article',
     '@id': abs(url) + '#article',
@@ -75,14 +77,19 @@ const jsonLd = graph(
   tags={d.tags}
   jsonLd={jsonLd}
 >
-  <div class="container">
+  <div class:list={['container', { 'container--reading': !ADS.enabled }]}>
     <Breadcrumbs items={crumbs} />
     <div class:list={['article-layout', { 'article-layout--sidebar': ADS.enabled }]}>
       <article>
         <header class="article-header">
           <h1>{d.title}</h1>
           <p class="article-meta">
-            <span>Por <a href={`/autor/${author.slug}/`} rel="author">{author.name}</a></span>
+            <span class="byline">
+              {author.avatar && (
+                <Image src={author.avatar} alt="" width={28} height={28} densities={[1, 2]} class="avatar avatar--byline" loading="eager" draggable="false" />
+              )}
+              Por&nbsp;<a href={`/autor/${author.slug}/`} rel="author">{author.name}</a>
+            </span>
             <span>Atualizado em <time datetime={isoDate(d.updatedDate)}>{formatDate(d.updatedDate)}</time></span>
             {isoDate(d.pubDate) !== isoDate(d.updatedDate) && (
               <span>Publicado em <time datetime={isoDate(d.pubDate)}>{formatDate(d.pubDate)}</time></span>

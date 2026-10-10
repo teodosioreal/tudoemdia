@@ -40,6 +40,7 @@ export interface PersonData {
   jobTitle: string;
   bio: string;
   sameAs: string[];
+  image?: string;
 }
 
 export function person(p: PersonData) {
@@ -51,6 +52,7 @@ export function person(p: PersonData) {
     description: p.bio,
     url: abs(`/autor/${p.slug}/`),
     worksFor: { '@id': ORG_ID },
+    ...(p.image ? { image: p.image } : {}),
     ...(p.sameAs.length ? { sameAs: p.sameAs } : {}),
   };
 }

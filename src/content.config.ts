@@ -5,7 +5,9 @@ import { CATEGORY_SLUGS } from './config';
 
 const autores = defineCollection({
   loader: glob({ pattern: '*.json', base: './src/content/autores' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
+    // Foto pequena (avatar), exibida sem possibilidade de ampliar
+    avatar: image().optional(),
     name: z.string().min(3),
     jobTitle: z.string(),
     bio: z.string().min(40),

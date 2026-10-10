@@ -1,5 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
@@ -18,12 +19,13 @@ export async function getStaticPaths() {
 interface Props { author: CollectionEntry<'autores'>; articles: Article[] }
 const { author, articles } = Astro.props;
 const p = { slug: author.id, ...author.data };
+const avatarImg = p.avatar ? await getImage({ src: p.avatar, width: 160, height: 160, format: 'webp' }) : null;
 const url = `/autor/${author.id}/`;
 const crumbs = [
   { name: 'Início', href: '/' },
   { name: p.name, href: url },
 ];
-const jsonLd = graph(organization(), website(), person(p), breadcrumbList(crumbs), {
+const jsonLd = graph(organization(), website(), person({ ...p, image: avatarImg ? abs(avatarImg.src) : undefined }), breadcrumbList(crumbs), {
   '@type': 'ProfilePage',
   url: abs(url),
   mainEntity: { '@id': personId(p.slug) },
@@ -34,7 +36,11 @@ const jsonLd = graph(organization(), website(), person(p), breadcrumbList(crumbs
     <Breadcrumbs items={crumbs} />
     <section class="section">
       <div class="author-box" style="margin-top:0">
-        <div class="author-box__avatar" aria-hidden="true">{initials(p.name)}</div>
+        {p.avatar ? (
+          <Image src={p.avatar} alt={`Foto de ${p.name}`} width={64} height={64} densities={[1, 2]} class="avatar avatar--box" loading="eager" draggable="false" />
+        ) : (
+          <div class="author-box__avatar" aria-hidden="true">{initials(p.name)}</div>
+        )}
         <div>
           <h1 style="margin:0">{p.name}</h1>
           <p>{p.jobTitle}</p>

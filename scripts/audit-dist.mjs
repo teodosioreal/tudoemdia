@@ -51,7 +51,8 @@ for (const f of pages) {
   }
   if (!/<html lang="pt-BR"/.test(html)) errors.push(`${route}: lang diferente de pt-BR`);
   for (const img of html.match(/<img\b[^>]*>/g) ?? []) {
-    if (!/\balt="[^"]+"/.test(img)) errors.push(`${route}: imagem sem alt: ${img.slice(0, 80)}`);
+    // alt="" é válido para imagem decorativa (ex.: foto do autor ao lado do nome já escrito)
+    if (!/\balt(=|\s|>)/.test(img)) errors.push(`${route}: imagem sem atributo alt: ${img.slice(0, 80)}`);
     if (!/\bwidth="\d+"/.test(img) || !/\bheight="\d+"/.test(img)) errors.push(`${route}: imagem sem width/height`);
   }
   for (const m of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)) {

@@ -105,7 +105,7 @@ for (const a of articles) {
   if (/^# /m.test(a.body)) E.push('H1 no corpo (o título já é o H1)');
   const h2s = [...a.body.matchAll(/^## (.+)$/gm)].map((x) => x[1]);
   if (h2s.length < 3) E.push(`só ${h2s.length} H2`);
-  if (!h2s.some((h) => /^conclus[aã]o/i.test(h))) E.push('falta H2 de "Conclusão"');
+  if (!h2s.some((h) => /^(conclus[aã]o|na pr[aá]tica|resumo|para fechar|o que fazer agora)/i.test(h))) E.push('falta H2 de fechamento (Conclusão, Na prática, Resumo, Para fechar ou O que fazer agora)');
   if (!/^\|.+\|\s*$/m.test(a.body) && !/^\s*(?:[-*]|\d+\.)\s+/m.test(a.body)) E.push('nenhuma tabela ou lista');
   if (a.faqCount < 3 || a.faqCount > 5) E.push(`FAQ com ${a.faqCount} perguntas (exigido 3 a 5)`);
   if (!/<Faq\b/.test(a.body)) E.push('componente <Faq /> ausente no corpo');

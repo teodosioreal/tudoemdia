@@ -17,7 +17,7 @@ Vale para todos os artigos. O que pode ser verificado automaticamente é checado
 | Tabela ou lista | Pelo menos uma, e que seja útil: comparação, documentos necessários, prazos, prós e contras. |
 | Passo a passo | Lista numerada sempre que o leitor precisa executar algo (pagar, recorrer, transferir). |
 | FAQ | De 3 a 5 perguntas no frontmatter, renderizadas com `<Faq items={frontmatter.faq} />` antes da conclusão. Devem ser perguntas que o texto ainda não respondeu do mesmo jeito, nunca uma repetição dos H2. |
-| Conclusão | H2 começando com "Conclusão". Traz a recomendação prática e o próximo passo, sem resumir o texto inteiro. |
+| Conclusão | H2 começando com "Conclusão", "Na prática", "Resumo", "Para fechar" ou "O que fazer agora". Varie entre os artigos. Traz a recomendação prática e o próximo passo, sem resumir o texto inteiro. |
 
 ## 3. E-E-A-T
 

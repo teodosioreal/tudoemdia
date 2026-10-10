@@ -14,7 +14,7 @@ const popular = (await getArticles()).slice(0, 5);
       <button class="btn" type="submit">Buscar</button>
     </form>
     <h2>Navegue pelas categorias</h2>
-    <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a> — {c.description}</li>)}</ul>
+    <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a>: {c.description}</li>)}</ul>
     {popular.length > 0 && (
       <>
         <h2>Artigos recentes</h2>

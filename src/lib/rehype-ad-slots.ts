@@ -35,7 +35,7 @@ export default function rehypeAdSlots() {
     children.forEach((n, i) => {
       if (!isEl(n, 'h2')) return;
       h2Count++;
-      const isConclusion = /^conclus[aã]o/i.test(textOf(n).trim());
+      const isConclusion = /^(conclus[aã]o|na pr[aá]tica|resumo|para fechar|o que fazer agora)/i.test(textOf(n).trim());
       const isFaq = /perguntas frequentes/i.test(textOf(n));
       if (isFaq) return;
       if ((cfg.beforeConclusion && isConclusion) || (h2Count > 1 && h2Count % cfg.everyNthH2 === 1)) {

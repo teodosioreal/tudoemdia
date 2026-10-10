@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import { SITE, CATEGORIES } from '../config';
+import avatar from '../assets/autores/thiago-teodosio.webp';
 ---
 <PageLayout title="Sobre o site" description={`Quem faz o ${SITE.name}, como os artigos são produzidos e revisados e como corrigimos erros.`}>
   <p>
@@ -20,7 +22,20 @@ import { SITE, CATEGORIES } from '../config';
   </ul>
 
   <h2>Quem escreve</h2>
-  <p>Os textos são escritos e revisados por Thiago Teodosio, fundador e editor do site. Conheça o editor na <a href="/autor/thiago-teodosio/">página do autor</a>.</p>
+  <div class="author-box" style="margin-top:0.5rem">
+    <Image src={avatar} alt="Foto de Thiago Teodosio" width={64} height={64} densities={[1, 2]} class="avatar avatar--box" draggable="false" />
+    <div>
+      <p class="author-box__name"><a href="/autor/thiago-teodosio/" rel="author">Thiago Teodosio</a></p>
+      <p>Fundador e editor do {SITE.name}. É responsável pela pauta, pela redação e pela revisão de todos os artigos, e por manter cada texto atualizado quando a regra muda.</p>
+    </div>
+  </div>
+
+  <h2>Nossa missão</h2>
+  <p>
+    Regra de trânsito, imposto e documento costumam ser explicados em linguagem difícil, espalhados por vários sites oficiais.
+    O {SITE.name} reúne essas informações num só lugar, com passo a passo, prazos e o link para a fonte oficial, para que você
+    resolva a sua situação com segurança e sem depender de intermediários.
+  </p>
 
   <h2>Independência e publicidade</h2>
   <p>

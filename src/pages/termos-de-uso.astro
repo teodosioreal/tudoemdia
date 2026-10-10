@@ -1,11 +1,11 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { SITE } from '../config';
+import { SITE, LEGAL } from '../config';
 ---
 <PageLayout
   title="Termos de Uso"
   description={`Condições de uso do ${SITE.name}: natureza informativa do conteúdo, direitos autorais e responsabilidades.`}
-  updated="[VERIFICAR: data de publicação dos termos]"
+  updated={LEGAL.policyDate}
 >
   <p>Ao usar o {SITE.name}, você concorda com estes termos. Se não concordar, não use o site.</p>
 

@@ -19,6 +19,17 @@ export const SITE = {
   themeColor: '#0f3d5e',
 } as const;
 
+/**
+ * Dados exibidos nas páginas legais. `owner` é obrigatório pela LGPD
+ * (identificação do controlador) — o `npm run verify` falha enquanto estiver vazio.
+ */
+export const LEGAL = {
+  // TODO: nome completo ou razão social do responsável pelo site (e CNPJ, se houver)
+  owner: '',
+  // Data da versão em vigor da Política de Privacidade e dos Termos de Uso
+  policyDate: '10 de outubro de 2026',
+} as const;
+
 export const CATEGORIES = [
   {
     slug: 'documentacao',

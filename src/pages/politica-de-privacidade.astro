@@ -1,11 +1,11 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { SITE } from '../config';
+import { SITE, ADS, LEGAL } from '../config';
 ---
 <PageLayout
   title="Política de Privacidade"
   description={`Como o ${SITE.name} trata dados pessoais e cookies, em conformidade com a LGPD, incluindo publicidade do Google.`}
-  updated="[VERIFICAR: data de publicação da política]"
+  updated={LEGAL.policyDate}
 >
   <p>
     Esta política explica quais dados pessoais o {SITE.name} ({SITE.url}) trata, por que, por quanto tempo e quais são
@@ -15,7 +15,7 @@ import { SITE } from '../config';
 
   <h2>1. Quem é o controlador</h2>
   <p>
-    O controlador dos dados é [VERIFICAR: nome completo ou razão social e CPF/CNPJ do responsável pelo site].
+    O controlador dos dados é {LEGAL.owner || `o responsável pelo ${SITE.name}`}.
     Contato do encarregado (DPO) ou responsável: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
   </p>
 
@@ -53,10 +53,10 @@ import { SITE } from '../config';
 
   <h2>3. Cookies</h2>
   <p>
-    Cookies são pequenos arquivos gravados no seu navegador. Hoje o site não usa cookies próprios de rastreamento.
-    [VERIFICAR: atualizar esta seção quando AdSense e/ou Google Analytics forem ativados.] Quando houver anúncios ou
-    estatísticas, um aviso de consentimento vai aparecer na primeira visita, e você poderá aceitar, recusar ou
-    mudar sua escolha depois.
+    Cookies são pequenos arquivos gravados no seu navegador.
+    {ADS.enabled
+      ? 'Este site exibe anúncios do Google, que usam cookies conforme descrito abaixo. Na primeira visita, um aviso de consentimento permite aceitar, recusar ou ajustar o uso de cookies, e você pode mudar sua escolha depois.'
+      : 'No momento, o site não usa cookies próprios de rastreamento nem de publicidade. Se anúncios ou estatísticas forem ativados, esta política será atualizada e um aviso de consentimento vai aparecer na primeira visita, permitindo aceitar, recusar ou mudar sua escolha depois.'}
   </p>
   <p>Você também pode apagar ou bloquear cookies nas configurações do navegador. Alguns recursos podem deixar de funcionar.</p>
 
@@ -76,8 +76,8 @@ import { SITE } from '../config';
   <h2>5. Compartilhamento</h2>
   <p>Os dados podem ser tratados por prestadores que mantêm o site funcionando:</p>
   <ul>
-    <li>Hospedagem: [VERIFICAR: nome do provedor da VPS e país dos servidores].</li>
-    <li>E-mail: [VERIFICAR: provedor de e-mail usado no contato].</li>
+    <li>o provedor de hospedagem do servidor onde o site está instalado;</li>
+    <li>o provedor do serviço de e-mail usado para receber e responder contatos;</li>
     <li>Google, quando publicidade ou estatísticas estiverem ativas.</li>
   </ul>
   <p>Alguns desses prestadores podem armazenar dados fora do Brasil. Nesse caso, a transferência segue o que prevê a LGPD.</p>
@@ -85,7 +85,9 @@ import { SITE } from '../config';
   <h2>6. Por quanto tempo guardamos</h2>
   <p>
     E-mails de contato ficam guardados enquanto forem necessários para responder e acompanhar o assunto.
-    Registros técnicos do servidor são mantidos pelo prazo [VERIFICAR: definir prazo de retenção dos logs do Nginx].
+    Registros de acesso ao site são mantidos por 6 meses, prazo previsto no art. 15 do
+    <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" rel="noopener">Marco Civil da Internet (Lei nº 12.965/2014)</a>,
+    e depois eliminados.
   </p>
 
   <h2>7. Seus direitos</h2>

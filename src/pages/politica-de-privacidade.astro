@@ -1,0 +1,113 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout
+  title="Política de Privacidade"
+  description={`Como o ${SITE.name} trata dados pessoais e cookies, em conformidade com a LGPD, incluindo publicidade do Google.`}
+  updated="[VERIFICAR: data de publicação da política]"
+>
+  <p>
+    Esta política explica quais dados pessoais o {SITE.name} ({SITE.url}) trata, por que, por quanto tempo e quais são
+    os seus direitos, de acordo com a Lei Geral de Proteção de Dados Pessoais
+    (<a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" rel="noopener">Lei nº 13.709/2018 – LGPD</a>).
+  </p>
+
+  <h2>1. Quem é o controlador</h2>
+  <p>
+    O controlador dos dados é [VERIFICAR: nome completo ou razão social e CPF/CNPJ do responsável pelo site].
+    Contato do encarregado (DPO) ou responsável: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+
+  <h2>2. Quais dados tratamos</h2>
+  <table>
+    <thead><tr><th>Situação</th><th>Dados</th><th>Finalidade</th><th>Base legal (LGPD, art. 7º)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Você nos envia um e-mail</td>
+        <td>Nome, e-mail e o conteúdo da mensagem</td>
+        <td>Responder ao contato</td>
+        <td>Legítimo interesse ou execução de procedimentos a pedido do titular</td>
+      </tr>
+      <tr>
+        <td>Acesso ao site</td>
+        <td>Registros técnicos do servidor (endereço IP, data e hora, página acessada, navegador)</td>
+        <td>Segurança, prevenção de abusos e funcionamento do site</td>
+        <td>Legítimo interesse; cumprimento de obrigação legal quando aplicável</td>
+      </tr>
+      <tr>
+        <td>Publicidade (quando ativa)</td>
+        <td>Cookies e identificadores de dispositivo usados pelo Google e parceiros</td>
+        <td>Exibir e medir anúncios, personalizados ou não</td>
+        <td>Consentimento, quando exigido</td>
+      </tr>
+      <tr>
+        <td>Estatísticas de audiência (quando ativas)</td>
+        <td>Cookies e dados de navegação</td>
+        <td>Entender quais conteúdos são úteis</td>
+        <td>Consentimento ou legítimo interesse, conforme a configuração</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Não pedimos cadastro e não vendemos dados pessoais.</p>
+
+  <h2>3. Cookies</h2>
+  <p>
+    Cookies são pequenos arquivos gravados no seu navegador. Hoje o site não usa cookies próprios de rastreamento.
+    [VERIFICAR: atualizar esta seção quando AdSense e/ou Google Analytics forem ativados.] Quando houver anúncios ou
+    estatísticas, um aviso de consentimento vai aparecer na primeira visita, e você poderá aceitar, recusar ou
+    mudar sua escolha depois.
+  </p>
+  <p>Você também pode apagar ou bloquear cookies nas configurações do navegador. Alguns recursos podem deixar de funcionar.</p>
+
+  <h2>4. Publicidade do Google (AdSense)</h2>
+  <p>
+    Este site pode exibir anúncios fornecidos pelo Google. Fornecedores terceiros, incluindo o Google, usam cookies
+    para exibir anúncios com base em visitas anteriores do usuário a este e a outros sites. Com os cookies de
+    publicidade, o Google e seus parceiros podem exibir anúncios com base nas suas visitas a este site e/ou a outros
+    sites na Internet.
+  </p>
+  <ul>
+    <li>Você pode desativar a publicidade personalizada nas <a href="https://adssettings.google.com/" rel="noopener">Configurações de anúncios do Google</a>.</li>
+    <li>Também é possível recusar cookies de fornecedores terceiros em <a href="https://www.aboutads.info/choices/" rel="noopener">www.aboutads.info</a>.</li>
+    <li>Saiba como o Google usa dados de sites parceiros em <a href="https://policies.google.com/technologies/partner-sites?hl=pt-BR" rel="noopener">Como o Google usa informações de sites ou apps que usam nossos serviços</a>.</li>
+  </ul>
+
+  <h2>5. Compartilhamento</h2>
+  <p>Os dados podem ser tratados por prestadores que mantêm o site funcionando:</p>
+  <ul>
+    <li>Hospedagem: [VERIFICAR: nome do provedor da VPS e país dos servidores].</li>
+    <li>E-mail: [VERIFICAR: provedor de e-mail usado no contato].</li>
+    <li>Google, quando publicidade ou estatísticas estiverem ativas.</li>
+  </ul>
+  <p>Alguns desses prestadores podem armazenar dados fora do Brasil. Nesse caso, a transferência segue o que prevê a LGPD.</p>
+
+  <h2>6. Por quanto tempo guardamos</h2>
+  <p>
+    E-mails de contato ficam guardados enquanto forem necessários para responder e acompanhar o assunto.
+    Registros técnicos do servidor são mantidos pelo prazo [VERIFICAR: definir prazo de retenção dos logs do Nginx].
+  </p>
+
+  <h2>7. Seus direitos</h2>
+  <p>O art. 18 da LGPD garante a você, entre outros direitos:</p>
+  <ul>
+    <li>confirmação de que tratamos seus dados e acesso a eles;</li>
+    <li>correção de dados incompletos, inexatos ou desatualizados;</li>
+    <li>anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade;</li>
+    <li>informação sobre com quem compartilhamos seus dados;</li>
+    <li>revogação do consentimento.</li>
+  </ul>
+  <p>
+    Para exercer seus direitos, escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Você também pode
+    apresentar reclamação à <a href="https://www.gov.br/anpd/" rel="noopener">Autoridade Nacional de Proteção de Dados (ANPD)</a>.
+  </p>
+
+  <h2>8. Segurança</h2>
+  <p>O site usa conexão criptografada (HTTPS) e mantém o servidor atualizado. Nenhum sistema é totalmente imune a falhas, mas adotamos medidas razoáveis para proteger os dados.</p>
+
+  <h2>9. Crianças e adolescentes</h2>
+  <p>O conteúdo é destinado a adultos. Não coletamos intencionalmente dados de menores de 18 anos.</p>
+
+  <h2>10. Mudanças nesta política</h2>
+  <p>Esta política pode ser atualizada. A data no topo da página indica a versão em vigor.</p>
+</PageLayout>

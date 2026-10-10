@@ -1,0 +1,33 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE, CATEGORIES } from '../config';
+---
+<PageLayout title="Sobre o site" description={`Quem faz o ${SITE.name}, como os artigos são produzidos e revisados e como corrigimos erros.`}>
+  <p>
+    O {SITE.name} explica, em linguagem direta, as dúvidas mais comuns de quem tem carro no Brasil: documentação,
+    IPVA e licenciamento, seguro, manutenção, multas e CNH.
+  </p>
+
+  <h2>O que você encontra aqui</h2>
+  <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a>: {c.description}</li>)}</ul>
+
+  <h2>Como os artigos são feitos</h2>
+  <ul>
+    <li>Cada artigo parte de uma dúvida concreta e responde a ela logo nos primeiros parágrafos.</li>
+    <li>Regras, prazos e valores são conferidos na fonte oficial: legislação federal, resoluções do Contran, sites da Senatran, dos Detrans, das Secretarias da Fazenda e da SUSEP. Os links ficam no fim de cada texto.</li>
+    <li>Todo artigo mostra a data da última atualização. Quando uma norma muda, o texto é revisado.</li>
+    <li>Quando uma regra varia de estado para estado, dizemos isso e indicamos onde consultar a regra local.</li>
+  </ul>
+
+  <h2>Quem escreve</h2>
+  <p>Os textos são escritos e revisados pela equipe editorial. Conheça o autor na <a href="/autor/autor/">página do autor</a>.</p>
+
+  <h2>Independência e publicidade</h2>
+  <p>
+    O site pode exibir anúncios para se manter. Os anúncios não influenciam o conteúdo editorial, e não aceitamos
+    pagamento para recomendar seguradoras, oficinas, despachantes ou produtos.
+  </p>
+
+  <h2>Encontrou um erro?</h2>
+  <p>Escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a> indicando o artigo e o trecho. Correções relevantes são feitas e a data de atualização é ajustada.</p>
+</PageLayout>

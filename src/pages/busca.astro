@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Buscar', href: '/busca/' },
+];
+---
+<BaseLayout title="Buscar no site" description="Busque artigos sobre documentação, IPVA, seguro, manutenção, multas e CNH." noindex>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <section class="section">
+      <h1>Buscar</h1>
+      <form class="search-form" action="/busca/" method="get" role="search" id="search-form">
+        <label class="visually-hidden" for="q">Termo de busca</label>
+        <input id="q" name="q" type="search" autocomplete="off" placeholder="Ex.: licenciamento atrasado" />
+        <button class="btn" type="submit">Buscar</button>
+      </form>
+      <p id="search-status" role="status" aria-live="polite" style="margin-top:1rem"></p>
+      <ol id="search-results" class="prose" style="padding-left:1.25rem"></ol>
+    </section>
+  </div>
+  <script>
+    // Busca client-side: baixa o índice (alguns KB) só quando há termo.
+    const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    type Item = { t: string; d: string; u: string; c: string; k: string };
+    const input = document.getElementById('q') as HTMLInputElement;
+    const status = document.getElementById('search-status')!;
+    const list = document.getElementById('search-results')!;
+    let index: Item[] | null = null;
+
+    async function run(q: string) {
+      const terms = norm(q).split(/\s+/).filter((t) => t.length > 1);
+      list.replaceChildren();
+      if (!terms.length) { status.textContent = ''; return; }
+      index ??= await fetch('/busca.json').then((r) => r.json());
+      const scored = index!
+        .map((it) => {
+          const title = norm(it.t), body = norm(`${it.d} ${it.k} ${it.c}`);
+          let score = 0;
+          for (const t of terms) {
+            if (title.includes(t)) score += 3;
+            else if (body.includes(t)) score += 1;
+            else return null;
+          }
+          return { it, score };
+        })
+        .filter((x): x is { it: Item; score: number } => x !== null)
+        .sort((a, b) => b.score - a.score);
+      status.textContent = scored.length
+        ? `${scored.length} resultado(s) para “${q}”.`
+        : `Nenhum resultado para “${q}”. Tente outra palavra ou navegue pelas categorias.`;
+      for (const { it } of scored) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = it.u; a.textContent = it.t;
+        const p = document.createElement('p');
+        p.textContent = `${it.c} — ${it.d}`;
+        li.append(a, p);
+        list.append(li);
+      }
+    }
+
+    const q = new URLSearchParams(location.search).get('q') ?? '';
+    input.value = q;
+    run(q);
+    document.getElementById('search-form')!.addEventListener('submit', (e) => {
+      e.preventDefault();
+      history.replaceState(null, '', `?q=${encodeURIComponent(input.value)}`);
+      run(input.value);
+    });
+  </script>
+</BaseLayout>

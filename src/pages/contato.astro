@@ -1,0 +1,21 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout title="Contato" description={`Fale com a equipe do ${SITE.name}: correções, sugestões de pauta e parcerias.`}>
+  <p>O jeito mais rápido de falar com a gente é por e-mail:</p>
+  <p><a class="btn" href={`mailto:${SITE.email}`}>Escrever para {SITE.email}</a></p>
+
+  <h2>Antes de escrever</h2>
+  <ul>
+    <li><strong>Correções:</strong> informe o endereço do artigo e o trecho. Se puder, inclua o link da fonte oficial.</li>
+    <li><strong>Sugestões de pauta:</strong> descreva a dúvida do jeito que ela aparece no dia a dia.</li>
+    <li><strong>Casos pessoais:</strong> não damos consultoria individual sobre multas, processos ou sinistros. Nesses casos, procure o Detran do seu estado, a seguradora, um advogado ou a Defensoria Pública.</li>
+  </ul>
+
+  <h2>Seus dados</h2>
+  <p>
+    Usamos o seu e-mail apenas para responder à sua mensagem. Veja os detalhes na
+    <a href="/politica-de-privacidade/">Política de Privacidade</a>.
+  </p>
+</PageLayout>

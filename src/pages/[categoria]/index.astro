@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { CATEGORIES } from '../../config';
+import { getArticles, articleUrl, type Article } from '../../lib/content';
+import { graph, organization, website, breadcrumbList, abs } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const all = await getArticles();
+  return CATEGORIES.map((category) => ({
+    params: { categoria: category.slug },
+    props: { category, articles: all.filter((a) => a.data.category === category.slug) },
+  }));
+}
+
+interface Props { category: (typeof CATEGORIES)[number]; articles: Article[] }
+const { category, articles } = Astro.props;
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: category.name, href: `/${category.slug}/` },
+];
+const jsonLd = graph(organization(), website(), breadcrumbList(crumbs), {
+  '@type': 'CollectionPage',
+  name: category.name,
+  description: category.description,
+  url: abs(`/${category.slug}/`),
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: articles.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(articleUrl(a)) })),
+  },
+});
+---
+<BaseLayout
+  title={`${category.name}: guias e explicações`}
+  description={category.description}
+  jsonLd={jsonLd}
+  noindex={articles.length === 0}
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <header class="section">
+      <h1>{category.name}</h1>
+      <p class="card__desc">{category.description}</p>
+    </header>
+    {
+      articles.length ? (
+        <div class="grid">
+          {articles.map((a, i) => <ArticleCard article={a} eager={i === 0} headingLevel="h2" />)}
+        </div>
+      ) : (
+        <p>Os primeiros artigos desta categoria estão em produção.</p>
+      )
+    }
+  </div>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout
+  title="Aviso Legal"
+  description={`Limites do conteúdo do ${SITE.name}: informação geral, regras que variam por estado e a importância de consultar os órgãos oficiais.`}
+>
+  <p>
+    Os artigos do {SITE.name} são informação geral sobre documentação de veículos, tributos, seguros, manutenção e
+    legislação de trânsito. Eles não são parecer jurídico, técnico ou financeiro sobre o seu caso.
+  </p>
+  <h2>Regras mudam e variam</h2>
+  <ul>
+    <li>Leis, resoluções do Contran e normas da SUSEP são alteradas com frequência.</li>
+    <li>IPVA, taxas do Detran, calendários de pagamento e procedimentos variam de um estado para outro.</li>
+    <li>Contratos de seguro e manuais de veículos têm condições próprias, que prevalecem sobre explicações gerais.</li>
+  </ul>
+  <p>
+    Por isso, confira sempre a fonte oficial indicada no fim de cada artigo e a data da última atualização. Antes de
+    pagar, assinar ou recorrer, confirme a informação com o órgão responsável.
+  </p>
+  <h2>Sem vínculo com órgãos públicos</h2>
+  <p>
+    Este site é independente. Não tem relação com Detrans, Senatran, Secretarias da Fazenda, SUSEP ou qualquer órgão
+    público, e não emite documentos, guias ou certidões.
+  </p>
+  <h2>Responsabilidade</h2>
+  <p>
+    Fazemos o possível para manter o conteúdo correto e atualizado, mas não garantimos que ele esteja livre de erros.
+    Não respondemos por decisões tomadas apenas com base nos artigos. Se encontrar um erro, avise em
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</PageLayout>

@@ -1,0 +1,42 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../config';
+---
+<PageLayout
+  title="Termos de Uso"
+  description={`Condições de uso do ${SITE.name}: natureza informativa do conteúdo, direitos autorais e responsabilidades.`}
+  updated="[VERIFICAR: data de publicação dos termos]"
+>
+  <p>Ao usar o {SITE.name}, você concorda com estes termos. Se não concordar, não use o site.</p>
+
+  <h2>1. Natureza do conteúdo</h2>
+  <p>
+    O conteúdo é informativo e educativo. Ele não substitui a orientação de advogado, despachante, corretor de
+    seguros, mecânico ou do órgão de trânsito competente, nem cria relação profissional com o leitor. Leia também o
+    <a href="/aviso-legal/">Aviso Legal</a>.
+  </p>
+
+  <h2>2. Direitos autorais</h2>
+  <p>
+    Textos, ilustrações e o projeto gráfico são protegidos pela
+    <a href="https://www.planalto.gov.br/ccivil_03/leis/l9610.htm" rel="noopener">Lei nº 9.610/1998</a>.
+    Você pode citar trechos curtos com link para o artigo original. A reprodução integral ou comercial depende de
+    autorização por escrito.
+  </p>
+  <p>Fotos de terceiros, quando houver, seguem a licença indicada no crédito de cada imagem.</p>
+
+  <h2>3. Links externos</h2>
+  <p>Os artigos apontam para sites oficiais e de terceiros. Não controlamos esses sites e não respondemos pelo conteúdo nem pela disponibilidade deles.</p>
+
+  <h2>4. Publicidade</h2>
+  <p>O site pode exibir anúncios de terceiros. Produtos e serviços anunciados são de responsabilidade dos anunciantes.</p>
+
+  <h2>5. Uso permitido</h2>
+  <p>Não é permitido usar o site para atividades ilegais, tentar invadir ou sobrecarregar o servidor, nem copiar o conteúdo em massa por meios automatizados.</p>
+
+  <h2>6. Alterações</h2>
+  <p>Estes termos podem mudar. A data no topo da página indica a versão em vigor.</p>
+
+  <h2>7. Lei aplicável</h2>
+  <p>Estes termos seguem a legislação brasileira. Dúvidas: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</PageLayout>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATEGORIES } from '../config';
+import { getArticles, articleUrl } from '../lib/content';
+const popular = (await getArticles()).slice(0, 5);
+---
+<BaseLayout title="Página não encontrada" description="O endereço acessado não existe ou mudou de lugar." noindex>
+  <div class="container page-prose prose">
+    <h1>Página não encontrada</h1>
+    <p>O endereço que você acessou não existe ou mudou de lugar. Confira se digitou certo ou tente uma das opções abaixo.</p>
+    <form class="search-form" action="/busca/" method="get" role="search">
+      <label class="visually-hidden" for="q404">Buscar no site</label>
+      <input id="q404" name="q" type="search" placeholder="O que você procura?" />
+      <button class="btn" type="submit">Buscar</button>
+    </form>
+    <h2>Navegue pelas categorias</h2>
+    <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a> — {c.description}</li>)}</ul>
+    {popular.length > 0 && (
+      <>
+        <h2>Artigos recentes</h2>
+        <ul>{popular.map((a) => <li><a href={articleUrl(a)}>{a.data.title}</a></li>)}</ul>
+      </>
+    )}
+    <p><a href="/">Voltar para a página inicial</a></p>
+  </div>
+</BaseLayout>

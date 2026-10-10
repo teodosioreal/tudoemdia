@@ -1,0 +1,55 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles, initials, type Article } from '../../lib/content';
+import { graph, organization, website, person, breadcrumbList, personId, abs } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const authors = await getCollection('autores');
+  const all = await getArticles();
+  return authors.map((author) => ({
+    params: { slug: author.id },
+    props: { author, articles: all.filter((a) => a.data.author.id === author.id) },
+  }));
+}
+
+interface Props { author: CollectionEntry<'autores'>; articles: Article[] }
+const { author, articles } = Astro.props;
+const p = { slug: author.id, ...author.data };
+const url = `/autor/${author.id}/`;
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: p.name, href: url },
+];
+const jsonLd = graph(organization(), website(), person(p), breadcrumbList(crumbs), {
+  '@type': 'ProfilePage',
+  url: abs(url),
+  mainEntity: { '@id': personId(p.slug) },
+});
+---
+<BaseLayout title={`${p.name}, ${p.jobTitle}`} description={p.bio.slice(0, 155)} type="profile" jsonLd={jsonLd}>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <section class="section">
+      <div class="author-box" style="margin-top:0">
+        <div class="author-box__avatar" aria-hidden="true">{initials(p.name)}</div>
+        <div>
+          <h1 style="margin:0">{p.name}</h1>
+          <p>{p.jobTitle}</p>
+          <p>{p.bio}</p>
+          {p.sameAs.length > 0 && (
+            <p>{p.sameAs.map((s) => <a href={s} rel="me noopener">{new URL(s).hostname}</a>)}</p>
+          )}
+        </div>
+      </div>
+    </section>
+    {articles.length > 0 && (
+      <section aria-labelledby="artigos-autor">
+        <h2 id="artigos-autor">Artigos de {p.name}</h2>
+        <div class="grid">{articles.map((a) => <ArticleCard article={a} />)}</div>
+      </section>
+    )}
+  </div>
+</BaseLayout>

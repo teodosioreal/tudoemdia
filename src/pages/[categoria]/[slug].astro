@@ -1,0 +1,25 @@
+---
+import { getEntry, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import Faq from '../../components/Faq.astro';
+import { getArticles, articleSlug, relatedArticles, type Article } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const all = await getArticles();
+  return all.map((article) => ({
+    params: { categoria: article.data.category, slug: articleSlug(article) },
+    props: { article, all },
+  }));
+}
+
+interface Props { article: Article; all: Article[] }
+const { article, all } = Astro.props;
+const authorEntry = await getEntry(article.data.author);
+if (!authorEntry) throw new Error(`Autor não encontrado em ${article.id}`);
+const author = { slug: authorEntry.id, ...authorEntry.data };
+const { Content, headings } = await render(article);
+const related = relatedArticles(article, all);
+---
+<ArticleLayout article={article} author={author} headings={headings} related={related}>
+  <Content components={{ Faq }} />
+</ArticleLayout>

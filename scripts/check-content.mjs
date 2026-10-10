@@ -92,6 +92,8 @@ for (const a of articles) {
   const faqWords = words(plainText(a.fmRaw.split(/^faq:/m)[1]?.split(/^\w+:/m)[0] ?? ''));
   const total = wc + faqWords;
 
+  if (a.title.length < 20 || a.title.length > 70) E.push(`title com ${a.title.length} caracteres (20 a 70)`);
+  if (a.description.length < 70 || a.description.length > 160) E.push(`description com ${a.description.length} caracteres (70 a 160)`);
   if (total < 1200) E.push(`${total} palavras (mín. 1.200)`);
   if (total > 2000) W.push(`${total} palavras (máx. recomendado 2.000)`);
 

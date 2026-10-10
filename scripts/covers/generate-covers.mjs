@@ -6,17 +6,17 @@ import sharp from 'sharp';
 const W = 1200;
 const H = 630;
 const C = {
-  bg: '#0f3d5e',
-  bg2: '#164d73',
-  bg3: '#1d5f8a',
+  bg: '#0f4c5c',
+  bg2: '#155b6c',
+  bg3: '#1c6a7c',
   white: '#ffffff',
   paper: '#f3f6f9',
   line: '#c9d4de',
-  amber: '#f2b544',
+  amber: '#f4b740',
   teal: '#4fb3bf',
   red: '#e0614f',
-  green: '#5cb85c',
-  dark: '#0a2c45',
+  green: '#1f9d63',
+  dark: '#0a3540',
 };
 
 // ---------- primitivas ----------

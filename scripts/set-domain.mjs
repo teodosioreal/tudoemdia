@@ -41,6 +41,16 @@ await writeFile(`deploy/nginx/${canonical}.conf`, fill(await readFile('deploy/ng
 await writeFile(`deploy/nginx/${canonical}-bootstrap.conf`, fill(await readFile('deploy/nginx/bootstrap.conf.template', 'utf8')));
 await writeFile(`deploy/nginx/${canonical}-security.conf`, await readFile('deploy/nginx/security-headers.conf', 'utf8'));
 
+// Hostinger / Apache / LiteSpeed (.htaccess na raiz do site)
+const re = (h) => h.replace(/\./g, '\\.');
+await writeFile(
+  'public/.htaccess',
+  (await readFile('deploy/hostinger/htaccess.template', 'utf8'))
+    .replaceAll('{{CANONICAL_HOST}}', canonical)
+    .replaceAll('{{ALT_HOST_RE}}', re(alt))
+    .replaceAll('{{ALT_HOST}}', alt),
+);
+
 // Valores para o deploy
 await writeFile(
   'deploy/site.env',
@@ -49,5 +59,5 @@ await writeFile(
 
 console.log(`Domínio canônico: https://${canonical} (redireciona ${alt} -> ${canonical})`);
 console.log(`E-mail de contato: ${email ?? `contato@${apex} (se ainda era o provisório)`}`);
-console.log(`Nginx: deploy/nginx/${canonical}.conf`);
+console.log(`Nginx: deploy/nginx/${canonical}.conf | Hostinger/Apache: public/.htaccess`);
 console.log('Próximo passo: npm run verify  (e depois o deploy, ver docs/DEPLOY.md)');

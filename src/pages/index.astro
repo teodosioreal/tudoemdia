@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { SITE, CATEGORIES } from '../config';
+import { SITE, CATEGORIES, GROUPS } from '../config';
 import { getArticles } from '../lib/content';
 import { graph, organization, website } from '../lib/schema';
 
@@ -12,14 +12,14 @@ const sections = CATEGORIES.map((c) => ({
 })).filter((s) => s.items.length > 0);
 ---
 <BaseLayout
-  title={`${SITE.name}: documentos, IPVA, seguro, multas e manutenção`}
+  title={`${SITE.name}: IPVA, CNH, multas, seguro e manutenção do carro`}
   rawTitle
   description={SITE.description}
   jsonLd={graph(organization(), website())}
 >
   <section class="hero">
     <div class="container">
-      <h1>Documentos, IPVA, multas, seguro e manutenção do carro explicados com base na lei</h1>
+      <h1>IPVA, CNH, multas, seguro e manutenção do carro em dia, com base na lei</h1>
       <p>{SITE.description}</p>
       <form class="search-form" action="/busca/" method="get" role="search">
         <label class="visually-hidden" for="q-home">Buscar no site</label>
@@ -29,14 +29,18 @@ const sections = CATEGORIES.map((c) => ({
     </div>
   </section>
 
-  <section class="section container" aria-labelledby="categorias">
-    <h2 id="categorias">Escolha o assunto</h2>
-    <ul class="cat-list">
-      {CATEGORIES.map((c) => (
-        <li><a href={`/${c.slug}/`}><strong>{c.name}</strong><span>{c.description}</span></a></li>
-      ))}
-    </ul>
-  </section>
+  {
+    GROUPS.map((group) => (
+      <section class="section container" aria-labelledby={`grupo-${group}`}>
+        <h2 id={`grupo-${group}`}>{group}</h2>
+        <ul class="cat-list">
+          {CATEGORIES.filter((c) => c.group === group).map((c) => (
+            <li><a href={`/${c.slug}/`}><strong>{c.name}</strong><span>{c.description}</span></a></li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 
   {
     sections.map((s, i) => (

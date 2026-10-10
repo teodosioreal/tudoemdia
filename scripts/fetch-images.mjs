@@ -64,7 +64,7 @@ async function fromUnsplash() {
     download: `${photo.urls.raw}&w=1600&fm=jpg&q=85`,
     credit: {
       name: photo.user.name,
-      url: `${photo.user.links.html}?utm_source=guia_automotivo&utm_medium=referral`,
+      url: `${photo.user.links.html}?utm_source=tudo_em_dia&utm_medium=referral`,
       source: 'Unsplash',
     },
     page: photo.links.html,

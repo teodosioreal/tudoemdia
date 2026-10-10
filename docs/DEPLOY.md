@@ -8,7 +8,7 @@ O roteiro para colocar o site no ar. Leva cerca de 30 minutos, a maior parte esp
 |---|---|
 | Nome e bio reais do autor | `src/content/autores/autor.json` |
 | Responsável pelo site (LGPD) | `LEGAL.owner` em `src/config.ts` |
-| Nome do site (se não for "Guia Automotivo") | `SITE.name` em `src/config.ts` |
+| Nome do site (atual: "Tudo em Dia") | `SITE.name` em `src/config.ts` |
 
 O `npm run verify` bloqueia a publicação enquanto algum desses itens estiver provisório.
 

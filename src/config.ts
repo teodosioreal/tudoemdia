@@ -4,19 +4,18 @@
  */
 
 export const SITE = {
-  // TODO: nome definitivo do site
-  name: 'Guia Automotivo',
+  name: 'Tudo em Dia',
   // TODO: domínio definitivo (com https:// e sem barra final)
-  url: 'https://www.example.com',
+  url: 'https://tudoemdia.blog.br',
   description:
-    'Explicações claras sobre documentação, IPVA, seguro, manutenção, multas e CNH, com base na legislação e em fontes oficiais.',
+    'Guias práticos para deixar o carro, os documentos e as obrigações em dia: IPVA, CNH, multas, seguro e manutenção, com base na lei e em fontes oficiais.',
   locale: 'pt-BR',
   ogLocale: 'pt_BR',
   // TODO: e-mail de contato real
-  email: 'contato@example.com',
+  email: 'contato@tudoemdia.blog.br',
   // Imagem padrão para Open Graph (1200x630) em /public
   defaultOgImage: '/og-default.png',
-  themeColor: '#0f3d5e',
+  themeColor: '#0f4c5c',
   // Código da meta tag de verificação do Google Search Console (opcional; só o conteúdo do atributo content)
   googleSiteVerification: '',
   // Perfis oficiais do site em redes sociais (sameAs no Schema.org)
@@ -37,6 +36,7 @@ export const LEGAL = {
 export const CATEGORIES = [
   {
     slug: 'documentacao',
+    group: 'Veículos',
     name: 'Documentação',
     h1: 'Documentação do veículo: transferência, ATPV-e e CRLV',
     title: 'Documentação do veículo: transferência, ATPV-e e CRLV digital',
@@ -49,6 +49,7 @@ export const CATEGORIES = [
   },
   {
     slug: 'ipva-licenciamento',
+    group: 'Veículos',
     name: 'IPVA e Licenciamento',
     h1: 'IPVA e licenciamento: cálculo, atraso e regularização',
     title: 'IPVA e licenciamento: cálculo, atraso e como regularizar',
@@ -61,6 +62,7 @@ export const CATEGORIES = [
   },
   {
     slug: 'seguro-auto',
+    group: 'Veículos',
     name: 'Seguro Auto',
     h1: 'Seguro auto: franquia, perfil, bônus e proteção veicular',
     title: 'Seguro auto: franquia, perfil do condutor e classe de bônus',
@@ -73,6 +75,7 @@ export const CATEGORIES = [
   },
   {
     slug: 'manutencao',
+    group: 'Veículos',
     name: 'Manutenção',
     h1: 'Manutenção do carro: revisão, óleo, pneus e garantia',
     title: 'Manutenção do carro: revisão, troca de óleo, pneus e garantia',
@@ -85,6 +88,7 @@ export const CATEGORIES = [
   },
   {
     slug: 'multas-cnh',
+    group: 'Veículos',
     name: 'Multas e CNH',
     h1: 'Multas e CNH: recursos, pontos e renovação',
     title: 'Multas e CNH: recurso, indicação de condutor, pontos e validade',
@@ -96,6 +100,9 @@ export const CATEGORIES = [
     ],
   },
 ] as const;
+
+/** Grupos de categorias (seções do site). Novos assuntos entram como novos grupos. */
+export const GROUPS = [...new Set(CATEGORIES.map((c) => c.group))];
 
 export type CategorySlug = (typeof CATEGORIES)[number]['slug'];
 export const CATEGORY_SLUGS = CATEGORIES.map((c) => c.slug) as [CategorySlug, ...CategorySlug[]];

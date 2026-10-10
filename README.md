@@ -1,6 +1,6 @@
-# Guia Automotivo
+# Tudo em Dia
 
-Site de conteúdo em português do Brasil sobre documentação de veículos, IPVA e licenciamento, seguro, manutenção, multas e CNH. É um site estático feito com [Astro](https://astro.build) e TypeScript.
+Site de conteúdo em português do Brasil (tudoemdia.blog.br), começando pela seção de veículos: documentação, IPVA e licenciamento, seguro, manutenção, multas e CNH. É um site estático feito com [Astro](https://astro.build) e TypeScript.
 
 ## Requisitos
 
@@ -103,7 +103,8 @@ Para gerar de novo os ícones e a imagem OG padrão: `node scripts/build-icons.m
 
 ## Publicação (deploy)
 
-O roteiro completo está em [`docs/DEPLOY.md`](docs/DEPLOY.md). Em resumo:
+- **Hostinger, na hospedagem web comum:** é o caminho recomendado para este site. O passo a passo está em [`docs/HOSTINGER.md`](docs/HOSTINGER.md), e o `.htaccess` é gerado pelo `set-domain`.
+- **VPS com Nginx:** o roteiro está em [`docs/DEPLOY.md`](docs/DEPLOY.md). Em resumo:
 
 ```bash
 node scripts/set-domain.mjs seudominio.com.br   # domínio no site inteiro + configuração do Nginx

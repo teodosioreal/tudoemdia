@@ -1,0 +1,53 @@
+# .htaccess — {{CANONICAL_HOST}} (Hostinger / Apache / LiteSpeed)
+# Gerado por scripts/set-domain.mjs. Não edite o domínio à mão.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS + host canônico ({{ALT_HOST}} -> {{CANONICAL_HOST}})
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^{{ALT_HOST_RE}}$ [NC]
+  RewriteRule ^(.*)$ https://{{CANONICAL_HOST}}/$1 [R=301,L]
+
+  # URLs com barra final (padrão do site): /pagina -> /pagina/
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{1,5}$
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^(.*)$ https://{{CANONICAL_HOST}}/$1/ [R=301,L]
+
+  # Bloqueia arquivos ocultos, exceto .well-known (validação de SSL)
+  RewriteRule (^|/)\.(?!well-known/) - [F]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-src https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+
+  # /_astro/ (nomes com hash): 1 ano; HTML/XML: sempre revalidar; imagens: 30 dias
+  SetEnvIf Request_URI "^/_astro/" ASTRO_ASSET
+  <FilesMatch "\.(html|xml|txt|json)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|webp|avif|gif|svg|ico|css|js)$">
+    Header set Cache-Control "public, max-age=2592000" env=!ASTRO_ASSET
+    Header set Cache-Control "public, max-age=31536000, immutable" env=ASTRO_ASSET
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/rss+xml application/json application/javascript image/svg+xml
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType image/webp .webp
+</IfModule>

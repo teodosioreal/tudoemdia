@@ -7,7 +7,7 @@ import AuthorBox from '../components/AuthorBox.astro';
 import AdSlot from '../components/AdSlot.astro';
 import Toc from '../components/Toc.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { SITE, getCategory } from '../config';
+import { SITE, ADS, getCategory } from '../config';
 import { articleUrl, formatDate, isoDate, type Article } from '../lib/content';
 import {
   abs, graph, organization, website, person, breadcrumbList, faqPage, personId, ORG_ID, WEBSITE_ID,
@@ -77,7 +77,7 @@ const jsonLd = graph(
 >
   <div class="container">
     <Breadcrumbs items={crumbs} />
-    <div class="article-layout">
+    <div class:list={['article-layout', { 'article-layout--sidebar': ADS.enabled }]}>
       <article>
         <header class="article-header">
           <h1>{d.title}</h1>
@@ -133,11 +133,13 @@ const jsonLd = graph(
           </section>
         )}
       </article>
-      <aside class="sidebar" aria-label="Barra lateral">
-        <div class="sidebar__sticky">
-          <AdSlot variant="sidebar" />
-        </div>
-      </aside>
+      {ADS.enabled && (
+        <aside class="sidebar" aria-label="Barra lateral">
+          <div class="sidebar__sticky">
+            <AdSlot variant="sidebar" />
+          </div>
+        </aside>
+      )}
     </div>
   </div>
 </BaseLayout>

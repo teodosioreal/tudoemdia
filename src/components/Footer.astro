@@ -1,5 +1,5 @@
 ---
-import { SITE, CATEGORIES } from '../config';
+import { SITE, CATEGORIES, GROUPS } from '../config';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -9,10 +9,12 @@ const year = new Date().getFullYear();
         <h2>{SITE.name}</h2>
         <p>{SITE.description}</p>
       </div>
-      <nav aria-labelledby="ft-cat">
-        <h2 id="ft-cat">Categorias</h2>
-        <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}</ul>
-      </nav>
+      {GROUPS.map((group, i) => (
+        <nav aria-labelledby={`ft-grupo-${i}`}>
+          <h2 id={`ft-grupo-${i}`}>{group}</h2>
+          <ul>{CATEGORIES.filter((c) => c.group === group).map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}</ul>
+        </nav>
+      ))}
       <nav aria-labelledby="ft-inst">
         <h2 id="ft-inst">Institucional</h2>
         <ul>

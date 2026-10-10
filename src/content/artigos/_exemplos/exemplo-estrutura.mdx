@@ -1,0 +1,50 @@
+---
+title: "Artigo de exemplo para validar a estrutura do site"
+description: "Rascunho técnico usado só para testar layout, schema, anúncios e FAQ. Não é publicado em produção e será removido na Fase 4."
+pubDate: 2026-10-10
+updatedDate: 2026-10-10
+category: documentacao
+tags: [teste]
+author: autor
+image: ../../../assets/capas/_placeholder.png
+imageAlt: "Ilustração de um velocímetro amarelo sobre fundo azul-escuro"
+keyword: exemplo
+draft: true
+faq:
+  - q: "Esta pergunta aparece no JSON-LD?"
+    a: "Sim. O mesmo array do frontmatter alimenta a seção visível e o FAQPage."
+  - q: "O FAQ também entra no sumário?"
+    a: "Sim. O layout acrescenta o item Perguntas frequentes ao sumário."
+sources:
+  - title: "Código de Trânsito Brasileiro (Lei nº 9.503/1997)"
+    url: "https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm"
+---
+
+Primeiro parágrafo com a resposta direta. Um anúncio deve aparecer logo depois dele quando os anúncios estiverem ligados.
+
+Segundo parágrafo complementando a resposta.
+
+## Primeira seção
+
+Texto da seção. Veja também [outro artigo](/documentacao/).
+
+| Coluna A | Coluna B |
+|---|---|
+| 1 | 2 |
+
+## Segunda seção
+
+Texto.
+
+## Terceira seção
+
+Texto antes de uma lista.
+
+- item um
+- item dois
+
+<Faq items={frontmatter.faq} />
+
+## Conclusão
+
+Fechamento prático.

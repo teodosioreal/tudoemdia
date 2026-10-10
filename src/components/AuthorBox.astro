@@ -1,0 +1,15 @@
+---
+import { initials } from '../lib/content';
+export interface Props { slug: string; name: string; jobTitle: string; bio: string }
+const { slug, name, jobTitle, bio } = Astro.props;
+---
+<section class="author-box" aria-labelledby="author-box-name">
+  <div class="author-box__avatar" aria-hidden="true">{initials(name)}</div>
+  <div>
+    <p class="author-box__name" id="author-box-name">
+      Escrito por <a href={`/autor/${slug}/`} rel="author">{name}</a>
+    </p>
+    <p>{jobTitle}</p>
+    <p>{bio}</p>
+  </div>
+</section>

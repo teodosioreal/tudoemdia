@@ -1,0 +1,27 @@
+---
+// Páginas institucionais (Sobre, Contato, políticas)
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { graph, organization, website, breadcrumbList } from '../lib/schema';
+
+export interface Props {
+  title: string;
+  description: string;
+  updated?: string;
+}
+const { title, description, updated } = Astro.props;
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: title, href: Astro.url.pathname },
+];
+---
+<BaseLayout title={title} description={description} jsonLd={graph(organization(), website(), breadcrumbList(crumbs))}>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <div class="page-prose prose">
+      <h1>{title}</h1>
+      {updated && <p class="article-meta">Última atualização: {updated}</p>}
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

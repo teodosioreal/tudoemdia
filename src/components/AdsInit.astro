@@ -1,0 +1,13 @@
+---
+// Empurra cada <ins class="adsbygoogle"> presente na página. Só existe com anúncios ligados.
+import { ADS } from '../config';
+---
+{
+  ADS.enabled && ADS.client && (
+    <script is:inline>
+      document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status])').forEach(function () {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      });
+    </script>
+  )
+}

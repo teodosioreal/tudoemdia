@@ -1,0 +1,27 @@
+---
+import { SITE, CATEGORIES } from '../config';
+import Logo from './Logo.astro';
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="/"><Logo /><span>{SITE.name}</span></a>
+    <nav class="site-nav" aria-label="Principal">
+      <details>
+        <summary aria-label="Abrir menu de categorias">☰ Menu</summary>
+        <ul>
+          {
+            CATEGORIES.map((c) => (
+              <li>
+                <a href={`/${c.slug}/`} aria-current={path.startsWith(`/${c.slug}/`) ? 'page' : undefined}>
+                  {c.name}
+                </a>
+              </li>
+            ))
+          }
+          <li><a href="/busca/" aria-current={path === '/busca/' ? 'page' : undefined}>Buscar</a></li>
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>

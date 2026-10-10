@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AdsInit from '../components/AdsInit.astro';
+import type { Props as HeadProps } from '../components/BaseHead.astro';
+
+export type Props = HeadProps;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <BaseHead {...Astro.props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    {/*
+      Espaço reservado para o banner de consentimento (CMP).
+      Ao ativar anúncios, use uma CMP certificada pelo Google (ex.: a "Mensagens
+      de privacidade e consentimento" do próprio AdSense, que injeta o banner
+      sozinha) ou monte aqui o componente da CMP escolhida.
+    */}
+    <div id="cmp-root"></div>
+    <AdsInit />
+  </body>
+</html>

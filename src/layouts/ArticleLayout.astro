@@ -1,0 +1,139 @@
+---
+import { Picture } from 'astro:assets';
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuthorBox from '../components/AuthorBox.astro';
+import AdSlot from '../components/AdSlot.astro';
+import Toc from '../components/Toc.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, getCategory } from '../config';
+import { articleUrl, formatDate, isoDate, type Article } from '../lib/content';
+import {
+  abs, graph, organization, website, person, breadcrumbList, faqPage, personId, ORG_ID, WEBSITE_ID,
+} from '../lib/schema';
+import { getImage } from 'astro:assets';
+
+export interface Props {
+  article: Article;
+  author: { slug: string; name: string; jobTitle: string; bio: string; sameAs: string[] };
+  headings: MarkdownHeading[];
+  related: Article[];
+}
+
+const { article, author, headings, related } = Astro.props;
+const d = article.data;
+const cat = getCategory(d.category);
+const url = articleUrl(article);
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: cat.name, href: `/${cat.slug}/` },
+  { name: d.title, href: url },
+];
+const tocHeadings = d.faq?.length
+  ? [...headings, { depth: 2, slug: 'perguntas-frequentes', text: 'Perguntas frequentes' }]
+  : headings;
+
+const ogImg = await getImage({ src: d.image, width: 1200, height: 630, format: 'webp', fit: 'cover' });
+
+const jsonLd = graph(
+  organization(),
+  website(),
+  person(author),
+  {
+    '@type': 'Article',
+    '@id': abs(url) + '#article',
+    headline: d.title,
+    description: d.description,
+    image: [abs(ogImg.src)],
+    datePublished: d.pubDate.toISOString(),
+    dateModified: d.updatedDate.toISOString(),
+    inLanguage: SITE.locale,
+    author: { '@id': personId(author.slug) },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntityOfPage: abs(url),
+    articleSection: cat.name,
+    keywords: [d.keyword, ...d.tags].join(', '),
+    ...(d.sources.length ? { citation: d.sources.map((s) => s.url) } : {}),
+  },
+  breadcrumbList(crumbs),
+  ...(d.faq?.length ? [faqPage(d.faq)] : []),
+);
+---
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  image={d.image}
+  imageAlt={d.imageAlt}
+  type="article"
+  publishedTime={d.pubDate}
+  modifiedTime={d.updatedDate}
+  jsonLd={jsonLd}
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <div class="article-layout">
+      <article>
+        <header class="article-header">
+          <h1>{d.title}</h1>
+          <p class="article-meta">
+            <span>Por <a href={`/autor/${author.slug}/`} rel="author">{author.name}</a></span>
+            <span>Atualizado em <time datetime={isoDate(d.updatedDate)}>{formatDate(d.updatedDate)}</time></span>
+            {isoDate(d.pubDate) !== isoDate(d.updatedDate) && (
+              <span>Publicado em <time datetime={isoDate(d.pubDate)}>{formatDate(d.pubDate)}</time></span>
+            )}
+          </p>
+        </header>
+        <figure class="article-cover">
+          <Picture
+            src={d.image}
+            alt={d.imageAlt}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[400, 800, 1200]}
+            sizes="(min-width: 1160px) 780px, 100vw"
+            width={1200}
+            height={630}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          {d.imageCredit && (
+            <figcaption>
+              Foto: <a href={d.imageCredit.url} rel="nofollow noopener">{d.imageCredit.name}</a> / {d.imageCredit.source}
+            </figcaption>
+          )}
+        </figure>
+        <Toc headings={tocHeadings} />
+        <div class="prose">
+          <slot />
+        </div>
+        {d.sources.length > 0 && (
+          <section class="sources prose" aria-labelledby="fontes">
+            <h2 id="fontes">Fontes consultadas</h2>
+            <ul>
+              {d.sources.map((s) => (
+                <li><a href={s.url} rel="noopener">{s.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        )}
+        <AuthorBox {...author} />
+        {related.length > 0 && (
+          <section class="related" aria-labelledby="relacionados">
+            <h2 id="relacionados">Leia também</h2>
+            <div class="grid">
+              {related.map((r) => <ArticleCard article={r} />)}
+            </div>
+          </section>
+        )}
+      </article>
+      <aside class="sidebar" aria-label="Barra lateral">
+        <div class="sidebar__sticky">
+          <AdSlot variant="sidebar" />
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

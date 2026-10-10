@@ -1,0 +1,20 @@
+---
+/**
+ * Espaço de anúncio. Com ADS.enabled = false não renderiza nada
+ * (nem espaço vazio). Com true, reserva a altura mínima para evitar CLS.
+ */
+import { ADS } from '../config';
+import { AD_MIN_HEIGHT, adInsAttributes, type AdVariant } from '../lib/ad-markup';
+
+export interface Props { variant?: AdVariant }
+const { variant = 'in-article' } = Astro.props;
+const attrs = adInsAttributes(variant);
+---
+{
+  ADS.enabled && (
+    <aside class:list={['ad-slot', `ad-slot--${variant}`]} aria-label="Publicidade" style={`min-height:${AD_MIN_HEIGHT[variant]}px`}>
+      <span class="ad-slot__label">Publicidade</span>
+      <ins {...attrs} />
+    </aside>
+  )
+}

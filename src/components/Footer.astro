@@ -1,0 +1,31 @@
+---
+import { SITE, CATEGORIES } from '../config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h2>{SITE.name}</h2>
+        <p>{SITE.description}</p>
+      </div>
+      <nav aria-labelledby="ft-cat">
+        <h2 id="ft-cat">Categorias</h2>
+        <ul>{CATEGORIES.map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}</ul>
+      </nav>
+      <nav aria-labelledby="ft-inst">
+        <h2 id="ft-inst">Institucional</h2>
+        <ul>
+          <li><a href="/sobre/">Sobre</a></li>
+          <li><a href="/contato/">Contato</a></li>
+          <li><a href="/politica-de-privacidade/">Política de Privacidade</a></li>
+          <li><a href="/termos-de-uso/">Termos de Uso</a></li>
+          <li><a href="/aviso-legal/">Aviso Legal</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-bottom">
+      © {year} {SITE.name}. Conteúdo informativo, que não substitui orientação profissional nem a consulta aos órgãos oficiais.
+    </p>
+  </div>
+</footer>

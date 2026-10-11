@@ -1,0 +1,38 @@
+name: Buscar fotos (Unsplash)
+
+# Roda sob demanda. Baixa uma foto por artigo (scripts/fotos.json) e grava tudo na branch
+# "fotos" para revisão — nada vai para o site antes de as fotos e descrições serem revisadas.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Baixar fotos
+        env:
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+        run: |
+          if [ -z "$UNSPLASH_ACCESS_KEY" ]; then echo "Falta o secret UNSPLASH_ACCESS_KEY"; exit 1; fi
+          npm run fotos
+
+      - name: Gravar na branch fotos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B fotos
+          git add src/assets/fotos src/content/artigos
+          git commit -m "Fotos do Unsplash para revisão" || echo "Nada novo"
+          git push -f origin fotos

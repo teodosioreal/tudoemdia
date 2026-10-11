@@ -6,6 +6,8 @@ const path = Astro.url.pathname;
 const [before, after] = SITE.name.includes('em Dia') ? SITE.name.split('em Dia') : [SITE.name, null];
 const links = [
   ...CATEGORIES.map((c) => ({ href: `/${c.slug}/`, label: c.name, current: path.startsWith(`/${c.slug}/`) })),
+  { href: '/sobre/', label: 'Sobre', current: path === '/sobre/' },
+  { href: '/contato/', label: 'Contato', current: path === '/contato/' },
   { href: '/busca/', label: 'Buscar', current: path === '/busca/' },
 ];
 ---

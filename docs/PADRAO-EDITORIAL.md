@@ -47,7 +47,7 @@ Vale para todos os artigos. O que pode ser verificado automaticamente é checado
 
 ## 6. Links internos
 
-- De **3 a 5 links para outros artigos** no corpo, com âncora descritiva ("como funciona a [indicação de condutor](/multas-cnh/indicacao-de-condutor/)"). Âncoras como "clique aqui", "aqui" ou "leia mais" fazem o build falhar.
+- De **3 a 8 links para outros artigos** no corpo (o ideal é 5 a 7), com âncora descritiva ("como funciona a [indicação de condutor](/multas-cnh/indicacao-de-condutor/)"). Âncoras como "clique aqui", "aqui" ou "leia mais" fazem o build falhar.
 - Cada artigo deve **receber pelo menos 2 links** de outros artigos. A matriz de links está no plano da Fase 1.
 - Coloque o link onde ele resolve uma dúvida que surge naquele ponto do texto, não amontoado no fim.
 - Links internos quebrados fazem o build falhar.

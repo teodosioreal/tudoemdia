@@ -164,6 +164,13 @@ const covers = {
   'o-que-e-feito-na-revisao-do-carro': (s) => s + clipboard(160, 90, 1.3, 5) + car(560, 300, 0.95) + wrench(990, 140, 1, 35),
   'quando-trocar-oleo-do-carro': (s) => s + drop(260, 100, 1.7) + rect(640, 170, 230, 300, C.teal, 26) + rect(690, 120, 130, 70, C.teal, 14) + rect(670, 260, 170, 90, C.paper, 12) + rect(690, 285, 130, 14, C.line, 7) + rect(690, 315, 100, 14, C.line, 7),
   'calibragem-pneu-pressao-correta': (s) => s + tire(390, 310, 190) + gauge(760, 150, 1.1, 0.6, C.green),
+  'consulta-debitos-veiculo-pela-placa': (s) => s + phone(200, 110, 1.2, rect(26, 44, 118, 30, C.teal, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7) + rect(26, 152, 104, 14, C.line, 7) + check(40, 190, 0.8)) + car(560, 300, 0.9) + coin(960, 170, 60),
+  'vistoria-veicular-transferencia': (s) => s + car(110, 290, 1.05) + clipboard(640, 90, 1.25, 5) + check(930, 360, 1.1),
+  'aliquota-ipva-por-estado': (s) => s + calc(150, 110, 1.1) + doc(520, 80, 280, 380, 8) + coin(930, 200, 64) + coin(1010, 330, 44),
+  'seguro-carro-motorista-de-aplicativo': (s) => s + phone(180, 110, 1.2, circle(85, 120, 36, C.amber) + rect(26, 200, 118, 14, C.line, 7) + rect(26, 228, 90, 14, C.line, 7)) + car(470, 300, 0.95) + shield(900, 130, 1.0),
+  'recall-de-veiculo-como-consultar': (s) => s + car(120, 280, 1.05) + warn(620, 120, 1.7) + wrench(960, 170, 1, 35),
+  'multa-por-excesso-de-velocidade': (s) => s + gauge(300, 130, 1.8, 0.9, C.red) + doc(780, 110, 240, 320, 6) + warn(960, 370, 0.9),
+  'cnh-suspensa-o-que-fazer': (s) => s + card(160, 200, 1.35) + path('M150 190 L640 470', 'none', C.red, 18) + calendar(760, 120, 1.15) + check(1000, 400, 0.9),
   'revisao-fora-da-concessionaria-perde-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
 };
 

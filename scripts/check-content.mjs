@@ -133,8 +133,8 @@ for (const a of articles) {
   const links = [...a.body.matchAll(/\]\((\/[^)\s#]*)(#[^)\s]*)?\)/g)].map((x) => (x[1].endsWith('/') ? x[1] : x[1] + '/'));
   const toArticles = [...new Set(links.filter((l) => inbound.has(l) || all.some((o) => urlOf(o) === l)).filter((l) => l !== urlOf(a)))];
   for (const l of links) if (!known.has(l)) E.push(`link interno quebrado: ${l}`);
-  if (toArticles.length < 3 || toArticles.length > 5) {
-    (STRICT ? E : W).push(`${toArticles.length} links para outros artigos (exigido 3 a 5)`);
+  if (toArticles.length < 3 || toArticles.length > 8) {
+    (STRICT ? E : W).push(`${toArticles.length} links para outros artigos (exigido 3 a 8)`);
   }
   for (const l of toArticles) inbound.get(l)?.add(urlOf(a));
   const vague = [...a.body.matchAll(/\[(clique aqui|aqui|leia mais|veja mais|neste link|este artigo)\]\(/gi)];

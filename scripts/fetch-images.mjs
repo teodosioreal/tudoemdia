@@ -26,6 +26,8 @@ const argv = process.argv.slice(2);
 const arg = (k) => (argv.includes(`--${k}`) ? argv[argv.indexOf(`--${k}`) + 1] : undefined);
 const provider = arg('provider') ?? 'pexels';
 const pick = Math.max(1, Number(arg('pick') ?? 1));
+// Fotos já recusadas na revisão (marca, logotipo, repetidas): o script pula esses IDs
+const recusadas = new Set(existsSync('scripts/fotos-recusadas.json') ? JSON.parse(await readFile('scripts/fotos-recusadas.json', 'utf8')) : []);
 
 async function searchPexels(query, n) {
   const key = process.env.PEXELS_API_KEY;
@@ -47,10 +49,11 @@ async function searchUnsplash(query, n) {
   const key = process.env.UNSPLASH_ACCESS_KEY;
   if (!key) throw new Error('Defina UNSPLASH_ACCESS_KEY');
   const headers = { Authorization: `Client-ID ${key}`, 'Accept-Version': 'v1' };
-  const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&orientation=landscape&per_page=${Math.max(n, 5)}&content_filter=high`;
+  const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&orientation=landscape&per_page=${Math.max(n, 5) + recusadas.size}&content_filter=high`;
   const res = await fetch(url, { headers });
+  if (res.status === 403) throw new Error('Unsplash respondeu 403 (limite de 50 pedidos por hora; tente de novo mais tarde)');
   if (!res.ok) throw new Error(`Unsplash respondeu ${res.status}`);
-  const photo = (await res.json()).results?.[n - 1];
+  const photo = (await res.json()).results?.filter((p) => !recusadas.has(p.id))[n - 1];
   if (!photo) throw new Error(`Nenhuma foto para "${query}"`);
   await fetch(photo.links.download_location, { headers }).catch(() => {});
   return {

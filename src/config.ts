@@ -128,10 +128,10 @@ export const ADS = {
   },
   // Inserção automática dentro do artigo
   inArticle: {
-    afterFirstParagraph: true,
+    afterIntro: true,
     everyNthH2: 2,
     beforeConclusion: true,
-    // Limite de blocos no corpo do texto
-    max: 4,
+    // Limite de blocos no corpo do texto (3 mantém a leitura confortável no celular)
+    max: 3,
   },
 } as const;

@@ -39,6 +39,8 @@ const artigos = defineCollection({
           .object({ name: z.string(), url: z.url(), source: z.enum(['Pexels', 'Unsplash']) })
           .optional(),
         keyword: z.string().min(3),
+        // "Resumo rápido": 3 a 4 pontos-chave exibidos no topo do artigo
+        resumo: z.array(z.string().min(20).max(160)).min(3).max(4),
         // Padrão editorial: 3 a 5 perguntas e ao menos 1 fonte em todo artigo
         faq: z.array(z.object({ q: z.string().min(10), a: z.string().min(20) })).min(3).max(5),
         sources: z.array(z.object({ title: z.string(), url: z.url() })).min(1),

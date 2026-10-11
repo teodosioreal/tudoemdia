@@ -4,7 +4,7 @@ import { AD_MIN_HEIGHT, adInsAttributes } from './ad-markup';
 
 /**
  * Insere espaços de anúncio no corpo do artigo:
- *  - após o 1º parágrafo
+ *  - após a introdução (antes do 1º H2)
  *  - antes de cada N-ésimo H2 (N = ADS.inArticle.everyNthH2)
  *  - antes da conclusão (H2 cujo texto começa com "Conclusão")
  * Nunca insere colado a listas, tabelas, botões ou ao bloco de FAQ, e nunca
@@ -26,9 +26,10 @@ export default function rehypeAdSlots() {
       return -1;
     };
 
-    if (cfg.afterFirstParagraph) {
-      const p = children.findIndex((n) => isEl(n, 'p'));
-      if (p >= 0) insertBefore.add(p + 1);
+    // Primeiro anúncio só depois da introdução (resposta direta completa), antes do 1º H2
+    if (cfg.afterIntro) {
+      const firstH2 = children.findIndex((n) => isEl(n, 'h2'));
+      if (firstH2 > 0) insertBefore.add(firstH2);
     }
 
     let h2Count = 0;
@@ -44,7 +45,7 @@ export default function rehypeAdSlots() {
     });
 
     const forbidden = new Set(['ul', 'ol', 'table', 'button', 'nav', 'form', 'a']);
-    const positions = [...insertBefore]
+    const candidates = [...insertBefore]
       .sort((a, b) => a - b)
       .filter((pos) => {
         // Componentes MDX (ex.: <Faq />) contam como bloco anterior e não são proibidos
@@ -59,8 +60,8 @@ export default function rehypeAdSlots() {
         if (forbidden.has(next.tagName)) return false;
         if (next.properties?.className?.toString().includes('faq')) return false;
         return true;
-      })
-      .slice(0, cfg.max);
+      });
+    const positions = pickSpread(candidates, cfg.max);
 
     for (const pos of positions.reverse()) {
       children.splice(pos, 0, adNode());
@@ -90,4 +91,13 @@ function adNode(): Element {
       },
     ],
   };
+}
+
+/** Mantém o primeiro e o último espaço e distribui os demais de forma uniforme. */
+function pickSpread(list: number[], max: number): number[] {
+  if (list.length <= max) return list;
+  if (max <= 1) return list.slice(0, max);
+  const out = new Set<number>();
+  for (let i = 0; i < max; i++) out.add(list[Math.round((i * (list.length - 1)) / (max - 1))]);
+  return [...out].sort((a, b) => a - b);
 }

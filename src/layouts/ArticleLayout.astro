@@ -32,6 +32,9 @@ const crumbs = [
   { name: cat.name, href: `/${cat.slug}/` },
   { name: d.title, href: url },
 ];
+const readMinutes = Math.max(1, Math.round((wordCount ?? 0) / 200));
+const shareUrl = abs(url);
+const shareText = encodeURIComponent(`${d.title} ${shareUrl}`);
 const tocHeadings = d.faq?.length
   ? [...headings, { depth: 2, slug: 'perguntas-frequentes', text: 'Perguntas frequentes' }]
   : headings;
@@ -91,6 +94,7 @@ const jsonLd = graph(
               Por&nbsp;<a href={`/autor/${author.slug}/`} rel="author">{author.name}</a>
             </span>
             <span>Atualizado em <time datetime={isoDate(d.updatedDate)}>{formatDate(d.updatedDate)}</time></span>
+            {wordCount && <span>Leitura de {readMinutes} min</span>}
             {isoDate(d.pubDate) !== isoDate(d.updatedDate) && (
               <span>Publicado em <time datetime={isoDate(d.pubDate)}>{formatDate(d.pubDate)}</time></span>
             )}
@@ -116,6 +120,12 @@ const jsonLd = graph(
             </figcaption>
           )}
         </figure>
+        <aside class="quick-summary" aria-labelledby="resumo-rapido">
+          <p class="quick-summary__title" id="resumo-rapido">Resumo rápido</p>
+          <ul>
+            {d.resumo.map((item) => <li>{item}</li>)}
+          </ul>
+        </aside>
         <Toc headings={tocHeadings} />
         <div class="prose">
           <slot />
@@ -130,6 +140,11 @@ const jsonLd = graph(
             </ul>
           </section>
         )}
+        <div class="share" aria-label="Compartilhar este artigo">
+          <span class="share__label">Achou útil? Compartilhe:</span>
+          <a class="share__btn share__btn--wa" href={`https://wa.me/?text=${shareText}`} target="_blank" rel="noopener nofollow">WhatsApp</a>
+          <a class="share__btn share__btn--fb" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener nofollow">Facebook</a>
+        </div>
         <AuthorBox {...author} />
         {related.length > 0 && (
           <section class="related" aria-labelledby="relacionados">

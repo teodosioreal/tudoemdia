@@ -79,7 +79,7 @@ Para ativar depois da aprovação:
 
 Posições dos anúncios:
 
-- **No corpo do artigo** (plugin `src/lib/rehype-ad-slots.ts`): após o 1º parágrafo, a cada 2 H2 e antes da conclusão. O plugin nunca coloca um anúncio colado a listas, tabelas, botões ou formulários e respeita o máximo definido em `ADS.inArticle.max`.
+- **No corpo do artigo** (plugin `src/lib/rehype-ad-slots.ts`): após a introdução, a cada 2 H2 e antes da conclusão (máximo de 3). O plugin nunca coloca um anúncio colado a listas, tabelas, botões ou formulários e respeita o máximo definido em `ADS.inArticle.max`.
 - **Sidebar sticky:** só no desktop (≥ 1024px).
 
 ## Estrutura

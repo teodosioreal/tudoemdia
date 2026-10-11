@@ -15,7 +15,7 @@
     "audit": "node scripts/audit-dist.mjs",
     "set-domain": "node scripts/set-domain.mjs",
     "deploy": "bash scripts/deploy.sh",
-    "fotos": "node scripts/fetch-images.mjs --all --provider unsplash",
+    "fotos": "node scripts/fetch-images.mjs --all --missing --provider unsplash",
     "fotos:pexels": "node scripts/fetch-images.mjs --all"
   },
   "dependencies": {

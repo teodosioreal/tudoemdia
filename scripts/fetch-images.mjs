@@ -87,6 +87,8 @@ async function process1(slug, query, n) {
 if (argv.includes('--all')) {
   const map = JSON.parse(await readFile('scripts/fotos.json', 'utf8'));
   for (const [slug, query] of Object.entries(map)) {
+    // --missing: só artigos que ainda não têm foto
+    if (argv.includes('--missing') && existsSync(`src/assets/fotos/${slug}.webp`)) continue;
     try { await process1(slug, query, pick); } catch (e) { console.log(`✗ ${slug}: ${e.message}`); }
   }
 } else {

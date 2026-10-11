@@ -217,3 +217,8 @@ p { margin: 0 0 1rem; }
 .share__btn--fb { background: #1b4fa8; }
 .share__btn:hover { filter: brightness(1.1); }
 @media (max-width: 599px) { .share__label { flex-basis: 100%; } }
+
+/* Foto dentro do artigo */
+.article-photo { margin: 0 0 1.5rem; max-width: var(--measure); }
+.article-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); }
+.article-photo figcaption { font-size: 0.8rem; color: var(--c-muted); margin-top: 0.4rem; }

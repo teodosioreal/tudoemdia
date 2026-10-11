@@ -35,6 +35,16 @@ const artigos = defineCollection({
           .refine((s) => !/^(imagem|foto|image|capa)\b/i.test(s.trim()), {
             message: 'imageAlt não deve começar com "imagem", "foto" ou "capa"',
           }),
+        // Foto opcional dentro do artigo (após o Resumo rápido), com crédito do fotógrafo
+        foto: z
+          .object({
+            src: image(),
+            alt: z.string().min(15).refine((s) => !s.includes('[REVISAR ALT]'), { message: 'Revise o alt da foto (remova [REVISAR ALT])' }),
+            credito: z.string(),
+            creditoUrl: z.url(),
+            fonte: z.enum(['Pexels', 'Unsplash', 'Arquivo pessoal']),
+          })
+          .optional(),
         imageCredit: z
           .object({ name: z.string(), url: z.url(), source: z.enum(['Pexels', 'Unsplash']) })
           .optional(),

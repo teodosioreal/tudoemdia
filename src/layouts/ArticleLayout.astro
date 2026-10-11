@@ -126,6 +126,25 @@ const jsonLd = graph(
             {d.resumo.map((item) => <li>{item}</li>)}
           </ul>
         </aside>
+        {d.foto && (
+          <figure class="article-photo">
+            <Picture
+              src={d.foto.src}
+              alt={d.foto.alt}
+              formats={['avif', 'webp']}
+              fallbackFormat="webp"
+              widths={[400, 800, 1200]}
+              sizes="(min-width: 860px) 780px, 100vw"
+              width={1200}
+              height={675}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              Foto: <a href={d.foto.creditoUrl} rel="nofollow noopener" target="_blank">{d.foto.credito}</a> / {d.foto.fonte}
+            </figcaption>
+          </figure>
+        )}
         <Toc headings={tocHeadings} />
         <div class="prose">
           <slot />

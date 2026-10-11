@@ -3,12 +3,14 @@
  * Busca fotos com licença livre no Pexels (ou Unsplash) e coloca DENTRO do artigo,
  * logo após o "Resumo rápido" (a ilustração continua como capa).
  *
- *   node scripts/fetch-images.mjs --all                      # todos os artigos de scripts/fotos.json
+ *   npm run fotos            # todos os artigos de scripts/fotos.json, pelo Unsplash
+ *   npm run fotos:pexels     # idem, pelo Pexels
  *   node scripts/fetch-images.mjs --slug <slug> --query "<termos>" [--pick 2] [--provider unsplash]
  *
  * Chave: variável de ambiente PEXELS_API_KEY (ou UNSPLASH_ACCESS_KEY), definida nas
  * configurações do ambiente ou num arquivo .env (nunca commitado).
- * Domínios que precisam estar liberados: api.pexels.com e images.pexels.com.
+ * Domínios que precisam estar liberados: api.unsplash.com e images.unsplash.com
+ * (ou api.pexels.com e images.pexels.com, para o Pexels).
  *
  * Regras editoriais: sem marcas/logotipos, sem rostos identificáveis, sem placas legíveis.
  * Depois de baixar, confira cada foto e escreva o alt em português (o script grava o alt

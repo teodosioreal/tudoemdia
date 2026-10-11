@@ -54,6 +54,7 @@ async function searchUnsplash(query, n) {
   if (res.status === 403) throw new Error('Unsplash respondeu 403 (limite de 50 pedidos por hora; tente de novo mais tarde)');
   if (!res.ok) throw new Error(`Unsplash respondeu ${res.status}`);
   const photo = (await res.json()).results?.filter((p) => !recusadas.has(p.id))[n - 1];
+  if (photo) recusadas.add(photo.id); // não repetir a mesma foto em dois artigos na mesma rodada
   if (!photo) throw new Error(`Nenhuma foto para "${query}"`);
   await fetch(photo.links.download_location, { headers }).catch(() => {});
   return {

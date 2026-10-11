@@ -222,3 +222,8 @@ p { margin: 0 0 1rem; }
 .article-photo { margin: 0 0 1.5rem; max-width: var(--measure); }
 .article-photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); }
 .article-photo figcaption { font-size: 0.8rem; color: var(--c-muted); margin-top: 0.4rem; }
+
+/* Checklists (listas de tarefas do Markdown) */
+.prose ul.contains-task-list { list-style: none; padding-left: 0; }
+.prose li.task-list-item::marker { content: none; }
+.prose li.task-list-item input[type='checkbox'] { margin: 0 0.5em 0 0; vertical-align: -0.1em; accent-color: var(--c-green); }

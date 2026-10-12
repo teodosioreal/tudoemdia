@@ -5,7 +5,7 @@ import infograficos from '../data/infograficos.json';
 /**
  * Insere o infográfico de resumo (gerado por scripts/infograficos/generate.mjs)
  * no meio do artigo, antes de um H2 de número par. Os anúncios usam a introdução,
- * os H2 ímpares a partir do 3º e a conclusão, então o infográfico nunca cai no mesmo ponto.
+ * os H2 ímpares a partir do 3º e o fechamento (último H2), então o infográfico nunca cai no mesmo ponto.
  */
 export default function rehypeInfografico() {
   return (tree: Root, file: { path?: string; history?: string[] }) => {
@@ -18,10 +18,12 @@ export default function rehypeInfografico() {
     const children = tree.children;
     const textOf = (n: RootContent | ElementContent): string =>
       n.type === 'text' ? n.value : 'children' in n ? n.children.map(textOf).join('') : '';
+    // Sem o último H2 (fechamento, depois do FAQ) e sem o H2 do FAQ
     const h2s = children
       .map((n, i) => ({ n, i }))
       .filter(({ n }) => n.type === 'element' && n.tagName === 'h2')
-      .filter(({ n }) => !/^(conclus[aã]o|na pr[aá]tica|resumo|para fechar|o que fazer agora|perguntas frequentes)/i.test(textOf(n).trim()));
+      .slice(0, -1)
+      .filter(({ n }) => !/^perguntas frequentes/i.test(textOf(n).trim()));
     // H2 de número par (2º, 4º...) mais perto do meio do texto
     const pares = h2s.filter((_, k) => k % 2 === 1);
     if (!pares.length) return;

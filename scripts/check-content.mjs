@@ -24,6 +24,22 @@ const BANNED = [
   'vale ressaltar que', 'cabe ressaltar', 'é fundamental destacar', 'neste artigo, vamos', 'neste artigo vamos',
   'sem mais delongas', 'em um mundo cada vez mais', 'desempenha um papel crucial', 'no cenário atual',
   'não é segredo que', 'mergulhar', 'desvendar', 'em suma', 'por fim, mas não menos importante',
+  'em conclusão', 'considerações finais', 'neste guia, vamos', 'confira a seguir', 'veja a seguir', 'vamos entender',
+  'descubra como', 'é crucial', 'de forma eficaz', 'de maneira eficaz', 'navegar pelo', 'um verdadeiro aliado',
+  'fique por dentro', 'tudo o que você precisa saber', 'guia completo', 'não se preocupe',
+];
+
+// Subtítulos de fórmula, típicos de texto gerado: o H2 deve dizer o assunto, não a função da seção
+const FORMULA_H2 = /^(introdu[cç][aã]o|conclus[aã]o|considera[cç][oõ]es finais|resumo|para fechar|em resumo|na pr[aá]tica|o que fazer agora|entenda|saiba mais|tudo sobre)\b/i;
+// Muletas que, repetidas no mesmo texto, deixam a "assinatura" de IA
+const CRUTCHES = [
+  [/\bna pr[aá]tica\b/gi, 1, 'na prática'],
+  [/como (?:explicamos|mostramos|vimos) em/gi, 1, 'como explicamos/mostramos em'],
+  [/exemplo hipot[eé]tico/gi, 1, 'exemplo hipotético'],
+  [/\bvale a pena\b/gi, 2, 'vale a pena'],
+  [/\bem geral\b/gi, 2, 'em geral'],
+  [/\bcostuma(?:m)?\b/gi, 3, 'costuma'],
+  [/\bconfira\b/gi, 3, 'confira'],
 ];
 
 const norm = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -105,7 +121,17 @@ for (const a of articles) {
   if (/^# /m.test(a.body)) E.push('H1 no corpo (o título já é o H1)');
   const h2s = [...a.body.matchAll(/^## (.+)$/gm)].map((x) => x[1]);
   if (h2s.length < 3) E.push(`só ${h2s.length} H2`);
-  if (!h2s.some((h) => /^(conclus[aã]o|na pr[aá]tica|resumo|para fechar|o que fazer agora)/i.test(h))) E.push('falta H2 de fechamento (Conclusão, Na prática, Resumo, Para fechar ou O que fazer agora)');
+  // Fechamento: uma seção depois do FAQ, com subtítulo que fala do assunto (sem "Conclusão", "Na prática" etc.)
+  const afterFaq = a.body.split(/<Faq\b[^>]*\/>/)[1] ?? '';
+  if (!/^## /m.test(afterFaq)) E.push('falta a seção de fechamento depois do <Faq /> (um H2 sobre o assunto, não "Conclusão")');
+  for (const h of h2s) if (FORMULA_H2.test(h.trim())) E.push(`subtítulo de fórmula: "## ${h}" (diga o assunto da seção)`);
+  const colonH2 = h2s.filter((h) => h.includes(':')).length;
+  if (colonH2 > 2) W.push(`${colonH2} subtítulos no formato "X: Y" (máx. 2; varie a forma)`);
+  const bodyText = plainText(a.body);
+  for (const [re, max, label] of CRUTCHES) {
+    const n = (bodyText.match(re) ?? []).length;
+    if (n > max) W.push(`"${label}" aparece ${n} vezes (máx. ${max})`);
+  }
   if (!/^\|.+\|\s*$/m.test(a.body) && !/^\s*(?:[-*]|\d+\.)\s+/m.test(a.body)) E.push('nenhuma tabela ou lista');
   if (a.faqCount < 3 || a.faqCount > 5) E.push(`FAQ com ${a.faqCount} perguntas (exigido 3 a 5)`);
   if (!/<Faq\b/.test(a.body)) E.push('componente <Faq /> ausente no corpo');

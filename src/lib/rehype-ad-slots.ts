@@ -6,7 +6,7 @@ import { AD_MIN_HEIGHT, adInsAttributes } from './ad-markup';
  * Insere espaços de anúncio no corpo do artigo:
  *  - após a introdução (antes do 1º H2)
  *  - antes de cada N-ésimo H2 (N = ADS.inArticle.everyNthH2)
- *  - antes da conclusão (H2 cujo texto começa com "Conclusão")
+ *  - antes do fechamento (o último H2 do texto, que vem depois do FAQ)
  * Nunca insere colado a listas, tabelas, botões ou ao bloco de FAQ, e nunca
  * dois blocos seguidos. Com ADS.enabled = false o plugin não faz nada.
  */
@@ -32,11 +32,13 @@ export default function rehypeAdSlots() {
       if (firstH2 > 0) insertBefore.add(firstH2);
     }
 
+    // O fechamento é sempre o último H2 (vem depois do FAQ); o título dele é livre
+    const lastH2 = children.reduce((acc, n, i) => (isEl(n, 'h2') ? i : acc), -1);
     let h2Count = 0;
     children.forEach((n, i) => {
       if (!isEl(n, 'h2')) return;
       h2Count++;
-      const isConclusion = /^(conclus[aã]o|na pr[aá]tica|resumo|para fechar|o que fazer agora)/i.test(textOf(n).trim());
+      const isConclusion = i === lastH2 && h2Count > 2;
       const isFaq = /perguntas frequentes/i.test(textOf(n));
       if (isFaq) return;
       if ((cfg.beforeConclusion && isConclusion) || (h2Count > 1 && h2Count % cfg.everyNthH2 === 1)) {

@@ -4,6 +4,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import AdsInit from '../components/AdsInit.astro';
+import Analytics from '../components/Analytics.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import type { Props as HeadProps } from '../components/BaseHead.astro';
 
 export type Props = HeadProps;
@@ -12,6 +14,7 @@ export type Props = HeadProps;
 <html lang="pt-BR">
   <head>
     <BaseHead {...Astro.props} />
+    <Analytics />
     <slot name="head" />
   </head>
   <body>
@@ -28,6 +31,7 @@ export type Props = HeadProps;
       sozinha) ou monte aqui o componente da CMP escolhida.
     */}
     <div id="cmp-root"></div>
+    <CookieBanner />
     <AdsInit />
   </body>
 </html>

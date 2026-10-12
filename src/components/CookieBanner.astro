@@ -1,0 +1,42 @@
+---
+// Aviso de cookies (LGPD). Só aparece quando o Google Analytics está ligado.
+import { ANALYTICS } from '../config';
+---
+{
+  ANALYTICS.ga4Id && (
+    <>
+      <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+        <p>
+          Usamos cookies de estatística para entender quais guias são mais úteis. Você escolhe se aceita.{' '}
+          <a href="/politica-de-privacidade/">Política de Privacidade</a>
+        </p>
+        <div class="cookie-banner__acoes">
+          <button type="button" class="btn btn--ghost" data-consentimento="recusado">Recusar</button>
+          <button type="button" class="btn" data-consentimento="aceito">Aceitar</button>
+        </div>
+      </div>
+      <script is:inline>
+        (function () {
+          var banner = document.getElementById('cookie-banner');
+          var chave = 'tde-consentimento';
+          var escolha = null;
+          try { escolha = localStorage.getItem(chave); } catch (e) {}
+          if (!escolha) banner.hidden = false;
+          banner.addEventListener('click', function (ev) {
+            var valor = ev.target && ev.target.getAttribute('data-consentimento');
+            if (!valor) return;
+            try { localStorage.setItem(chave, valor); } catch (e) {}
+            if (window.gtag) window.gtag('consent', 'update', { analytics_storage: valor === 'aceito' ? 'granted' : 'denied' });
+            banner.hidden = true;
+          });
+          document.addEventListener('click', function (ev) {
+            if (ev.target && ev.target.closest && ev.target.closest('[data-abrir-cookies]')) {
+              ev.preventDefault();
+              banner.hidden = false;
+            }
+          });
+        })();
+      </script>
+    </>
+  )
+}

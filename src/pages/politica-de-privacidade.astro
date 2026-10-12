@@ -1,6 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import { SITE, ADS, LEGAL } from '../config';
+import { SITE, ADS, LEGAL, ANALYTICS } from '../config';
 ---
 <PageLayout
   title="Política de Privacidade"
@@ -42,10 +42,10 @@ import { SITE, ADS, LEGAL } from '../config';
         <td>Consentimento, quando exigido</td>
       </tr>
       <tr>
-        <td>Estatísticas de audiência (quando ativas)</td>
-        <td>Cookies e dados de navegação</td>
-        <td>Entender quais conteúdos são úteis</td>
-        <td>Consentimento ou legítimo interesse, conforme a configuração</td>
+        <td>Estatísticas de audiência (Google Analytics)</td>
+        <td>Cookies, páginas visitadas, tempo de leitura, origem da visita, tipo de dispositivo e localização aproximada</td>
+        <td>Entender quais conteúdos são úteis e de onde vêm os leitores</td>
+        <td>Consentimento</td>
       </tr>
     </tbody>
   </table>
@@ -56,8 +56,26 @@ import { SITE, ADS, LEGAL } from '../config';
     Cookies são pequenos arquivos gravados no seu navegador.
     {ADS.enabled
       ? 'Este site exibe anúncios do Google, que usam cookies conforme descrito abaixo. Na primeira visita, um aviso de consentimento permite aceitar, recusar ou ajustar o uso de cookies, e você pode mudar sua escolha depois.'
-      : 'No momento, o site não usa cookies próprios de rastreamento nem de publicidade. Se anúncios ou estatísticas forem ativados, esta política será atualizada e um aviso de consentimento vai aparecer na primeira visita, permitindo aceitar, recusar ou mudar sua escolha depois.'}
+      : ANALYTICS.ga4Id
+        ? 'No momento, o site não exibe anúncios. Ele usa apenas cookies de estatística do Google Analytics, e só depois que você aceita no aviso que aparece na primeira visita.'
+        : 'No momento, o site não usa cookies próprios de rastreamento nem de publicidade. Se anúncios ou estatísticas forem ativados, esta política será atualizada e um aviso de consentimento vai aparecer na primeira visita, permitindo aceitar, recusar ou mudar sua escolha depois.'}
   </p>
+  {ANALYTICS.ga4Id && (
+    <>
+      <h3>Google Analytics</h3>
+      <p>
+        Usamos o Google Analytics 4, do Google, para medir a audiência: quantas pessoas leem cada guia, quanto tempo
+        ficam, de onde chegam (buscador, redes sociais, anúncios) e o tipo de aparelho. Não usamos esses dados para
+        identificar você, e o Google Analytics 4 não registra o endereço IP completo.
+      </p>
+      <p>
+        Enquanto você não aceitar, nenhum cookie de estatística é gravado. Se recusar, o site funciona normalmente.
+        Para mudar sua escolha, use o link <a href="/politica-de-privacidade/" data-abrir-cookies>Preferências de cookies</a>,
+        também disponível no rodapé. Saiba como o Google trata esses dados em
+        <a href="https://policies.google.com/technologies/partner-sites?hl=pt-BR" rel="noopener">policies.google.com</a>.
+      </p>
+    </>
+  )}
   <p>Você também pode apagar ou bloquear cookies nas configurações do navegador. Alguns recursos podem deixar de funcionar.</p>
 
   <h2>4. Publicidade do Google (AdSense)</h2>

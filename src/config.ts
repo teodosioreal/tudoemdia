@@ -30,7 +30,7 @@ export const LEGAL = {
   // TODO: nome completo ou razão social do responsável pelo site (e CNPJ, se houver)
   owner: 'Thiago Teodosio',
   // Data da versão em vigor da Política de Privacidade e dos Termos de Uso
-  policyDate: '10 de outubro de 2026',
+  policyDate: '12 de outubro de 2026',
 } as const;
 
 export const CATEGORIES = [
@@ -117,6 +117,15 @@ export function getCategory(slug: string) {
  * Anúncios. Enquanto `enabled` for false, nenhum espaço é reservado,
  * nenhum <ins> é renderizado e nenhum script do Google é carregado.
  */
+/**
+ * Google Analytics 4. Com `ga4Id` vazio, o site não carrega nada do Google Analytics.
+ * Com o ID preenchido (G-XXXXXXXXXX), o GA4 entra com o Modo de Consentimento: nenhum
+ * cookie de estatística é gravado até o visitante aceitar no aviso de cookies.
+ */
+export const ANALYTICS = {
+  ga4Id: 'G-H4LBH5B3BS',
+} as const;
+
 export const ADS = {
   enabled: false,
   // TODO: ca-pub-XXXXXXXXXXXXXXXX quando a conta AdSense for aprovada

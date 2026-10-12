@@ -1,0 +1,29 @@
+---
+// GA4 com Modo de Consentimento v2: começa tudo "negado" e só libera cookies
+// de estatística depois que o visitante aceita no aviso (componente CookieBanner).
+import { ANALYTICS } from '../config';
+const id = ANALYTICS.ga4Id;
+---
+{
+  id && (
+    <>
+      <script is:inline define:vars={{ id }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        var escolha = null;
+        try { escolha = localStorage.getItem('tde-consentimento'); } catch (e) {}
+        gtag('consent', 'default', {
+          analytics_storage: escolha === 'aceito' ? 'granted' : 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          wait_for_update: 500,
+        });
+        gtag('js', new Date());
+        gtag('config', id);
+      </script>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+    </>
+  )
+}

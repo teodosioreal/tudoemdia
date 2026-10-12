@@ -9,7 +9,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
 const API = 'https://commons.wikimedia.org/w/api.php';
 const UA = { 'User-Agent': 'TudoEmDiaBot/1.0 (https://tudoemdia.blog.br; contato@tudoemdia.blog.br)' };
-const MAX = 10;
+const MAX = 16;
 const strip = (h = '') => h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const api = async (params) => (await fetch(`${API}?${new URLSearchParams({ format: 'json', ...params })}`, { headers: UA })).json();
 

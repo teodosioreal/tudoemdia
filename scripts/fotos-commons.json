@@ -1,9 +1,4 @@
 {
-  "corsa-wind": { "categorias": ["Category:Chevrolet Corsa (first generation)"], "arquivos": ["Brazilian Chevy Corsa.jpg"] },
-  "celta": { "categorias": ["Category:Chevrolet Celta in Brazil", "Category:Chevrolet Celta"] },
-  "palio": { "categorias": ["Category:Fiat Palio (2001)", "Category:Fiat Palio I"], "arquivos": ["Fiat Palio EX 1.3 Fire 2003 (16752985570).jpg", "Fiat Palio EX 1.3 Fire 2004 (12687535155).jpg"] },
-  "uno": { "categorias": ["Category:Fiat Mille"], "arquivos": ["Brazilian Fiat Uno - 1999 model-year - side and front.jpg"] },
-  "fiesta": { "categorias": ["Category:Ford Fiesta MK5 (Brazil)", "Category:Ford Fiesta Street"] },
-  "clio": { "categorias": ["Category:Renault Clio II Phase II"], "arquivos": ["2001-2004 Renault Clio (X65 Phase 2) Expression 5-door hatchback (24035818636).jpg"] },
-  "ka": { "categorias": ["Category:Ford Ka (1997, Brazil)"], "arquivos": ["Ford Ka 1.6 XR 2004 (13976111338).jpg", "Ford Ka 1.6 GL 2004 (14986445629).jpg"] }
+  "celta": { "categorias": ["Category:Chevrolet Celta (2000–2006)"] },
+  "fiesta": { "categorias": ["Category:Ford Fiesta MK4", "Category:Ford Fiesta MK5 (Brazil)"] }
 }

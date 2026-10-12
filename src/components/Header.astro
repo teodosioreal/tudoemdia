@@ -2,8 +2,8 @@
 import { SITE, CATEGORIES } from '../config';
 import Logo from './Logo.astro';
 const path = Astro.url.pathname;
-// Destaca "em Dia" na marca quando o nome do site contiver essa expressão
-const [before, after] = SITE.name.includes('em Dia') ? SITE.name.split('em Dia') : [SITE.name, null];
+// Destaca "Dia" na marca quando o nome do site terminar assim (igual à logo)
+const [before, after] = SITE.name.endsWith(' Dia') ? [SITE.name.slice(0, -3), ''] : [SITE.name, null];
 const links = [
   ...CATEGORIES.map((c) => ({ href: `/${c.slug}/`, label: c.name, current: path.startsWith(`/${c.slug}/`) })),
   { href: '/sobre/', label: 'Sobre', current: path === '/sobre/' },
@@ -15,7 +15,7 @@ const links = [
   <div class="container">
     <a class="brand" href="/" aria-label={`${SITE.name}, página inicial`}>
       <Logo />
-      <span>{before}{after !== null && <span class="brand__em">em Dia</span>}{after}</span>
+      <span>{before}{after !== null && <span class="brand__em">Dia</span>}{after}</span>
     </a>
     <!-- Desktop: menu sempre visível -->
     <nav class="site-nav site-nav--desktop" aria-label="Principal">

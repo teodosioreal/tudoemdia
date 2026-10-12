@@ -13,7 +13,7 @@ const STRICT = process.argv.includes('--strict');
 const DRAFTS = process.argv.includes('--drafts');
 const ROOT = 'src/content/artigos';
 const STATIC_ROUTES = new Set([
-  '/', '/sobre/', '/contato/', '/politica-de-privacidade/', '/termos-de-uso/', '/aviso-legal/', '/busca/',
+  '/', '/sobre/', '/contato/', '/politica-de-privacidade/', '/termos-de-uso/', '/aviso-legal/', '/transparencia/', '/busca/',
   '/documentacao-do-veiculo/', '/ipva-licenciamento/', '/seguro-auto/', '/manutencao-do-carro/', '/multas-cnh/', '/autor/thiago-teodosio/', '/ipva-licenciamento/calculadora-ipva/',
 ]);
 const OFFICIAL = /(\.gov\.br|planalto\.gov\.br|\.jus\.br|\.leg\.br|susep\.gov\.br)/i;

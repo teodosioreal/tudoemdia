@@ -83,7 +83,7 @@ else {
 }
 const robots = existsSync(join(DIST, 'robots.txt')) ? readFileSync(join(DIST, 'robots.txt'), 'utf8') : '';
 if (!/Sitemap: https?:\/\//.test(robots)) errors.push('robots.txt sem linha Sitemap');
-for (const req of ['sobre', 'contato', 'politica-de-privacidade', 'termos-de-uso', 'aviso-legal']) {
+for (const req of ['sobre', 'contato', 'politica-de-privacidade', 'termos-de-uso', 'aviso-legal', 'transparencia']) {
   if (!existsSync(join(DIST, req, 'index.html'))) errors.push(`página obrigatória ausente: /${req}/`);
 }
 if (!existsSync(join(DIST, 'ads.txt'))) errors.push('ads.txt ausente');

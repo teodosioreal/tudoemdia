@@ -1,0 +1,67 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE, LEGAL } from '../config';
+---
+<PageLayout
+  title="Transparência"
+  description={`Quem é responsável pelo ${SITE.name}, como os artigos são produzidos e checados, como o site se mantém e como corrigimos erros.`}
+  updated={LEGAL.policyDate}
+>
+  <p>
+    Esta página reúne, num só lugar, as informações que ajudam você a avaliar se pode confiar no que lê aqui:
+    quem responde pelo site, como o conteúdo é feito, de onde vem o dinheiro e o que fazemos quando erramos.
+  </p>
+
+  <h2>Quem é responsável</h2>
+  <ul>
+    <li><strong>Responsável pelo site e pelo conteúdo:</strong> {LEGAL.owner}, fundador e editor. Saiba mais em <a href="/sobre/">Sobre</a> e na <a href="/autor/thiago-teodosio/">página do autor</a>.</li>
+    <li><strong>Contato:</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, também pela página de <a href="/contato/">Contato</a>.</li>
+    <li><strong>Vínculos:</strong> o {SITE.name} é um site independente. Não tem ligação com Detrans, Secretarias da Fazenda, Senatran, seguradoras, montadoras ou despachantes.</li>
+  </ul>
+
+  <h2>Como os artigos são produzidos</h2>
+  <ol>
+    <li><strong>Pauta:</strong> cada artigo parte de uma dúvida real e responde a ela nos primeiros parágrafos.</li>
+    <li><strong>Fontes oficiais:</strong> regras, prazos e valores vêm da legislação (planalto.gov.br e leis estaduais), das resoluções do Contran e dos sites da Senatran, dos Detrans, das Secretarias da Fazenda e da SUSEP. As fontes ficam listadas no fim de cada artigo.</li>
+    <li><strong>Checagem:</strong> nenhum valor, prazo, alíquota ou artigo de lei é publicado sem fonte. Quando a informação não pode ser confirmada, ela fica de fora do texto.</li>
+    <li><strong>Regras estaduais:</strong> quando algo muda de estado para estado, o artigo diz isso e indica onde consultar a regra local, em vez de tratar a regra de um estado como nacional.</li>
+    <li><strong>Atualização:</strong> todo artigo mostra a data da última revisão. Quando uma norma muda, o texto é revisado e a data é atualizada.</li>
+  </ol>
+
+  <h2>Uso de inteligência artificial</h2>
+  <p>
+    Usamos ferramentas de inteligência artificial como apoio na pesquisa, na organização das fontes e na redação dos
+    rascunhos. A responsabilidade pelo conteúdo é sempre do editor: cada artigo é conferido contra as fontes oficiais
+    citadas antes de ser publicado, e nenhum texto vai ao ar sem essa revisão.
+  </p>
+
+  <h2>Como o site se mantém</h2>
+  <ul>
+    <li>O site pode exibir anúncios do Google AdSense. Os anúncios são escolhidos pelo Google e identificados como publicidade.</li>
+    <li>Não publicamos conteúdo patrocinado, não recebemos para recomendar empresas e não usamos links de afiliado nos artigos.</li>
+    <li>Quando um artigo compara opções, como seguradoras ou formas de pagamento, a comparação segue critérios objetivos, sem indicação de marca.</li>
+  </ul>
+
+  <h2>Imagens</h2>
+  <ul>
+    <li>As capas e os infográficos são produzidos pelo próprio {SITE.name}.</li>
+    <li>As fotos usadas nos artigos têm licença livre, do Unsplash ou do Pexels, e o crédito do fotógrafo aparece junto da imagem.</li>
+    <li>Não usamos fotos com marcas, placas legíveis ou rostos identificáveis.</li>
+  </ul>
+
+  <h2>Política de correções</h2>
+  <p>
+    Se você encontrar um erro, escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a> com o endereço do
+    artigo, o trecho e, se possível, o link da fonte oficial. Erros de informação são corrigidos no próprio texto e a
+    data de atualização é ajustada. Mudanças que alteram uma orientação prática, como um prazo ou um valor, são
+    feitas com prioridade.
+  </p>
+
+  <h2>Limites do conteúdo</h2>
+  <p>
+    O conteúdo é informativo e não substitui a orientação de um profissional nem a consulta ao órgão competente.
+    Não damos consultoria individual. Os detalhes estão no <a href="/aviso-legal/">Aviso Legal</a> e nos
+    <a href="/termos-de-uso/">Termos de Uso</a>. O tratamento dos seus dados está na
+    <a href="/politica-de-privacidade/">Política de Privacidade</a>.
+  </p>
+</PageLayout>

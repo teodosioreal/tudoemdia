@@ -1,0 +1,15 @@
+name: Diagnóstico de acesso (Googlebot)
+on: workflow_dispatch
+jobs:
+  checar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testar URLs como o Googlebot
+        run: |
+          UA="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          for u in https://tudoemdia.blog.br/robots.txt https://tudoemdia.blog.br/sitemap-index.xml https://tudoemdia.blog.br/sitemap-0.xml https://tudoemdia.blog.br/ http://tudoemdia.blog.br/sitemap-index.xml https://www.tudoemdia.blog.br/; do
+            echo "== $u"
+            curl -sS -A "$UA" -o /tmp/body -D - -m 30 -L "$u" | grep -iE "^(HTTP|content-type|location|x-robots|server|cf-|x-hcdn)" || true
+            head -c 200 /tmp/body; echo; echo
+          done
+          echo "== DNS"; getent hosts tudoemdia.blog.br || true; getent hosts www.tudoemdia.blog.br || true

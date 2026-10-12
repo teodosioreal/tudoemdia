@@ -44,7 +44,7 @@ export default function rehypeAdSlots() {
       }
     });
 
-    const forbidden = new Set(['ul', 'ol', 'table', 'button', 'nav', 'form', 'a']);
+    const forbidden = new Set(['ul', 'ol', 'table', 'button', 'nav', 'form', 'a', 'figure', 'img']);
     const candidates = [...insertBefore]
       .sort((a, b) => a - b)
       .filter((pos) => {

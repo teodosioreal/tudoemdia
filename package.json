@@ -16,7 +16,8 @@
     "set-domain": "node scripts/set-domain.mjs",
     "deploy": "bash scripts/deploy.sh",
     "fotos": "node scripts/fetch-images.mjs --all --missing --provider unsplash",
-    "fotos:pexels": "node scripts/fetch-images.mjs --all"
+    "fotos:pexels": "node scripts/fetch-images.mjs --all",
+    "infograficos": "node scripts/infograficos/generate.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.2",

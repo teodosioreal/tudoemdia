@@ -278,3 +278,8 @@ p { margin: 0 0 1rem; }
   .search-form { flex-wrap: nowrap; }
   .search-form input { flex: 1 1 auto; min-width: 0; }
 }
+
+/* Infográfico de resumo dentro do artigo */
+.prose figure.infografico { margin: 2rem auto; max-width: 480px; }
+.prose figure.infografico img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--c-border); box-shadow: var(--shadow); }
+.prose figure.infografico figcaption { margin-top: 0.5rem; font-size: 0.82rem; color: var(--c-muted); text-align: center; }

@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { SITE } from './src/config';
 import rehypeAdSlots from './src/lib/rehype-ad-slots';
+import rehypeInfografico from './src/lib/rehype-infografico';
 import redirects from './src/redirects.json' with { type: 'json' };
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -51,7 +52,7 @@ export default defineConfig({
   redirects,
   markdown: {
     // MDX herda este processador (e o plugin que insere os espaços de anúncio)
-    processor: unified({ rehypePlugins: [rehypeAdSlots] }),
+    processor: unified({ rehypePlugins: [rehypeInfografico, rehypeAdSlots] }),
   },
   integrations: [
     mdx(),

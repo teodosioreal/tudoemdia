@@ -1,11 +1,14 @@
 name: Publicar (Hostinger)
 
-# A cada push na main: valida o conteúdo, gera o site e grava o resultado (dist/)
+# A cada push na main e todo dia às 6h17 (Brasília): valida o conteúdo, gera o site e grava o resultado (dist/)
 # na branch "deploy". A Hostinger (hPanel → Avançado → Git) puxa essa branch
 # para a public_html, automaticamente via webhook.
 on:
   push:
     branches: [main]
+  # Build diário: publica os artigos agendados (pubDate = hoje) sem precisar de push
+  schedule:
+    - cron: '17 9 * * *'
   workflow_dispatch:
 
 permissions:

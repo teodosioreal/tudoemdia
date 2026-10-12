@@ -2,11 +2,18 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Article = CollectionEntry<'artigos'>;
 
-/** Rascunhos aparecem só no `astro dev` ou com SHOW_DRAFTS=1 no build. */
+/**
+ * Rascunhos e artigos agendados (pubDate no futuro) aparecem só no `astro dev`
+ * ou com SHOW_DRAFTS=1 no build. O build diário publica cada um na sua data.
+ */
 const showDrafts = import.meta.env.DEV || process.env.SHOW_DRAFTS === '1';
+const today = new Date().toISOString().slice(0, 10);
+
+export const isPublished = (a: Article) =>
+  showDrafts || (!a.data.draft && a.data.pubDate.toISOString().slice(0, 10) <= today);
 
 export async function getArticles(): Promise<Article[]> {
-  const all = await getCollection('artigos', (a) => showDrafts || !a.data.draft);
+  const all = await getCollection('artigos', isPublished);
   return all.sort((a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf());
 }
 

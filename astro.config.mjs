@@ -6,11 +6,14 @@ import { unified } from '@astrojs/markdown-remark';
 import { SITE } from './src/config';
 import rehypeAdSlots from './src/lib/rehype-ad-slots';
 import rehypeInfografico from './src/lib/rehype-infografico';
+import rehypeLinksAgendados from './src/lib/rehype-links-agendados';
+import { artigos, estaPublicado } from './src/lib/agenda.mjs';
 import redirects from './src/redirects.json' with { type: 'json' };
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 /** URL do artigo -> updatedDate, lido do frontmatter, para o <lastmod> do sitemap. */
+const publicacao = artigos();
 function articleLastmod() {
   /** @type {Map<string, string>} */
   const map = new Map();
@@ -23,7 +26,10 @@ function articleLastmod() {
         const fm = readFileSync(p, 'utf8').split('---')[1] ?? '';
         const cat = fm.match(/^category:\s*["']?([\w-]+)/m)?.[1];
         const upd = fm.match(/^updatedDate:\s*["']?([\d-]+)/m)?.[1];
-        if (cat && upd) map.set(`/${cat}/${e.name.replace(/\.mdx?$/, '')}/`, upd);
+        const slug = e.name.replace(/\.mdx?$/, '');
+        const a = publicacao.get(slug);
+        // Artigo agendado não entra na conta (nem no lastmod da home e da categoria)
+        if (cat && upd && a && estaPublicado(a)) map.set(`/${cat}/${slug}/`, upd);
       }
     }
   };
@@ -52,7 +58,7 @@ export default defineConfig({
   redirects,
   markdown: {
     // MDX herda este processador (e o plugin que insere os espaços de anúncio)
-    processor: unified({ rehypePlugins: [rehypeInfografico, rehypeAdSlots] }),
+    processor: unified({ rehypePlugins: [rehypeLinksAgendados, rehypeInfografico, rehypeAdSlots] }),
   },
   integrations: [
     mdx(),

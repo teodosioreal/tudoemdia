@@ -103,5 +103,20 @@
   },
   "vistoria-veicular-transferencia": {
     "alt": "Infográfico com o resumo do guia \"Vistoria veicular: quando é exigida e como não ser reprovado\": A vistoria de identificação é exigida na transferência de propriedade, na mudança de município e na alteração de características. A Resolução Contran 1.027/2026 manteve a vistoria como condição para emitir o novo CRLV-e na transferência. O laudo é eletrônico e só vale se registrado no sistema nacional (SISCSV); a validade varia por estado. Chassi ilegível, equipamento faltando e modificação não regularizada estão entre as causas de reprovação."
+  },
+  "ipva-a-vista-ou-parcelado": {
+    "alt": "Infográfico com o resumo do guia \"IPVA à vista ou parcelado: como funciona e quando compensa\": Cada estado define o desconto à vista e o número de parcelas do IPVA. Em 2026, o desconto à vista foi de 3% em SP, MG e RJ, 6% no PR e 15% na BA no primeiro prazo. Parcelar pelo calendário oficial não tem juros, mas perde o desconto. Cartão de crédito só por empresa credenciada, com juros da operadora."
+  },
+  "ipva-carro-eletrico-e-hibrido": {
+    "alt": "Infográfico com o resumo do guia \"IPVA de carro elétrico e híbrido: regras por estado\": Não há regra nacional: cada estado decide se o elétrico paga, paga menos ou é isento. PE, RS e outros isentam o elétrico puro; o RJ cobra 0,5% e a BA isenta até R$ 300 mil. Em SP, elétrico puro paga 4%; híbrido a etanol até R$ 261 mil ficou isento até 2026. Isenção estadual costuma ter teto de valor, prazo e exigência de pedido."
+  },
+  "ipva-carro-roubado-ou-furtado": {
+    "alt": "Infográfico com o resumo do guia \"IPVA de carro roubado ou furtado: dá para não pagar?\": Em SP, o IPVA é dispensado a partir do mês do roubo ou furto, à razão de 1/12 por mês. Quem já pagou o ano inteiro recebe a diferença de volta no ano seguinte. Tudo depende do boletim de ocorrência e de estar sem IPVA atrasado no CPF. As regras e o pedido mudam por estado. Confira na Sefaz."
+  },
+  "ipva-de-moto": {
+    "alt": "Infográfico com o resumo do guia \"IPVA de moto: alíquota, isenção por cilindrada e como pagar\": Moto paga alíquota menor que carro: 2% em SP, RJ, MG e RS e 1% em SC, em 2026. SP isenta motos até 180 cc, PR e PB até 170 cc e SC até 200 cc. Nesses estados a isenção é automática, mas tem condições, como estar com o licenciamento em dia. Moto isenta de IPVA continua pagando o licenciamento anual."
+  },
+  "isencao-de-ipva-quem-tem-direito": {
+    "alt": "Infográfico com o resumo do guia \"Isenção de IPVA: quem tem direito e como pedir\": Carros de passeio com 20 anos ou mais de fabricação não pagam IPVA em todo o país (EC 137/2025). Pessoa com deficiência, táxi, moto e elétrico dependem da lei de cada estado. Muitas isenções precisam de pedido na Sefaz e são renovadas ou revistas todo ano. Isenção do IPVA não dispensa a taxa de licenciamento anual."
   }
 }

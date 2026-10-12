@@ -143,6 +143,18 @@ const calc = (x, y, s = 1) => {
   return g(`translate(${x} ${y}) scale(${s})`, rect(0, 0, 230, 330, C.dark, 22) + rect(20, 22, 190, 76, C.teal, 10) + rect(110, 50, 84, 20, C.dark, 5, 'opacity="0.5"') + k);
 };
 
+const moto = (x, y, s = 1, body = C.amber) =>
+  g(`translate(${x} ${y}) scale(${s})`,
+    circle(70, 170, 62, C.dark) + circle(70, 170, 26, C.line) +
+    circle(330, 170, 62, C.dark) + circle(330, 170, 26, C.line) +
+    path('M70 170 L150 80 L250 80 L330 170', 'none', C.line, 16) +
+    path('M130 70 Q160 30 230 40 L270 80 L150 90 Z', body) +
+    path('M250 80 L290 20 L330 20', 'none', C.line, 14) + rect(150, 60, 70, 22, C.dark, 10));
+const bolt = (x, y, s = 1, color = C.amber) =>
+  g(`translate(${x} ${y}) scale(${s})`, path('M70 0 L10 120 L60 120 L40 220 L120 80 L70 80 L100 0 Z', color));
+const plug = (x, y, s = 1) =>
+  g(`translate(${x} ${y}) scale(${s})`, rect(0, 40, 120, 150, C.paper, 20) + rect(28, 0, 18, 50, C.line, 6) + rect(74, 0, 18, 50, C.line, 6) + rect(48, 190, 24, 70, C.line) + path('M60 260 Q60 330 0 330', 'none', C.line, 14) + g('translate(30 70) scale(0.5)', path('M70 0 L10 120 L60 120 L40 220 L120 80 L70 80 L100 0 Z', C.green)));
+
 // ---------- composição por artigo ----------
 const covers = {
   'como-transferir-carro-usado': (s) => s + car(90, 280, 1.15) + arrow(560, 330, 720, 330) + doc(900, 80, 200, 260, 5) + key(760, 400, 1.1),
@@ -187,6 +199,11 @@ const covers = {
   'multa-por-celular-ao-volante': (s) => s + circle(360, 300, 170, 'none', `stroke="${C.line}" stroke-width="34"`) + rect(345, 300, 30, 160, C.line) + path('M200 300 L520 300', 'none', C.line, 30) + phone(680, 120, 1.25, rect(26, 44, 118, 30, C.red, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7)) + circle(950, 400, 70, 'none', `stroke="${C.red}" stroke-width="14"`) + path('M902 448 L998 352', 'none', C.red, 14),
   'cadeirinha-infantil-regras': (s) => s + path('M260 140 Q260 110 290 110 L420 110 Q450 110 450 140 L450 360 L260 360 Z', C.teal) + path('M230 360 L480 360 Q500 360 500 380 L500 440 L230 440 Q210 440 210 420 L210 380 Q210 360 230 360 Z', C.teal) + rect(300, 160, 110, 150, C.bg3, 20) + path('M300 200 L355 290 L410 200', 'none', C.amber, 12) + check(620, 170, 1.3) + car(720, 300, 0.85),
   'revisao-fora-da-concessionaria-perde-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
+  'isencao-de-ipva-quem-tem-direito': (s) => s + doc(150, 80, 280, 380, 7) + check(340, 360, 1.3) + car(560, 300, 0.85) + shield(930, 120, 0.9),
+  'ipva-a-vista-ou-parcelado': (s) => s + calendar(140, 110, 1.3, C.teal) + coin(560, 420, 34) + coin(660, 390, 46) + coin(780, 350, 58) + coin(930, 300, 72) + arrow(560, 230, 900, 160, C.amber),
+  'ipva-carro-roubado-ou-furtado': (s) => s + rect(110, 250, 420, 250, 'none', 20, `stroke="${C.line}" stroke-width="10" stroke-dasharray="26 20"`) + warn(250, 300, 1.5) + arrow(600, 370, 760, 370, C.line) + coin(860, 360, 70) + coin(990, 250, 48),
+  'ipva-carro-eletrico-e-hibrido': (s) => s + car(110, 290, 1.0, C.teal) + plug(560, 110, 1.0) + bolt(820, 150, 1.2) + coin(1020, 380, 56),
+  'ipva-de-moto': (s) => s + moto(110, 250, 1.15) + doc(680, 90, 240, 330, 6) + check(860, 360, 1.1),
 };
 
 await mkdir('design/capas', { recursive: true });

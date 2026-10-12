@@ -155,6 +155,15 @@ const bolt = (x, y, s = 1, color = C.amber) =>
 const plug = (x, y, s = 1) =>
   g(`translate(${x} ${y}) scale(${s})`, rect(0, 40, 120, 150, C.paper, 20) + rect(28, 0, 18, 50, C.line, 6) + rect(74, 0, 18, 50, C.line, 6) + rect(48, 190, 24, 70, C.line) + path('M60 260 Q60 330 0 330', 'none', C.line, 14) + g('translate(30 70) scale(0.5)', path('M70 0 L10 120 L60 120 L40 220 L120 80 L70 80 L100 0 Z', C.green)));
 
+const lock = (x, y, s = 1, color = C.amber) =>
+  g(`translate(${x} ${y}) scale(${s})`, path('M30 90 L30 55 A50 50 0 0 1 130 55 L130 90', 'none', C.line, 18) + rect(0, 90, 160, 130, color, 18) + circle(80, 145, 16, C.dark) + rect(73, 150, 14, 40, C.dark, 5));
+const tow = (x, y, s = 1) =>
+  g(`translate(${x} ${y}) scale(${s})`, rect(0, 60, 230, 90, C.teal, 16) + rect(150, 10, 80, 70, C.teal, 12) + rect(165, 22, 50, 34, C.paper, 6) + path('M20 60 L-80 120', 'none', C.line, 12) + circle(50, 160, 30, C.dark) + circle(190, 160, 30, C.dark));
+const plate = (x, y, s = 1) =>
+  g(`translate(${x} ${y}) scale(${s})`, rect(0, 0, 420, 150, C.white, 16) + rect(0, 0, 420, 40, '#1f4fa8', 16) + rect(0, 26, 420, 14, '#1f4fa8') + rect(30, 62, 50, 64, C.dark, 6) + rect(95, 62, 50, 64, C.dark, 6) + rect(160, 62, 50, 64, C.dark, 6) + rect(240, 62, 50, 64, C.dark, 6) + rect(305, 62, 50, 64, C.dark, 6) + rect(370, 62, 30, 64, C.dark, 6));
+const pin = (x, y, s = 1, color = C.red) =>
+  g(`translate(${x} ${y}) scale(${s})`, path('M50 0 A50 50 0 0 1 100 50 Q100 90 50 150 Q0 90 0 50 A50 50 0 0 1 50 0 Z', color) + circle(50, 50, 20, C.white));
+
 // ---------- composição por artigo ----------
 const covers = {
   'como-transferir-carro-usado': (s) => s + car(90, 280, 1.15) + arrow(560, 330, 720, 330) + doc(900, 80, 200, 260, 5) + key(760, 400, 1.1),
@@ -204,6 +213,10 @@ const covers = {
   'ipva-carro-roubado-ou-furtado': (s) => s + rect(110, 250, 420, 250, 'none', 20, `stroke="${C.line}" stroke-width="10" stroke-dasharray="26 20"`) + warn(250, 300, 1.5) + arrow(600, 370, 760, 370, C.line) + coin(860, 360, 70) + coin(990, 250, 48),
   'ipva-carro-eletrico-e-hibrido': (s) => s + car(110, 290, 1.0, C.teal) + plug(560, 110, 1.0) + bolt(820, 150, 1.2) + coin(1020, 380, 56),
   'ipva-de-moto': (s) => s + moto(110, 250, 1.15) + doc(680, 90, 240, 330, 6) + check(860, 360, 1.1),
+  'vender-carro-financiado': (s) => s + car(100, 290, 1.0) + lock(520, 180, 1.2) + doc(780, 90, 220, 300, 6) + key(840, 410, 0.9),
+  'como-tirar-carro-do-patio': (s) => s + tow(260, 240, 1.4) + car(40, 330, 0.6, C.amber) + circle(900, 220, 110, C.paper) + path('M900 140 L900 220 L960 250', 'none', C.bg, 16) + coin(1040, 400, 50),
+  'placa-mercosul-quando-trocar': (s) => s + plate(130, 170, 1.3) + check(860, 330, 1.2) + doc(880, 70, 200, 230, 4),
+  'transferir-carro-mudanca-de-estado': (s) => s + pin(120, 120, 1.3, C.teal) + path('M190 330 Q600 520 900 300', 'none', C.line, 12, 'stroke-dasharray="26 22"') + pin(900, 110, 1.3, C.amber) + car(430, 230, 0.75),
 };
 
 await mkdir('design/capas', { recursive: true });

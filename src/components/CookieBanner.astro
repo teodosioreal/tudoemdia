@@ -3,7 +3,7 @@
 import { ANALYTICS } from '../config';
 ---
 {
-  ANALYTICS.ga4Id && (
+  (ANALYTICS.ga4Id || ANALYTICS.gtmId) && (
     <>
       <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
         <p>

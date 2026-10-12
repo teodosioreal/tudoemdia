@@ -25,7 +25,7 @@ const year = new Date().getFullYear();
           <li><a href="/termos-de-uso/">Termos de Uso</a></li>
           <li><a href="/aviso-legal/">Aviso Legal</a></li>
           <li><a href="/transparencia/">Transparência</a></li>
-          {ANALYTICS.ga4Id && <li><a href="/politica-de-privacidade/" data-abrir-cookies>Preferências de cookies</a></li>}
+          {(ANALYTICS.ga4Id || ANALYTICS.gtmId) && <li><a href="/politica-de-privacidade/" data-abrir-cookies>Preferências de cookies</a></li>}
         </ul>
       </nav>
     </div>

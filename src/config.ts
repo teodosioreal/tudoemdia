@@ -124,6 +124,9 @@ export function getCategory(slug: string) {
  */
 export const ANALYTICS = {
   ga4Id: 'G-H4LBH5B3BS',
+  // Google Tag Manager. Carrega depois do consentimento padrão, então as tags
+  // configuradas lá também respeitam a escolha do visitante no aviso de cookies.
+  gtmId: 'GTM-T5TSKFDW',
 } as const;
 
 export const ADS = {

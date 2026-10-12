@@ -1,29 +1,47 @@
 ---
-// GA4 com Modo de Consentimento v2: começa tudo "negado" e só libera cookies
-// de estatística depois que o visitante aceita no aviso (componente CookieBanner).
+// Modo de Consentimento v2: começa tudo "negado" e só libera cookies de estatística
+// depois que o visitante aceita no aviso (componente CookieBanner). Em seguida vêm
+// o GA4 e o Google Tag Manager, que herdam esse consentimento pelo dataLayer.
 import { ANALYTICS } from '../config';
-const id = ANALYTICS.ga4Id;
+const { ga4Id, gtmId } = ANALYTICS;
 ---
 {
-  id && (
+  (ga4Id || gtmId) && (
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      var escolha = null;
+      try { escolha = localStorage.getItem('tde-consentimento'); } catch (e) {}
+      gtag('consent', 'default', {
+        analytics_storage: escolha === 'aceito' ? 'granted' : 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+    </script>
+  )
+}
+{
+  gtmId && (
+    <script is:inline define:vars={{ gtmId }}>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer',gtmId);
+    </script>
+  )
+}
+{
+  ga4Id && (
     <>
-      <script is:inline define:vars={{ id }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        window.gtag = gtag;
-        var escolha = null;
-        try { escolha = localStorage.getItem('tde-consentimento'); } catch (e) {}
-        gtag('consent', 'default', {
-          analytics_storage: escolha === 'aceito' ? 'granted' : 'denied',
-          ad_storage: 'denied',
-          ad_user_data: 'denied',
-          ad_personalization: 'denied',
-          wait_for_update: 500,
-        });
+      <script is:inline define:vars={{ ga4Id }}>
         gtag('js', new Date());
-        gtag('config', id);
+        gtag('config', ga4Id);
       </script>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
     </>
   )
 }

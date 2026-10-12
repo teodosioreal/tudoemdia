@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import AdsInit from '../components/AdsInit.astro';
 import Analytics from '../components/Analytics.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import { ANALYTICS } from '../config';
 import type { Props as HeadProps } from '../components/BaseHead.astro';
 
 export type Props = HeadProps;
@@ -13,11 +14,15 @@ export type Props = HeadProps;
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <BaseHead {...Astro.props} />
+    <meta charset="utf-8" />
     <Analytics />
+    <BaseHead {...Astro.props} />
     <slot name="head" />
   </head>
   <body>
+    {ANALYTICS.gtmId && (
+      <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${ANALYTICS.gtmId}`} height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+    )}
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <Header />
     <main id="conteudo" tabindex="-1">

@@ -4,27 +4,34 @@ import { getCategory } from '../config';
 import { articleUrl, type Article } from '../lib/content';
 export interface Props { article: Article; eager?: boolean; headingLevel?: 'h2' | 'h3' }
 const { article, eager = false, headingLevel = 'h3' } = Astro.props;
-const { title, description, image, imageAlt, category } = article.data;
+const { title, description, image, imageAlt, foto, category, updatedDate } = article.data;
 const url = articleUrl(article);
 const H = headingLevel;
+// Foto real chama mais atenção no card; a ilustração fica como reserva
+const thumb = foto?.src ?? image;
+const thumbAlt = foto?.alt ?? imageAlt;
+const date = updatedDate.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
 ---
 <article class="card">
-  <Picture
-    src={image}
-    alt={imageAlt}
-    formats={['avif', 'webp']}
-    fallbackFormat="webp"
-    widths={[360, 600, 800]}
-    sizes="(min-width: 1160px) 280px, (min-width: 600px) 45vw, 100vw"
-    width={800}
-    height={420}
-    loading={eager ? 'eager' : 'lazy'}
-    fetchpriority={eager ? 'high' : undefined}
-    decoding="async"
-  />
+  <a class="card__media" href={url} tabindex="-1" aria-hidden="true">
+    <Picture
+      src={thumb}
+      alt={thumbAlt}
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
+      widths={[240, 400, 640, 800]}
+      sizes="(min-width: 1160px) 280px, (min-width: 600px) 45vw, 132px"
+      width={800}
+      height={450}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      decoding="async"
+    />
+  </a>
   <div class="card__body">
     <span class="card__cat">{getCategory(category).name}</span>
     <H class="card__title"><a href={url}>{title}</a></H>
     <p class="card__desc">{description}</p>
+    <p class="card__date"><time datetime={updatedDate.toISOString().slice(0, 10)}>{date}</time></p>
   </div>
 </article>

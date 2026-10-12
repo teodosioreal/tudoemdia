@@ -86,13 +86,28 @@ p { margin: 0 0 1rem; }
 .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
 .card { border: 1px solid var(--c-border); border-radius: var(--radius); overflow: hidden; background: var(--c-bg); display: flex; flex-direction: column; box-shadow: var(--shadow); transition: transform 0.15s ease; }
 .card:hover { transform: translateY(-2px); }
-.card img { aspect-ratio: 1200 / 630; object-fit: cover; width: 100%; }
+.card__media { display: block; line-height: 0; }
+.card img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; height: auto; }
 .card__body { padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
 .card__cat { align-self: flex-start; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--c-green); background: rgba(22, 121, 77, 0.08); border-radius: 999px; padding: 0.15rem 0.6rem; }
 .card__title { font-size: 1.1rem; margin: 0; }
 .card__title a { color: var(--c-primary-700); text-decoration: none; }
 .card__title a:hover { text-decoration: underline; }
 .card__desc { color: var(--c-muted); font-size: 0.95rem; margin: 0; }
+.card__date { margin: auto 0 0; padding-top: 0.25rem; font-size: 0.8rem; color: var(--c-muted); }
+
+/* Celular: lista no estilo portal de notícias (título à esquerda, foto à direita) */
+@media (max-width: 599px) {
+  .grid { gap: 0; }
+  .card { flex-direction: row-reverse; align-items: flex-start; gap: 0.9rem; border: 0; border-bottom: 1px solid var(--c-border); border-radius: 0; box-shadow: none; padding: 1rem 0; background: transparent; }
+  .card:hover { transform: none; }
+  .card__media { flex: 0 0 132px; }
+  .card img { aspect-ratio: 4 / 3; border-radius: 10px; }
+  .card__body { padding: 0; gap: 0.3rem; }
+  .card__cat { font-size: 0.68rem; padding: 0.1rem 0.5rem; }
+  .card__title { font-size: 1.02rem; line-height: 1.3; }
+  .card__desc { display: none; }
+}
 
 /* Seções */
 .hero { background: radial-gradient(circle at 90% 10%, rgba(22, 121, 77, 0.10), transparent 40%), var(--c-surface); border-bottom: 1px solid var(--c-border); padding-block: 2.5rem; }
@@ -115,7 +130,7 @@ p { margin: 0 0 1rem; }
 .article-header { max-width: var(--measure); }
 .article-meta { color: var(--c-muted); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-bottom: 1.25rem; }
 .article-cover { margin: 0 0 1.5rem; }
-.article-cover img { width: 100%; border-radius: var(--radius); aspect-ratio: 1200 / 630; object-fit: cover; }
+.article-cover img { width: 100%; height: auto; border-radius: var(--radius); object-fit: cover; }
 .article-cover figcaption { font-size: 0.8rem; color: var(--c-muted); margin-top: 0.4rem; }
 .prose { max-width: var(--measure); }
 .prose ul, .prose ol { padding-left: 1.4rem; margin: 0 0 1rem; }

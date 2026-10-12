@@ -39,7 +39,9 @@ const tocHeadings = d.faq?.length
   ? [...headings, { depth: 2, slug: 'perguntas-frequentes', text: 'Perguntas frequentes' }]
   : headings;
 
-const ogImg = await getImage({ src: d.image, width: 1200, height: 630, format: 'webp', fit: 'cover' });
+// Foto real (quando houver) é a imagem principal: topo do artigo, prévia de compartilhamento e Schema
+const hero = d.foto ? { src: d.foto.src, alt: d.foto.alt } : { src: d.image, alt: d.imageAlt };
+const ogImg = await getImage({ src: hero.src, width: 1200, height: 630, format: 'webp', fit: 'cover' });
 const authorImg = author.avatar ? await getImage({ src: author.avatar, width: 160, height: 160, format: 'webp' }) : null;
 
 const jsonLd = graph(
@@ -71,8 +73,8 @@ const jsonLd = graph(
 <BaseLayout
   title={d.title}
   description={d.description}
-  image={d.image}
-  imageAlt={d.imageAlt}
+  image={hero.src}
+  imageAlt={hero.alt}
   type="article"
   publishedTime={d.pubDate}
   modifiedTime={d.updatedDate}
@@ -102,19 +104,23 @@ const jsonLd = graph(
         </header>
         <figure class="article-cover">
           <Picture
-            src={d.image}
-            alt={d.imageAlt}
+            src={hero.src}
+            alt={hero.alt}
             formats={['avif', 'webp']}
             fallbackFormat="webp"
             widths={[400, 800, 1200]}
             sizes="(min-width: 1160px) 780px, 100vw"
             width={1200}
-            height={630}
+            height={d.foto ? 675 : 630}
             loading="eager"
             fetchpriority="high"
             decoding="async"
           />
-          {d.imageCredit && (
+          {d.foto ? (
+            <figcaption>
+              Foto: <a href={d.foto.creditoUrl} rel="nofollow noopener" target="_blank">{d.foto.credito}</a> / {d.foto.fonte}
+            </figcaption>
+          ) : d.imageCredit && (
             <figcaption>
               Foto: <a href={d.imageCredit.url} rel="nofollow noopener">{d.imageCredit.name}</a> / {d.imageCredit.source}
             </figcaption>
@@ -126,25 +132,6 @@ const jsonLd = graph(
             {d.resumo.map((item) => <li>{item}</li>)}
           </ul>
         </aside>
-        {d.foto && (
-          <figure class="article-photo">
-            <Picture
-              src={d.foto.src}
-              alt={d.foto.alt}
-              formats={['avif', 'webp']}
-              fallbackFormat="webp"
-              widths={[400, 800, 1200]}
-              sizes="(min-width: 860px) 780px, 100vw"
-              width={1200}
-              height={675}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              Foto: <a href={d.foto.creditoUrl} rel="nofollow noopener" target="_blank">{d.foto.credito}</a> / {d.foto.fonte}
-            </figcaption>
-          </figure>
-        )}
         <Toc headings={tocHeadings} />
         <div class="prose">
           <slot />

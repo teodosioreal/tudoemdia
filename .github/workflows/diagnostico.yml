@@ -12,4 +12,4 @@ jobs:
             curl -sS -A "$UA" -o /tmp/body -D - -m 30 -L "$u" | grep -iE "^(HTTP|content-type|location|x-robots|server|cf-|x-hcdn)" || true
             head -c 200 /tmp/body; echo; echo
           done
-          echo "== DNS"; getent hosts tudoemdia.blog.br || true; getent hosts www.tudoemdia.blog.br || true
+          echo "== DNS"; for h in tudoemdia.blog.br www.tudoemdia.blog.br; do echo "-- $h A:"; dig +short A $h; echo "-- $h AAAA:"; dig +short AAAA $h; done; echo "== IPv4 forçado"; curl -4 -sS -o /dev/null -w "%{http_code} %{remote_ip}\n" -A "$UA" https://tudoemdia.blog.br/sitemap-index.xml

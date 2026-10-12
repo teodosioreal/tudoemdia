@@ -117,9 +117,15 @@ const jsonLd = graph(
             decoding="async"
           />
           {d.foto ? (
-            <figcaption>
-              Foto: <a href={d.foto.creditoUrl} rel="nofollow noopener" target="_blank">{d.foto.credito}</a> / {d.foto.fonte}
-            </figcaption>
+            d.foto.fonte === 'IA' ? (
+              <figcaption>Imagem ilustrativa gerada por inteligência artificial ({d.foto.credito}).</figcaption>
+            ) : d.foto.creditoUrl ? (
+              <figcaption>
+                Foto: <a href={d.foto.creditoUrl} rel="nofollow noopener" target="_blank">{d.foto.credito}</a> / {d.foto.fonte}
+              </figcaption>
+            ) : (
+              <figcaption>Foto: {d.foto.credito} / {d.foto.fonte}</figcaption>
+            )
           ) : d.imageCredit && (
             <figcaption>
               Foto: <a href={d.imageCredit.url} rel="nofollow noopener">{d.imageCredit.name}</a> / {d.imageCredit.source}

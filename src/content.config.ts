@@ -41,8 +41,9 @@ const artigos = defineCollection({
             src: image(),
             alt: z.string().min(15).refine((s) => !s.includes('[REVISAR ALT]'), { message: 'Revise o alt da foto (remova [REVISAR ALT])' }),
             credito: z.string(),
-            creditoUrl: z.url(),
-            fonte: z.enum(['Pexels', 'Unsplash', 'Arquivo pessoal']),
+            // Opcional para imagem gerada por IA ou foto própria
+            creditoUrl: z.url().optional(),
+            fonte: z.enum(['Pexels', 'Unsplash', 'Arquivo pessoal', 'IA']),
           })
           .optional(),
         imageCredit: z

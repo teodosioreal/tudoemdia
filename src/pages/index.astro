@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { SITE, CATEGORIES, GROUPS } from '../config';
+import { Picture } from 'astro:assets';
+import { getCategory } from '../config';
+import { articleUrl, articleSlug } from '../lib/content';
+import { SITE, CATEGORIES, GROUPS, DESTAQUE } from '../config';
 import { getArticles } from '../lib/content';
 import { graph, organization, website } from '../lib/schema';
 import { buildDateText, buildDateIso } from '../lib/build-info';
@@ -11,6 +14,10 @@ const sections = CATEGORIES.map((c) => ({
   ...c,
   items: articles.filter((a) => a.data.category === c.slug).slice(0, 4),
 })).filter((s) => s.items.length > 0);
+
+// Destaque no topo: o guia mais recente com foto, seguido dos próximos 4
+const destaque = articles.find((a) => articleSlug(a) === DESTAQUE) ?? articles.find((a) => a.data.foto) ?? articles[0];
+const recentes = articles.filter((a) => a !== destaque).slice(0, 4);
 ---
 <BaseLayout
   title={`${SITE.name}: IPVA, CNH, multas, seguro e manutenção do carro`}
@@ -28,6 +35,39 @@ const sections = CATEGORIES.map((c) => ({
         <input id="q-home" name="q" type="search" placeholder="Ex.: transferência, IPVA atrasado, franquia" />
         <button class="btn" type="submit">Buscar</button>
       </form>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="recentes">
+    <div class="section__head">
+      <h2 id="recentes">Guias mais recentes</h2>
+    </div>
+    <div class="featured">
+      <article class="featured__main">
+        <a class="featured__media" href={articleUrl(destaque)} tabindex="-1" aria-hidden="true">
+          <Picture
+            src={destaque.data.foto?.src ?? destaque.data.image}
+            alt={destaque.data.foto?.alt ?? destaque.data.imageAlt}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[400, 800, 1200]}
+            sizes="(min-width: 900px) 640px, 100vw"
+            width={1200}
+            height={675}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </a>
+        <div class="featured__body">
+          <span class="card__cat">{getCategory(destaque.data.category).name}</span>
+          <h3 class="featured__title"><a href={articleUrl(destaque)}>{destaque.data.title}</a></h3>
+          <p class="card__desc featured__desc">{destaque.data.description}</p>
+        </div>
+      </article>
+      <div class="featured__list grid">
+        {recentes.map((a) => <ArticleCard article={a} />)}
+      </div>
     </div>
   </section>
 
@@ -52,7 +92,7 @@ const sections = CATEGORIES.map((c) => ({
           <a href={`/${s.slug}/`}>Todos os guias de {s.name}</a>
         </div>
         <div class="grid">
-          {s.items.map((a, j) => <ArticleCard article={a} eager={i === 0 && j === 0} />)}
+          {s.items.map((a) => <ArticleCard article={a} />)}
         </div>
       </section>
     ))

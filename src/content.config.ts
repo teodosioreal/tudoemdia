@@ -43,7 +43,7 @@ const artigos = defineCollection({
             credito: z.string(),
             // Opcional para imagem gerada por IA ou foto própria
             creditoUrl: z.url().optional(),
-            fonte: z.enum(['Pexels', 'Unsplash', 'Arquivo pessoal', 'IA']),
+            fonte: z.enum(['Pexels', 'Unsplash', 'Wikimedia Commons', 'Arquivo pessoal', 'IA']),
           })
           .optional(),
         imageCredit: z

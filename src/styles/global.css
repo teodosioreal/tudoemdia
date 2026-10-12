@@ -291,3 +291,8 @@ p { margin: 0 0 1rem; }
 .cookie-banner__acoes { display: flex; gap: 0.5rem; }
 .btn--ghost { background: transparent; color: var(--c-primary); border: 1px solid var(--c-border); }
 .btn--ghost:hover { background: var(--c-surface); }
+
+/* Fotos no corpo do texto e a linha de crédito logo abaixo */
+.prose p > img { border-radius: var(--radius); width: 100%; }
+.prose p:has(> img) { margin-bottom: 0.35rem; }
+.prose p:has(> img) + p { font-size: 0.8rem; color: var(--c-muted); margin-top: 0; }

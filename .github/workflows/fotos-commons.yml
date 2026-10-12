@@ -1,0 +1,28 @@
+name: Buscar fotos (Commons)
+
+# Sob demanda. Baixa fotos candidatas do Wikimedia Commons (scripts/fotos-commons.json)
+# com autor e licença e grava na branch "fotos-commons" para escolha manual.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Baixar candidatas
+        run: node scripts/fotos-commons.mjs
+      - name: Gravar na branch fotos-commons
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B fotos-commons
+          git add commons
+          git commit -m "Fotos candidatas do Commons" || echo "Nada novo"
+          git push -f origin fotos-commons

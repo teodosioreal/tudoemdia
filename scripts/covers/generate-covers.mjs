@@ -171,6 +171,10 @@ const covers = {
   'recall-de-veiculo-como-consultar': (s) => s + car(120, 280, 1.05) + warn(620, 120, 1.7) + wrench(960, 170, 1, 35),
   'multa-por-excesso-de-velocidade': (s) => s + gauge(300, 130, 1.8, 0.9, C.red) + doc(780, 110, 240, 320, 6) + warn(960, 370, 0.9),
   'cnh-suspensa-o-que-fazer': (s) => s + card(160, 200, 1.35) + path('M150 190 L640 470', 'none', C.red, 18) + calendar(760, 120, 1.15) + check(1000, 400, 0.9),
+  'quando-trocar-pneu-do-carro': (s) => s + tire(330, 310, 200) + path('M600 230 L700 230 M600 300 L760 300 M600 370 L680 370', 'none', C.line, 16) + check(880, 170, 1.3),
+  'luzes-do-painel-do-carro': (s) => s + gauge(170, 150, 1.25, 0.35, C.green) + warn(560, 170, 1.6) + circle(960, 280, 70, C.amber) + circle(960, 280, 34, C.dark) + rect(940, 150, 40, 70, C.red, 12),
+  'como-acionar-seguro-auto-apos-batida': (s) => s + car(90, 290, 0.9) + warn(450, 150, 1.3) + phone(690, 110, 1.15, rect(26, 44, 118, 30, C.teal, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7)) + shield(930, 180, 0.9),
+  'seguro-contra-terceiros-vale-a-pena': (s) => s + shield(150, 120, 1.4) + car(520, 180, 0.7, C.teal) + car(680, 330, 0.7) + person(1000, 240, 1.0, C.amber),
   'revisao-fora-da-concessionaria-perde-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
 };
 

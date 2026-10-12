@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { graph, organization, website, breadcrumbList, faqPage } from '../../lib/schema';
+import { IPVA_UFS, IPVA_ANO } from '../../data/ipva-aliquotas';
+
+const title = `Calculadora de IPVA ${IPVA_ANO} por estado`;
+const description = `Calcule o IPVA ${IPVA_ANO} do carro de passeio: escolha o estado, informe o valor venal e veja a alíquota usada e o valor estimado do imposto.`;
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'IPVA e Licenciamento', href: '/ipva-licenciamento/' },
+  { name: 'Calculadora de IPVA', href: '/ipva-licenciamento/calculadora-ipva/' },
+];
+const faq = [
+  {
+    q: 'O valor da calculadora é o que vou pagar?',
+    a: 'É uma estimativa. O valor oficial está na guia emitida pela Secretaria da Fazenda do seu estado, que pode ter desconto à vista, parcelamento, isenção ou regra própria para o seu tipo de veículo.',
+  },
+  {
+    q: 'Posso usar o preço da tabela Fipe?',
+    a: 'Serve como aproximação. A base do imposto é o valor venal publicado pela Sefaz do seu estado, que costuma usar pesquisas de preço do ano anterior. Para o número exato, consulte o valor venal pela placa ou pelo Renavam no site da Sefaz.',
+  },
+  {
+    q: 'Por que alguns estados não têm alíquota na calculadora?',
+    a: `Só incluímos percentuais confirmados em publicação oficial para ${IPVA_ANO}. Nos estados sem essa confirmação, a calculadora mostra o link da Secretaria da Fazenda para você consultar direto na fonte.`,
+  },
+];
+const dados = JSON.stringify(IPVA_UFS);
+---
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={graph(organization(), website(), breadcrumbList(crumbs), faqPage(faq))}
+>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <div class="page-prose prose">
+      <h1>{title}</h1>
+      <p>
+        O IPVA é o <strong>valor venal do veículo multiplicado pela alíquota do estado</strong>. Escolha o estado,
+        informe o valor do carro e veja na hora a alíquota usada e o imposto estimado para {IPVA_ANO}.
+      </p>
+      <p>
+        A calculadora vale para <strong>automóvel de passeio particular a gasolina ou flex</strong>. Diesel, GNV,
+        elétricos, motos e carros de locadora podem ter alíquota própria.
+      </p>
+    </div>
+
+    <form class="calc" id="calc-ipva" novalidate>
+      <div class="calc__field">
+        <label for="uf">Estado de registro do veículo</label>
+        <select id="uf" name="uf" required>
+          <option value="">Escolha o estado</option>
+          {IPVA_UFS.map((u) => <option value={u.uf}>{u.nome} ({u.uf})</option>)}
+        </select>
+      </div>
+      <div class="calc__field" id="faixa-wrap" hidden>
+        <label for="faixa">Faixa do seu carro</label>
+        <select id="faixa" name="faixa"></select>
+        <p class="calc__hint">A potência (cv) e a cilindrada (cc) aparecem no CRLV-e.</p>
+      </div>
+      <div class="calc__field">
+        <label for="valor">Valor venal do carro (R$)</label>
+        <input id="valor" name="valor" type="text" inputmode="numeric" autocomplete="off" placeholder="Ex.: 60.000" />
+        <p class="calc__hint">Use o valor venal da Sefaz. Sem ele, o valor da tabela Fipe serve de aproximação.</p>
+      </div>
+      <button class="btn" type="submit">Calcular IPVA</button>
+      <div class="calc__result" id="resultado" role="status" aria-live="polite"></div>
+    </form>
+
+    <div class="page-prose prose">
+      <h2>Como a conta é feita</h2>
+      <p>
+        A fórmula é a mesma em todo o país: <strong>valor venal × alíquota</strong>. Um exemplo hipotético: um carro
+        com valor venal de R$ 60.000 num estado com alíquota de 3% paga R$ 1.800. O que muda de um estado para outro
+        é a alíquota e a tabela de valores venais. Explicamos cada parte em
+        <a href="/ipva-licenciamento/como-e-calculado-o-ipva/">como o IPVA é calculado</a>.
+      </p>
+      <p>
+        As alíquotas e as fontes oficiais de cada estado estão na tabela de
+        <a href="/ipva-licenciamento/aliquota-ipva-por-estado/">alíquota do IPVA por estado</a>.
+      </p>
+
+      <h2>O que a calculadora não considera</h2>
+      <ul>
+        <li><strong>Desconto à vista</strong> ou para bons motoristas, que varia por estado.</li>
+        <li><strong>Isenções</strong>, como as por idade do veículo ou para pessoas com deficiência.</li>
+        <li><strong>Multa e juros</strong> de atraso. Se o imposto venceu, veja <a href="/ipva-licenciamento/ipva-atrasado-o-que-acontece/">IPVA atrasado: o que acontece</a>.</li>
+        <li><strong>Carro zero</strong>, que em vários estados usa o valor da nota fiscal e pode pagar proporcional aos meses.</li>
+      </ul>
+
+      <h2>Perguntas frequentes</h2>
+      {faq.map((f) => (
+        <>
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <script define:vars={{ dados, ano: IPVA_ANO }}>
+    const ufs = JSON.parse(dados);
+    const form = document.getElementById('calc-ipva');
+    const selUf = document.getElementById('uf');
+    const wrap = document.getElementById('faixa-wrap');
+    const selFaixa = document.getElementById('faixa');
+    const inValor = document.getElementById('valor');
+    const out = document.getElementById('resultado');
+    const brl = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const pct = (n) => n.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + '%';
+    const atual = () => ufs.find((u) => u.uf === selUf.value);
+    const lerValor = () => Number(inValor.value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+
+    function montarFaixas() {
+      const u = atual();
+      selFaixa.replaceChildren();
+      out.replaceChildren();
+      const manual = u && u.faixas && u.faixas.length > 1 && !u.faixas[0].ateValor;
+      wrap.hidden = !manual;
+      if (manual) u.faixas.forEach((f, i) => selFaixa.add(new Option(`${f.label}: ${pct(f.aliquota)}`, String(i))));
+    }
+
+    function linha(texto, forte) {
+      const p = document.createElement('p');
+      if (forte) { const s = document.createElement('strong'); s.textContent = texto; p.append(s); } else p.textContent = texto;
+      return p;
+    }
+
+    function calcular(e) {
+      e.preventDefault();
+      out.replaceChildren();
+      const u = atual();
+      const valor = lerValor();
+      if (!u) { out.append(linha('Escolha o estado de registro do veículo.')); return; }
+      if (!u.faixas) {
+        const p = linha(`Não encontramos publicação oficial confirmando a alíquota de ${ano} para ${u.nome} (${u.uf}). Consulte o valor na `);
+        const a = document.createElement('a'); a.href = u.fonte; a.rel = 'noopener'; a.target = '_blank'; a.textContent = 'Secretaria da Fazenda do estado';
+        p.append(a, '.');
+        if (u.obs) p.append(' ' + u.obs);
+        out.append(p); return;
+      }
+      if (!valor) { out.append(linha('Informe o valor venal do carro.')); return; }
+      let f = u.faixas[0];
+      if (u.faixas.length > 1) f = u.faixas[0].ateValor ? (valor <= u.faixas[0].ateValor ? u.faixas[0] : u.faixas[1]) : u.faixas[Number(selFaixa.value) || 0];
+      const imposto = valor * f.aliquota / 100;
+      out.append(
+        linha(`IPVA ${ano} estimado: ${brl(imposto)}`, true),
+        linha(u.faixas.length > 1
+          ? `${u.nome} (${f.label}): alíquota de ${pct(f.aliquota)} sobre ${brl(valor)}.`
+          : `${u.nome}: alíquota de ${pct(f.aliquota)} sobre ${brl(valor)}.`),
+      );
+      if (u.obs) out.append(linha(u.obs));
+      const p = linha('Estimativa sem descontos ou isenções. Confira o valor oficial na ');
+      const a = document.createElement('a'); a.href = u.fonte; a.rel = 'noopener'; a.target = '_blank'; a.textContent = 'fonte oficial do estado';
+      p.append(a, '.');
+      out.append(p);
+    }
+
+    inValor.addEventListener('input', () => {
+      const d = inValor.value.replace(/\D/g, '');
+      inValor.value = d ? Number(d).toLocaleString('pt-BR') : '';
+    });
+    selUf.addEventListener('change', montarFaixas);
+    form.addEventListener('submit', calcular);
+  </script>
+</BaseLayout>
+
+<style>
+  .calc {
+    max-width: var(--measure, 42rem);
+    margin: 1.5rem 0 2rem;
+    padding: 1.25rem;
+    border: 1px solid var(--c-border, #d6dee6);
+    border-radius: var(--radius, 12px);
+    background: var(--c-surface, #f6f9fb);
+    display: grid;
+    gap: 1rem;
+  }
+  .calc__field { display: grid; gap: 0.35rem; }
+  .calc label { font-weight: 600; }
+  .calc select,
+  .calc input {
+    font: inherit;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--c-border, #c4ced8);
+    border-radius: 8px;
+    background: var(--c-bg, #fff);
+    color: inherit;
+    width: 100%;
+  }
+  .calc__hint { margin: 0; font-size: 0.85rem; color: var(--c-muted, #5b6b78); }
+  .calc .btn { justify-self: start; }
+  .calc__result:empty { display: none; }
+  .calc__result {
+    padding: 1rem;
+    border-left: 4px solid var(--c-green, #16794d);
+    background: var(--c-bg, #fff);
+    border-radius: 8px;
+  }
+  .calc__result p { margin: 0.25rem 0; }
+  .calc__result strong { font-size: 1.25rem; }
+</style>

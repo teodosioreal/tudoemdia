@@ -42,6 +42,11 @@ const jsonLd = graph(organization(), website(), breadcrumbList(crumbs), {
     <header class="section category-intro">
       <h1>{category.h1}</h1>
       {category.intro.map((p) => <p>{p}</p>)}
+      {category.slug === 'ipva-licenciamento' && (
+        <p class="tool-callout">
+          <strong>Ferramenta:</strong> calcule o imposto do seu carro na <a href="/ipva-licenciamento/calculadora-ipva/">calculadora de IPVA por estado</a>.
+        </p>
+      )}
     </header>
     <h2 class="visually-hidden">Artigos sobre {category.name}</h2>
     {

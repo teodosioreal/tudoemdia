@@ -175,6 +175,17 @@ const covers = {
   'luzes-do-painel-do-carro': (s) => s + gauge(170, 150, 1.25, 0.35, C.green) + warn(560, 170, 1.6) + circle(960, 280, 70, C.amber) + circle(960, 280, 34, C.dark) + rect(940, 150, 40, 70, C.red, 12),
   'como-acionar-seguro-auto-apos-batida': (s) => s + car(90, 290, 0.9) + warn(450, 150, 1.3) + phone(690, 110, 1.15, rect(26, 44, 118, 30, C.teal, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7)) + shield(930, 180, 0.9),
   'seguro-contra-terceiros-vale-a-pena': (s) => s + shield(150, 120, 1.4) + car(520, 180, 0.7, C.teal) + car(680, 330, 0.7) + person(1000, 240, 1.0, C.amber),
+  'lei-seca-multa-e-consequencias': (s) => s +
+    // bafômetro
+    rect(170, 120, 150, 300, C.dark, 28) + rect(195, 150, 100, 70, C.green, 10) + rect(212, 175, 66, 18, C.paper, 6) + rect(225, 70, 40, 60, C.line, 10) + circle(245, 300, 26, C.red) + circle(245, 370, 16, C.line) +
+    // taça
+    path('M520 150 L640 150 Q640 260 580 280 Q520 260 520 150 Z', C.paper) + path('M528 190 L632 190 Q626 252 580 268 Q534 252 528 190 Z', C.red) + rect(574, 278, 12, 120, C.paper) + rect(530, 396, 100, 14, C.paper, 7) +
+    // proibido
+    circle(580, 270, 150, 'none', `stroke="${C.red}" stroke-width="18"`) + path('M474 376 L686 164', 'none', C.red, 18) +
+    key(860, 330, 1.2) + warn(930, 120, 1.1),
+  'tabela-de-multas-de-transito': (s) => s + doc(150, 70, 340, 420, 9) + rect(178, 120, 284, 4, C.line) + coin(640, 300, 80) + coin(780, 380, 54) + warn(860, 140, 1.4),
+  'multa-por-celular-ao-volante': (s) => s + circle(360, 300, 170, 'none', `stroke="${C.line}" stroke-width="34"`) + rect(345, 300, 30, 160, C.line) + path('M200 300 L520 300', 'none', C.line, 30) + phone(680, 120, 1.25, rect(26, 44, 118, 30, C.red, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7)) + circle(950, 400, 70, 'none', `stroke="${C.red}" stroke-width="14"`) + path('M902 448 L998 352', 'none', C.red, 14),
+  'cadeirinha-infantil-regras': (s) => s + path('M260 140 Q260 110 290 110 L420 110 Q450 110 450 140 L450 360 L260 360 Z', C.teal) + path('M230 360 L480 360 Q500 360 500 380 L500 440 L230 440 Q210 440 210 420 L210 380 Q210 360 230 360 Z', C.teal) + rect(300, 160, 110, 150, C.bg3, 20) + path('M300 200 L355 290 L410 200', 'none', C.amber, 12) + check(620, 170, 1.3) + car(720, 300, 0.85),
   'revisao-fora-da-concessionaria-perde-garantia': (s) => s + shield(180, 120, 1.5) + wrench(330, 230, 0.9, -30, C.amber) + doc(700, 110, 260, 340, 7) + check(900, 380, 1.1),
 };
 

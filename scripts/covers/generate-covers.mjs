@@ -219,6 +219,7 @@ const covers = {
   'transferir-carro-mudanca-de-estado': (s) => s + pin(120, 120, 1.3, C.teal) + path('M190 330 Q600 520 900 300', 'none', C.line, 12, 'stroke-dasharray="26 22"') + pin(900, 110, 1.3, C.amber) + car(430, 230, 0.75),
   'carros-usados-baratos-ate-15-mil-reais': (s) => s + car(90, 280, 1.05) + g('translate(560 120) rotate(12)', rect(0, 0, 230, 120, C.amber, 16) + circle(34, 60, 14, C.bg) + rect(70, 36, 130, 18, C.dark, 9) + rect(70, 68, 90, 14, C.dark, 7)) + check(900, 330, 1.3) + coin(1040, 180, 56),
   'seguro-para-carro-antigo': (s) => s + shield(140, 110, 1.45) + car(470, 300, 0.9, C.teal) + doc(880, 90, 220, 280, 6) + coin(1000, 440, 50),
+  'extintor-no-carro-e-obrigatorio': (s) => s + g('translate(180 70)', rect(40, 90, 130, 330, C.red, 40) + rect(60, 40, 90, 60, C.dark, 12) + path('M150 60 Q230 40 250 120', 'none', C.dark, 16) + rect(65, 200, 80, 110, C.paper, 10) + rect(80, 225, 50, 10, C.line, 5) + rect(80, 250, 40, 10, C.line, 5)) + car(520, 300, 0.85) + warn(930, 140, 1.4),
 };
 
 await mkdir('design/capas', { recursive: true });

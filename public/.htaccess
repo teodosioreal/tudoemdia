@@ -13,6 +13,8 @@ AddDefaultCharset utf-8
   RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^www\.tudoemdia\.blog\.br$ [NC]
   RewriteRule ^(.*)$ https://tudoemdia.blog.br/$1 [R=301,L]
+  # Quem digitar sitemap.xml (ou só "sitemap") cai no índice gerado pelo Astro
+  RewriteRule ^sitemap(\.xml)?\.?$ https://tudoemdia.blog.br/sitemap-index.xml [R=301,L]
 
   # Endereços antigos -> novos (gerado a partir de src/redirects.json)
   RewriteRule ^seguro-auto/perfil-do-condutor-seguro/?$ https://tudoemdia.blog.br/seguro-auto/perfil-do-condutor-seguro-auto/ [R=301,L]

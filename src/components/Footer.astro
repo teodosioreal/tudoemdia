@@ -1,6 +1,7 @@
 ---
 import { SITE, CATEGORIES, GROUPS, ANALYTICS } from '../config';
 import { buildDateText, buildDateIso } from '../lib/build-info';
+import { TRILHAS } from '../data/trilhas.mjs';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -16,6 +17,10 @@ const year = new Date().getFullYear();
           <ul>{CATEGORIES.filter((c) => c.group === group).map((c) => <li><a href={`/${c.slug}/`}>{c.name}</a></li>)}</ul>
         </nav>
       ))}
+      <nav aria-labelledby="ft-guias">
+        <h2 id="ft-guias">Guias passo a passo</h2>
+        <ul>{TRILHAS.map((t) => <li><a href={`/guias/${t.slug}/`}>{t.titulo.replace(/^Guia para /, '').replace(/^./, (c) => c.toUpperCase())}</a></li>)}</ul>
+      </nav>
       <nav aria-labelledby="ft-inst">
         <h2 id="ft-inst">Institucional</h2>
         <ul>

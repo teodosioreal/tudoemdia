@@ -21,9 +21,10 @@ export interface Props {
   author: { slug: string; name: string; jobTitle: string; bio: string; sameAs: string[]; avatar?: ImageMetadata };
   headings: MarkdownHeading[];
   related: Article[];
+  trilha?: { slug: string; titulo: string; etapa: number; total: number; anterior?: Article; proxima?: Article };
 }
 
-const { article, author, headings, related, wordCount } = Astro.props;
+const { article, author, headings, related, trilha, wordCount } = Astro.props;
 const d = article.data;
 const cat = getCategory(d.category);
 const url = articleUrl(article);
@@ -146,10 +147,30 @@ const jsonLd = graph(
             <h2 id="fontes">Fontes consultadas</h2>
             <ul>
               {d.sources.map((s) => (
-                <li><a href={s.url} rel="noopener">{s.title}</a></li>
+                <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>
               ))}
             </ul>
           </section>
+        )}
+        {trilha && (
+          <nav class="trilha-nav" aria-label="Etapas do guia">
+            <p class="trilha-nav__topo">
+              <a href={`/guias/${trilha.slug}/`}>{trilha.titulo}</a>
+              <span>Etapa {trilha.etapa} de {trilha.total}</span>
+            </p>
+            <div class="trilha-nav__links">
+              {trilha.anterior && (
+                <a class="trilha-nav__link" href={articleUrl(trilha.anterior)} rel="prev">
+                  <span>← Etapa anterior</span>{trilha.anterior.data.title}
+                </a>
+              )}
+              {trilha.proxima && (
+                <a class="trilha-nav__link trilha-nav__link--prox" href={articleUrl(trilha.proxima)} rel="next">
+                  <span>Próxima etapa →</span>{trilha.proxima.data.title}
+                </a>
+              )}
+            </div>
+          </nav>
         )}
         <div class="share" aria-label="Compartilhar este artigo">
           <span class="share__label">Achou útil? Compartilhe:</span>

@@ -296,3 +296,29 @@ p { margin: 0 0 1rem; }
 .prose p > img { border-radius: var(--radius); width: 100%; }
 .prose p:has(> img) { margin-bottom: 0.35rem; }
 .prose p:has(> img) + p { font-size: 0.8rem; color: var(--c-muted); margin-top: 0; }
+
+/* Próximo passo (meio do artigo) */
+.prose .proximo-passo { margin: 1.6rem 0; padding: 0.9rem 1.1rem; border: 1px solid var(--c-border); border-left: 4px solid var(--c-primary); border-radius: var(--radius); background: var(--c-surface); }
+.prose .proximo-passo__rotulo { margin: 0 0 0.25rem; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--c-primary); }
+.prose .proximo-passo__link { display: block; text-decoration: none; }
+.prose .proximo-passo__link strong { display: block; font-size: 1.05rem; text-decoration: underline; text-underline-offset: 0.15em; }
+.prose .proximo-passo__link span { display: block; margin-top: 0.2rem; color: var(--c-muted); font-size: 0.92rem; }
+
+/* Navegação entre etapas de um guia (fim do artigo) */
+.trilha-nav { margin: 2rem 0 1.5rem; padding: 1rem 1.1rem; border: 1px solid var(--c-border); border-radius: var(--radius); background: var(--c-surface); }
+.trilha-nav__topo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.3rem 1rem; margin: 0 0 0.7rem; font-size: 0.9rem; }
+.trilha-nav__topo a { font-weight: 700; }
+.trilha-nav__topo span { color: var(--c-muted); }
+.trilha-nav__links { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+.trilha-nav__link { display: block; padding: 0.7rem 0.9rem; background: var(--c-bg); border: 1px solid var(--c-border); border-radius: 10px; font-weight: 700; text-decoration: none; line-height: 1.35; }
+.trilha-nav__link span { display: block; font-size: 0.8rem; font-weight: 600; color: var(--c-muted); margin-bottom: 0.15rem; }
+.trilha-nav__link--prox { text-align: right; border-color: var(--c-primary); }
+
+/* Página de guia */
+.trilha-etapas { list-style: none; padding: 0; margin: 1.5rem 0 2.5rem; max-width: var(--measure); counter-reset: none; }
+.trilha-etapa { display: grid; grid-template-columns: 132px 1fr; gap: 0.9rem; align-items: start; padding: 1rem 0; border-top: 1px solid var(--c-border); }
+.trilha-etapa__media img { width: 100%; height: auto; border-radius: 8px; display: block; }
+.trilha-etapa__num { margin: 0; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--c-green); }
+.trilha-etapa__titulo { font-size: 1.1rem; margin: 0.2rem 0 0.3rem; }
+.trilha-etapa__desc { margin: 0; color: var(--c-muted); font-size: 0.93rem; }
+@media (min-width: 600px) { .trilha-etapa { grid-template-columns: 200px 1fr; } }

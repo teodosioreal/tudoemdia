@@ -3,6 +3,8 @@ import { getEntry, render } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 import Faq from '../../components/Faq.astro';
 import { getArticles, articleSlug, relatedArticles, type Article } from '../../lib/content';
+// @ts-ignore módulo JS
+import { trilhaDe } from '../../lib/proximo.mjs';
 
 export async function getStaticPaths() {
   const all = await getArticles();
@@ -18,13 +20,25 @@ const authorEntry = await getEntry(article.data.author);
 if (!authorEntry) throw new Error(`Autor não encontrado em ${article.id}`);
 const author = { slug: authorEntry.id, ...authorEntry.data };
 const { Content, headings } = await render(article);
-const related = relatedArticles(article, all);
+// Artigo que faz parte de um guia: mostra a etapa e puxa as etapas vizinhas para o "Leia também"
+const t = trilhaDe(articleSlug(article));
+const porSlug = (s: string) => all.find((a) => articleSlug(a) === s);
+const trilha = t && {
+  slug: t.trilha.slug,
+  titulo: t.trilha.titulo,
+  etapa: t.indice + 1,
+  total: t.etapas.length,
+  anterior: t.indice > 0 ? porSlug(t.etapas[t.indice - 1].slug) : undefined,
+  proxima: t.indice < t.etapas.length - 1 ? porSlug(t.etapas[t.indice + 1].slug) : undefined,
+};
+const vizinhos = [trilha?.proxima, trilha?.anterior].filter((a): a is Article => !!a);
+const related = [...vizinhos, ...relatedArticles(article, all, 8).filter((a) => !vizinhos.includes(a))].slice(0, 4);
 const wordCount = (article.body ?? '')
   .replace(/<[^>]+>/g, ' ')
   .replace(/[#*|>\[\]()_`-]/g, ' ')
   .split(/\s+/)
   .filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
 ---
-<ArticleLayout article={article} author={author} headings={headings} related={related} wordCount={wordCount}>
+<ArticleLayout article={article} author={author} headings={headings} related={related} trilha={trilha || undefined} wordCount={wordCount}>
   <Content components={{ Faq }} />
 </ArticleLayout>

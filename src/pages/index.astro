@@ -8,6 +8,7 @@ import { SITE, CATEGORIES, GROUPS, DESTAQUE } from '../config';
 import { getArticles } from '../lib/content';
 import { graph, organization, website } from '../lib/schema';
 import { buildDateText, buildDateIso } from '../lib/build-info';
+import { TRILHAS } from '../data/trilhas.mjs';
 
 const articles = await getArticles();
 const sections = CATEGORIES.map((c) => ({
@@ -69,6 +70,15 @@ const recentes = articles.filter((a) => a !== destaque).slice(0, 4);
         {recentes.map((a) => <ArticleCard article={a} />)}
       </div>
     </div>
+  </section>
+
+  <section class="section container" aria-labelledby="guias">
+    <h2 id="guias">Guias passo a passo</h2>
+    <ul class="cat-list">
+      {TRILHAS.map((t) => (
+        <li><a href={`/guias/${t.slug}/`}><strong>{t.titulo}</strong><span>{t.descricao}</span></a></li>
+      ))}
+    </ul>
   </section>
 
   {

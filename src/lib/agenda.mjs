@@ -24,11 +24,16 @@ export function artigos() {
     if (!/\.mdx?$/.test(e.name)) continue;
     const fm = readFileSync(join(DIR, e.name), 'utf8').split('---')[1] ?? '';
     const get = (k) => fm.match(new RegExp(`^${k}:\\s*["']?([\\w-]+)`, 'm'))?.[1] ?? '';
+    const str = (k) => fm.match(new RegExp(`^${k}:\\s*"(.*)"\\s*$`, 'm'))?.[1] ?? '';
+    const tags = (fm.match(/^tags:\s*\[(.*)\]/m)?.[1] ?? '').split(',').map((t) => t.trim()).filter(Boolean);
     map.set(e.name.replace(/\.mdx?$/, ''), {
       category: get('category'),
       pubDate: get('pubDate'),
       updatedDate: get('updatedDate'),
       draft: get('draft') === 'true',
+      title: str('title'),
+      description: str('description'),
+      tags,
     });
   }
   return map;

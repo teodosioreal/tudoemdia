@@ -7,6 +7,8 @@ import { SITE } from './src/config';
 import rehypeAdSlots from './src/lib/rehype-ad-slots';
 import rehypeInfografico from './src/lib/rehype-infografico';
 import rehypeLinksAgendados from './src/lib/rehype-links-agendados';
+import rehypeProximoPasso from './src/lib/rehype-proximo-passo';
+import rehypeLinksExternos from './src/lib/rehype-links-externos';
 import { artigos, estaPublicado } from './src/lib/agenda.mjs';
 import redirects from './src/redirects.json' with { type: 'json' };
 import { readFileSync, readdirSync } from 'node:fs';
@@ -58,7 +60,7 @@ export default defineConfig({
   redirects,
   markdown: {
     // MDX herda este processador (e o plugin que insere os espaços de anúncio)
-    processor: unified({ rehypePlugins: [rehypeLinksAgendados, rehypeInfografico, rehypeAdSlots] }),
+    processor: unified({ rehypePlugins: [rehypeLinksAgendados, rehypeLinksExternos, rehypeInfografico, rehypeProximoPasso, rehypeAdSlots] }),
   },
   integrations: [
     mdx(),

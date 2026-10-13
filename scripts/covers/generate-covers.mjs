@@ -226,6 +226,7 @@ const covers = {
   'bateria-do-carro-quanto-tempo-dura': (s) => s + rect(170, 190, 380, 250, C.dark, 26) + rect(220, 150, 60, 50, C.line, 10) + rect(440, 150, 60, 50, C.red, 10) + bolt(320, 230, 1.0) + gauge(700, 140, 1.0, 0.25, C.red) + check(950, 360, 1.1),
   'carro-reserva-no-seguro': (s) => s + car(80, 300, 0.8, C.teal) + arrow(420, 380, 560, 380, C.line) + car(600, 300, 0.8, C.amber) + key(820, 140, 1.2) + shield(150, 90, 0.8),
   'alinhamento-e-balanceamento-quando-fazer': (s) => s + tire(300, 300, 160) + path('M560 170 L560 430', 'none', C.line, 12, 'stroke-dasharray="20 16"') + tire(800, 300, 110) + rect(780, 170, 40, 24, C.amber, 6) + check(980, 120, 1.0),
+  'programas-do-governo-para-mei': (s) => s + g('translate(110 120)', rect(0, 60, 360, 300, C.paper, 18) + path('M-20 70 L180 0 L380 70 Z', C.teal) + rect(40, 150, 120, 210, C.bg3, 10) + rect(200, 150, 120, 90, C.amber, 10)) + doc(580, 90, 220, 300, 6) + coin(900, 400, 64) + coin(1010, 320, 44) + check(900, 130, 1.1),
 };
 
 await mkdir('design/capas', { recursive: true });

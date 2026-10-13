@@ -99,6 +99,19 @@ export const CATEGORIES = [
       'Os guias desta seção explicam cada etapa do processo, o limite de 20, 30 ou 40 pontos, a validade da CNH por idade e as mudanças trazidas pelas Leis 14.071/2020 e 15.428/2026.',
     ],
   },
+  {
+    slug: 'mei',
+    group: 'Seu negócio',
+    name: 'MEI',
+    h1: 'MEI: crédito, dívidas, DAS e programas do governo',
+    title: 'MEI: crédito, renegociação de dívidas, DAS e programas do governo',
+    description:
+      'Guias para o microempreendedor individual: programas de crédito e renegociação do governo federal, DAS, limite de faturamento e regularização.',
+    intro: [
+      'Ser MEI dá CNPJ, nota fiscal e acesso a crédito com juros menores, mas também traz obrigações: o DAS todo mês, a declaração anual e o limite de faturamento. Quem atrasa uma delas pode perder benefícios e ter a dívida inscrita na Dívida Ativa.',
+      'Os guias desta seção explicam os programas do governo federal para pequenos negócios, como pedir crédito e renegociar dívidas, sempre com base nas regras publicadas no gov.br e no Portal do Empreendedor.',
+    ],
+  },
 ] as const;
 
 /** Grupos de categorias (seções do site). Novos assuntos entram como novos grupos. */

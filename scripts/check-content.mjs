@@ -14,7 +14,7 @@ const DRAFTS = process.argv.includes('--drafts');
 const ROOT = 'src/content/artigos';
 const STATIC_ROUTES = new Set([
   '/', '/sobre/', '/contato/', '/politica-de-privacidade/', '/termos-de-uso/', '/aviso-legal/', '/transparencia/', '/busca/',
-  '/documentacao-do-veiculo/', '/ipva-licenciamento/', '/seguro-auto/', '/manutencao-do-carro/', '/multas-cnh/', '/autor/thiago-teodosio/', '/ipva-licenciamento/calculadora-ipva/',
+  '/documentacao-do-veiculo/', '/ipva-licenciamento/', '/seguro-auto/', '/manutencao-do-carro/', '/multas-cnh/', '/mei/', '/autor/thiago-teodosio/', '/ipva-licenciamento/calculadora-ipva/',
   '/guias/comprar-carro-usado/', '/guias/vender-carro/', '/guias/bateu-o-carro/', '/guias/manutencao-em-dia/',
 ]);
 const OFFICIAL = /(\.gov\.br|planalto\.gov\.br|\.jus\.br|\.leg\.br|susep\.gov\.br)/i;

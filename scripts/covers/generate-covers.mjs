@@ -227,6 +227,7 @@ const covers = {
   'carro-reserva-no-seguro': (s) => s + car(80, 300, 0.8, C.teal) + arrow(420, 380, 560, 380, C.line) + car(600, 300, 0.8, C.amber) + key(820, 140, 1.2) + shield(150, 90, 0.8),
   'alinhamento-e-balanceamento-quando-fazer': (s) => s + tire(300, 300, 160) + path('M560 170 L560 430', 'none', C.line, 12, 'stroke-dasharray="20 16"') + tire(800, 300, 110) + rect(780, 170, 40, 24, C.amber, 6) + check(980, 120, 1.0),
   'programas-do-governo-para-mei': (s) => s + g('translate(110 120)', rect(0, 60, 360, 300, C.paper, 18) + path('M-20 70 L180 0 L380 70 Z', C.teal) + rect(40, 150, 120, 210, C.bg3, 10) + rect(200, 150, 120, 90, C.amber, 10)) + doc(580, 90, 220, 300, 6) + coin(900, 400, 64) + coin(1010, 320, 44) + check(900, 130, 1.1),
+  'prospera-mei': (s) => s + doc(120, 90, 240, 330, 7) + phone(470, 110, 1.15, rect(26, 44, 118, 30, C.green, 6) + rect(26, 96, 118, 14, C.line, 7) + rect(26, 124, 90, 14, C.line, 7)) + coin(800, 360, 70) + coin(930, 270, 50) + circle(960, 140, 60, C.amber) + path('M960 105 L960 145 L990 160', 'none', C.dark, 10),
 };
 
 await mkdir('design/capas', { recursive: true });

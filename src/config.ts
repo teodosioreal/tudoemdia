@@ -163,4 +163,4 @@ export const ADS = {
 } as const;
 
 /** Guia em destaque no topo da página inicial (slug do arquivo). Se não existir, usa o mais recente com foto. */
-export const DESTAQUE = 'lei-seca-multa-e-consequencias';
+export const DESTAQUE = 'prospera-mei';

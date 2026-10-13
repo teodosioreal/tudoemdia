@@ -101,8 +101,8 @@ const ogType = image && typeof image !== 'string' ? 'image/webp' : 'image/png';
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
 {
-  /* Só carrega o AdSense quando ADS.enabled = true E houver client configurado. */
-  ADS.enabled && ADS.client && (
+  /* Código do AdSense em todas as páginas assim que houver client (exigido para a verificação do site). */
+  ADS.client && (
     <script
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS.client}`}

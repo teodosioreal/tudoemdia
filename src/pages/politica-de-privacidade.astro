@@ -54,7 +54,9 @@ import { SITE, ADS, LEGAL, ANALYTICS } from '../config';
   <h2>3. Cookies</h2>
   <p>
     Cookies são pequenos arquivos gravados no seu navegador.
-    {ADS.enabled
+    {ADS.client
+      ? 'Este site usa o Google AdSense para exibir anúncios e o Google Analytics para medir a audiência. Esses serviços usam cookies, conforme descrito abaixo. Na primeira visita, um aviso de consentimento permite aceitar ou recusar os cookies, e você pode mudar sua escolha depois.'
+      : ADS.enabled
       ? 'Este site exibe anúncios do Google, que usam cookies conforme descrito abaixo. Na primeira visita, um aviso de consentimento permite aceitar, recusar ou ajustar o uso de cookies, e você pode mudar sua escolha depois.'
       : ANALYTICS.ga4Id
         ? 'No momento, o site não exibe anúncios. Ele usa apenas cookies de estatística do Google Analytics, e só depois que você aceita no aviso que aparece na primeira visita.'
@@ -74,6 +76,24 @@ import { SITE, ADS, LEGAL, ANALYTICS } from '../config';
         Para mudar sua escolha, use o link <a href="/politica-de-privacidade/" data-abrir-cookies>Preferências de cookies</a>,
         também disponível no rodapé. Saiba como o Google trata esses dados em
         <a href="https://policies.google.com/technologies/partner-sites?hl=pt-BR" rel="noopener">policies.google.com</a>.
+      </p>
+    </>
+  )}
+  {ADS.client && (
+    <>
+      <h3>Google AdSense</h3>
+      <p>
+        O site pode exibir anúncios do Google AdSense. Fornecedores terceiros, incluindo o Google, usam cookies para
+        exibir anúncios com base nas visitas anteriores do usuário a este e a outros sites. O cookie de publicidade do
+        Google permite que ele e seus parceiros mostrem anúncios com base nessas visitas.
+      </p>
+      <p>
+        Enquanto você não aceitar os cookies no aviso, os anúncios são exibidos sem personalização. Você pode desativar
+        a publicidade personalizada nas <a href="https://adssettings.google.com/" rel="noopener">Configurações de anúncios do Google</a>
+        e saber mais sobre como o Google usa esses dados em
+        <a href="https://policies.google.com/technologies/ads?hl=pt-BR" rel="noopener">policies.google.com</a>.
+        Para desativar cookies de outros fornecedores de publicidade personalizada, acesse
+        <a href="https://www.aboutads.info/choices/" rel="noopener">aboutads.info</a>.
       </p>
     </>
   )}

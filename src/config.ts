@@ -131,8 +131,9 @@ export const ANALYTICS = {
 
 export const ADS = {
   enabled: false,
-  // TODO: ca-pub-XXXXXXXXXXXXXXXX quando a conta AdSense for aprovada
-  client: '',
+  // Conta AdSense. O script carrega em todas as páginas (verificação do site);
+  // os espaços de anúncio só aparecem com enabled = true, depois da aprovação.
+  client: 'ca-pub-1167691833070932',
   // IDs de bloco criados no painel do AdSense (opcional; vazio = anúncio automático no slot)
   slots: {
     inArticle: '',

@@ -220,6 +220,12 @@ const covers = {
   'carros-usados-baratos-ate-15-mil-reais': (s) => s + car(90, 280, 1.05) + g('translate(560 120) rotate(12)', rect(0, 0, 230, 120, C.amber, 16) + circle(34, 60, 14, C.bg) + rect(70, 36, 130, 18, C.dark, 9) + rect(70, 68, 90, 14, C.dark, 7)) + check(900, 330, 1.3) + coin(1040, 180, 56),
   'seguro-para-carro-antigo': (s) => s + shield(140, 110, 1.45) + car(470, 300, 0.9, C.teal) + doc(880, 90, 220, 280, 6) + coin(1000, 440, 50),
   'extintor-no-carro-e-obrigatorio': (s) => s + g('translate(180 70)', rect(40, 90, 130, 330, C.red, 40) + rect(60, 40, 90, 60, C.dark, 12) + path('M150 60 Q230 40 250 120', 'none', C.dark, 16) + rect(65, 200, 80, 110, C.paper, 10) + rect(80, 225, 50, 10, C.line, 5) + rect(80, 250, 40, 10, C.line, 5)) + car(520, 300, 0.85) + warn(930, 140, 1.4),
+  'quanto-custa-seguro-de-carro': (s) => s + shield(130, 110, 1.3) + calc(460, 110, 1.0) + coin(820, 380, 70) + coin(960, 300, 50) + car(760, 120, 0.6, C.teal),
+  'quando-trocar-pastilha-de-freio': (s) => s + circle(330, 300, 190, C.line) + circle(330, 300, 150, C.bg3) + circle(330, 300, 50, C.dark) + path('M420 170 Q540 300 420 430 L470 450 Q600 300 470 150 Z', C.red) + warn(720, 160, 1.4) + wrench(900, 300, 0.9, -30, C.amber),
+  'perda-total-no-seguro': (s) => s + car(90, 280, 1.0, C.red) + path('M120 300 L180 340 L140 380', 'none', C.dark, 12) + doc(560, 90, 230, 320, 7) + coin(900, 380, 64) + shield(900, 110, 0.8),
+  'bateria-do-carro-quanto-tempo-dura': (s) => s + rect(170, 190, 380, 250, C.dark, 26) + rect(220, 150, 60, 50, C.line, 10) + rect(440, 150, 60, 50, C.red, 10) + bolt(320, 230, 1.0) + gauge(700, 140, 1.0, 0.25, C.red) + check(950, 360, 1.1),
+  'carro-reserva-no-seguro': (s) => s + car(80, 300, 0.8, C.teal) + arrow(420, 380, 560, 380, C.line) + car(600, 300, 0.8, C.amber) + key(820, 140, 1.2) + shield(150, 90, 0.8),
+  'alinhamento-e-balanceamento-quando-fazer': (s) => s + tire(300, 300, 160) + path('M560 170 L560 430', 'none', C.line, 12, 'stroke-dasharray="20 16"') + tire(800, 300, 110) + rect(780, 170, 40, 24, C.amber, 6) + check(980, 120, 1.0),
 };
 
 await mkdir('design/capas', { recursive: true });

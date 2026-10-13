@@ -38,4 +38,41 @@ export const TRILHAS = [
       { slug: 'indicacao-de-condutor', rotulo: 'Se chegar multa depois, indique o condutor' },
     ],
   },
+  {
+    slug: 'bateu-o-carro',
+    titulo: 'Guia para quando você bate o carro',
+    descricao:
+      'O que fazer depois de uma batida, na ordem: acionar o seguro, pagar ou não a franquia, usar o carro reserva e entender quando o carro vira perda total.',
+    intro: [
+      'Depois de uma batida, a cabeça fica a mil e é fácil esquecer um passo que depois custa caro. A ordem certa protege você e garante a indenização.',
+      'Cada etapa abaixo tem um guia próprio, com o que diz a regra da SUSEP e o que costuma estar escrito na apólice.',
+    ],
+    etapas: [
+      { slug: 'como-acionar-seguro-auto-apos-batida', rotulo: 'Acione o seguro' },
+      { slug: 'franquia-seguro-auto', rotulo: 'Entenda a franquia' },
+      { slug: 'carro-reserva-no-seguro', rotulo: 'Peça o carro reserva' },
+      { slug: 'perda-total-no-seguro', rotulo: 'Se o carro der perda total' },
+      { slug: 'classe-de-bonus-seguro-auto', rotulo: 'Veja o que acontece com o seu bônus' },
+    ],
+  },
+  {
+    slug: 'manutencao-em-dia',
+    titulo: 'Guia da manutenção do carro em dia',
+    descricao:
+      'Os cuidados que evitam quebra e gasto grande: revisão, óleo, pneus, alinhamento, freio e bateria, com os sinais de que está na hora de cada um.',
+    intro: [
+      'Quase todo conserto caro começa com um sinal pequeno que foi deixado para depois. Saber o que olhar, e quando, mantém o carro seguro e mais barato de manter.',
+      'As etapas abaixo seguem a ordem de uma revisão. Cada uma tem um guia próprio, com os sinais de desgaste e o que diz o manual.',
+    ],
+    etapas: [
+      { slug: 'o-que-e-feito-na-revisao-do-carro', rotulo: 'Saiba o que entra na revisão' },
+      { slug: 'quando-trocar-oleo-do-carro', rotulo: 'Troque o óleo no prazo' },
+      { slug: 'calibragem-pneu-pressao-correta', rotulo: 'Calibre os pneus' },
+      { slug: 'quando-trocar-pneu-do-carro', rotulo: 'Confira o desgaste dos pneus' },
+      { slug: 'alinhamento-e-balanceamento-quando-fazer', rotulo: 'Faça alinhamento e balanceamento' },
+      { slug: 'quando-trocar-pastilha-de-freio', rotulo: 'Revise os freios' },
+      { slug: 'bateria-do-carro-quanto-tempo-dura', rotulo: 'Cuide da bateria' },
+      { slug: 'luzes-do-painel-do-carro', rotulo: 'Entenda as luzes do painel' },
+    ],
+  },
 ];

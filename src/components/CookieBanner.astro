@@ -7,7 +7,7 @@ import { ANALYTICS } from '../config';
     <>
       <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
         <p>
-          Usamos cookies de estatística para entender quais guias são mais úteis. Você escolhe se aceita.{' '}
+          Usamos cookies para medir quais guias são mais úteis e para exibir anúncios do Google. Você escolhe se aceita.{' '}
           <a href="/politica-de-privacidade/">Política de Privacidade</a>
         </p>
         <div class="cookie-banner__acoes">
@@ -26,7 +26,7 @@ import { ANALYTICS } from '../config';
             var valor = ev.target && ev.target.getAttribute('data-consentimento');
             if (!valor) return;
             try { localStorage.setItem(chave, valor); } catch (e) {}
-            if (window.gtag) window.gtag('consent', 'update', { analytics_storage: valor === 'aceito' ? 'granted' : 'denied' });
+            if (window.gtag) { var v = valor === 'aceito' ? 'granted' : 'denied'; window.gtag('consent', 'update', { analytics_storage: v, ad_storage: v, ad_user_data: v, ad_personalization: v }); }
             banner.hidden = true;
           });
           document.addEventListener('click', function (ev) {

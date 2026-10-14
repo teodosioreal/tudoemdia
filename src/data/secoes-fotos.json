@@ -40,5 +40,23 @@
     "credito": "Usman Malik",
     "creditoUrl": "https://unsplash.com/@usmanbim94?utm_source=tudo_em_dia&utm_medium=referral",
     "fonte": "Unsplash"
+  },
+  "mei": {
+    "alt": "[REVISAR ALT] A man in a cap using a smartphone at a table in a clothing shop",
+    "credito": "Rendy Novantino",
+    "creditoUrl": "https://unsplash.com/@novantino?utm_source=tudo_em_dia&utm_medium=referral",
+    "fonte": "Unsplash"
+  },
+  "guia-comprar-carro-usado": {
+    "alt": "[REVISAR ALT] a row of cars parked in a parking lot",
+    "credito": "Crosby Hinze",
+    "creditoUrl": "https://unsplash.com/@crosbyhinze?utm_source=tudo_em_dia&utm_medium=referral",
+    "fonte": "Unsplash"
+  },
+  "guia-manutencao-em-dia": {
+    "alt": "[REVISAR ALT] a man with a hose next to a car",
+    "credito": "Frederick Shaw",
+    "creditoUrl": "https://unsplash.com/@dropfastcollective?utm_source=tudo_em_dia&utm_medium=referral",
+    "fonte": "Unsplash"
   }
 }

@@ -27,12 +27,13 @@ jobs:
         run: |
           if [ -z "$UNSPLASH_ACCESS_KEY" ]; then echo "Falta o secret UNSPLASH_ACCESS_KEY"; exit 1; fi
           npm run fotos
+          node scripts/fetch-images.mjs --secoes --provider unsplash
 
       - name: Gravar na branch fotos
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B fotos
-          git add src/assets/fotos src/content/artigos
+          git add src/assets/fotos src/content/artigos src/assets/secoes src/data/secoes-fotos.json
           git commit -m "Fotos do Unsplash para revisão" || echo "Nada novo"
           git push -f origin fotos

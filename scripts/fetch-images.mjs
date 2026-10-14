@@ -88,7 +88,30 @@ async function process1(slug, query, n) {
   console.log(`✓ ${slug} — ${found.credit.name} (${found.page})`);
 }
 
-if (argv.includes('--all')) {
+// Fotos dos cards de seção (categorias e guias da home): scripts/fotos-secoes.json
+// Grava em src/assets/secoes/<chave>.webp e os créditos em src/data/secoes-fotos.json
+async function secoes() {
+  const map = JSON.parse(await readFile('scripts/fotos-secoes.json', 'utf8'));
+  const credPath = 'src/data/secoes-fotos.json';
+  const creditos = existsSync(credPath) ? JSON.parse(await readFile(credPath, 'utf8')) : {};
+  await mkdir('src/assets/secoes', { recursive: true });
+  for (const [chave, query] of Object.entries(map)) {
+    const out = `src/assets/secoes/${chave}.webp`;
+    if (existsSync(out)) continue;
+    try {
+      const found = provider === 'unsplash' ? await searchUnsplash(query, pick) : await searchPexels(query, pick);
+      const img = Buffer.from(await (await fetch(found.download)).arrayBuffer());
+      await sharp(img).resize(800, 450, { fit: 'cover', position: 'attention' }).webp({ quality: 78 }).toFile(out);
+      creditos[chave] = { alt: `[REVISAR ALT] ${found.alt}`, credito: found.credit.name, creditoUrl: found.credit.url, fonte: found.credit.source };
+      console.log(`✓ seção ${chave} — ${found.credit.name} (${found.page})`);
+    } catch (e) { console.log(`✗ seção ${chave}: ${e.message}`); }
+  }
+  await writeFile(credPath, JSON.stringify(creditos, null, 2) + '\n');
+}
+
+if (argv.includes('--secoes')) {
+  await secoes();
+} else if (argv.includes('--all')) {
   const map = JSON.parse(await readFile('scripts/fotos.json', 'utf8'));
   for (const [slug, query] of Object.entries(map)) {
     // --missing: só artigos que ainda não têm foto

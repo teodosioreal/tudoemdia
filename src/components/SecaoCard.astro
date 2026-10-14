@@ -1,0 +1,25 @@
+---
+// Card de seção (categoria ou guia) com foto: usa src/assets/secoes/<chave>.webp;
+// sem ela, a foto do artigo indicado em `reserva` (ex.: a 1ª etapa do guia)
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import creditos from '../data/secoes-fotos.json';
+
+export interface Props {
+  href: string; titulo: string; descricao: string; chave: string;
+  reserva?: { src: ImageMetadata; alt: string };
+}
+const { href, titulo, descricao, chave, reserva } = Astro.props;
+const fotos = import.meta.glob<{ default: ImageMetadata }>('../assets/secoes/*.webp', { eager: true });
+const propria = fotos[`../assets/secoes/${chave}.webp`]?.default;
+const foto = propria ? { src: propria, alt: (creditos as Record<string, { alt: string }>)[chave]?.alt ?? '' } : reserva;
+---
+<li>
+  <a href={href} class:list={['secao-card', { 'secao-card--foto': foto }]}>
+    {foto && (
+      <Picture src={foto.src} alt={foto.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[320, 640]} sizes="(min-width: 900px) 220px, 50vw" width={640} height={360} loading="lazy" decoding="async" class="secao-card__img" />
+    )}
+    <strong>{titulo}</strong>
+    <span>{descricao}</span>
+  </a>
+</li>

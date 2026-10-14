@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import SecaoCard from '../components/SecaoCard.astro';
 import { Picture } from 'astro:assets';
 import { getCategory } from '../config';
 import { articleUrl, articleSlug } from '../lib/content';
@@ -19,6 +20,11 @@ const sections = CATEGORIES.map((c) => ({
 // Destaque no topo: o guia mais recente com foto, seguido dos próximos 4
 const destaque = articles.find((a) => articleSlug(a) === DESTAQUE) ?? articles.find((a) => a.data.foto) ?? articles[0];
 const recentes = articles.filter((a) => a !== destaque).slice(0, 4);
+// Foto de reserva dos cards de guia: a do primeiro artigo publicado da trilha
+const reservaGuia = (t: (typeof TRILHAS)[number]) => {
+  const art = t.etapas.map((e) => articles.find((a) => articleSlug(a) === e.slug)).find((a) => a?.data.foto);
+  return art?.data.foto ? { src: art.data.foto.src, alt: art.data.foto.alt } : undefined;
+};
 ---
 <BaseLayout
   title={`${SITE.name}: IPVA, CNH, multas, seguro e manutenção do carro`}
@@ -76,7 +82,7 @@ const recentes = articles.filter((a) => a !== destaque).slice(0, 4);
     <h2 id="guias">Guias passo a passo</h2>
     <ul class="cat-list">
       {TRILHAS.map((t) => (
-        <li><a href={`/guias/${t.slug}/`}><strong>{t.titulo}</strong><span>{t.descricao}</span></a></li>
+        <SecaoCard href={`/guias/${t.slug}/`} titulo={t.titulo} descricao={t.descricao} chave={`guia-${t.slug}`} reserva={reservaGuia(t)} />
       ))}
     </ul>
   </section>
@@ -87,7 +93,7 @@ const recentes = articles.filter((a) => a !== destaque).slice(0, 4);
         <h2 id={`grupo-${group}`}>{group}</h2>
         <ul class="cat-list">
           {CATEGORIES.filter((c) => c.group === group).map((c) => (
-            <li><a href={`/${c.slug}/`}><strong>{c.name}</strong><span>{c.description}</span></a></li>
+            <SecaoCard href={`/${c.slug}/`} titulo={c.name} descricao={c.description} chave={c.slug} />
           ))}
         </ul>
       </section>

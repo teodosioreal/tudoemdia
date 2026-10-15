@@ -17,13 +17,13 @@ const links = [
       <Logo />
       <span>{before}{after !== null && <span class="brand__em">Dia</span>}{after}</span>
     </a>
-    <!-- Desktop: menu sempre visível -->
+    {/* Desktop: menu sempre visível */}
     <nav class="site-nav site-nav--desktop" aria-label="Principal">
       <ul>
         {links.map((l) => <li><a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a></li>)}
       </ul>
     </nav>
-    <!-- Celular: menu recolhível, funciona sem JavaScript -->
+    {/* Celular: menu recolhível, funciona sem JavaScript */}
     <details class="site-nav site-nav--mobile">
       <summary>☰ Menu</summary>
       <nav aria-label="Principal">

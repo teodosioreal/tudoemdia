@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tudoemdia.blog.br/sitemap-index.xml
